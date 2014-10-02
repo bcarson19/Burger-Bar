@@ -1,0 +1,29 @@
+#navbar{
+	height: 50px;
+	background-color: red;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+#lastOrder{
+	width: 200px;
+	height: 200px;
+	background-color: blue;
+	border: solid black;
+}
+
+#makeOrder{
+	width: 200px;
+	height: 200px;
+	background-color: blue;
+	border: solid black;
+}
+
+#cart{
+	width: 200px;
+	height: 200px;
+	background-color: blue;
+	border: solid black;
+}
