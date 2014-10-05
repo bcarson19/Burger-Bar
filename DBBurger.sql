@@ -11,26 +11,25 @@ CREATE TABLE users
 	pw			VARCHAR(30),
 	PRIMARY KEY(username)
 );
-
+#Create a databse to store the order, containing the order, price and username
+CREATE TABLE foodOrders
+(
+	username VARCHAR(30),
+	foodOrder 	VARCHAR(30),
+	price	INTEGER,
+	PRIMARY KEY(username),	
+	foreign key (username)references users (username)
+);
 # Create a tabel to store most recent orders, should this be most recent or favorites 
 CREATE TABLE orderHistory 
 (
 	username		VARCHAR(30),
-	order			VARCHAR(30),
+	foodOrder		VARCHAR(30),
 	PRIMARY KEY(username),
-	Foreign key (username)references users (username),
-	Foreign key (order)references orders (order),
+	Foreign key (username) references users (username)
 );
 
-#Create a databse to store the order, containing the order, price and username
-CREATE TABLE orders
-{
-	username VARCHAR(30),
-	order 	VARCHAR(30),
-	price	INTEGER,
-	PRIMARY KEY(username),	
-	foreign key (username)references users (username)
-};
+
 
 # Create a table to create users 
 CREATE TABLE paymentInfo
@@ -43,7 +42,7 @@ CREATE TABLE paymentInfo
 	zipCode		VARCHAR(30),
 	state		VARCHAR(30),
 	expireDate	VARCHAR(30),
-	Foreign key (username)references users (username),
+	Foreign key (username)references users (username)
 );
 
 INSERT INTO users VALUES
@@ -61,7 +60,7 @@ INSERT INTO paymentInfo VALUES
 INSERT INTO orderHistory VALUES
 	("Karoline", "Turkey burger, american cheese, whole wheat bun, fried");
 
-INSERT INTO orders VALUES
+INSERT INTO foodOrders VALUES
 	("Karoline", "Turkey burger, american cheese, whole wheat bun, fried", 12 ); 
 
 
