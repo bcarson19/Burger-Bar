@@ -15,18 +15,36 @@ CREATE TABLE users
 CREATE TABLE foodOrders
 (
 	username VARCHAR(30),
-	foodOrder 	VARCHAR(30),
-	price	INTEGER,
+	orderID INTEGER,
 	PRIMARY KEY(username),	
 	foreign key (username)references users (username)
+);
+
+CREATE TABLE Food #Store all items on the menue 
+(	
+	name VARCHAR(30),
+	orderId INTEGER,
+	price	FLOAT(5,2),
+	PRIMARY KEY(name)
+);
+
+CREATE TABLE orderInProgress 
+( 
+	orderId INTEGER,
+	food INTEGER, 
+	PRIMARY key(orderId)
+	#foreign key (food) references Food (name)
 );
 # Create a tabel to store most recent orders, should this be most recent or favorites 
 CREATE TABLE orderHistory 
 (
 	username		VARCHAR(30),
-	foodOrder		VARCHAR(30),
+	orderId INTEGER,
+	food INTEGER, 
+	processes		timestamp, 	
 	PRIMARY KEY(username),
-	Foreign key (username) references users (username)
+	Foreign key (username) references users (username),
+	foreign key (orderId) references orderInProgress(orderID)
 );
 
 
@@ -56,13 +74,6 @@ INSERT INTO users VALUES
 INSERT INTO paymentInfo VALUES
 	("Karoline", 1, 123456789, "Visa", "3669 Asbury Street", "75205", "Dallas", "7/7/12"),
 	("Karoline", 2, 987654321, "MasterCard", "3669 Asbury Street", "75205", "Dallas", "7/7/12");
-
-INSERT INTO orderHistory VALUES
-	("Karoline", "Turkey burger, american cheese, whole wheat bun, fried");
-
-INSERT INTO foodOrders VALUES
-	("Karoline", "Turkey burger, american cheese, whole wheat bun, fried", 12 ); 
-
 
 
 
