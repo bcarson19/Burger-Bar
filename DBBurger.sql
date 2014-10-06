@@ -25,7 +25,7 @@ CREATE TABLE Food #Store all items on the menue
 	name VARCHAR(30),
 	orderId INTEGER,
 	price	FLOAT(5,2),
-	PRIMARY KEY(name)
+	PRIMARY KEY(name, orderId)cgtebybn
 );
 
 CREATE TABLE orderInProgress 
@@ -74,6 +74,33 @@ INSERT INTO users VALUES
 INSERT INTO paymentInfo VALUES
 	("Karoline", 1, 123456789, "Visa", "3669 Asbury Street", "75205", "Dallas", "7/7/12"),
 	("Karoline", 2, 987654321, "MasterCard", "3669 Asbury Street", "75205", "Dallas", "7/7/12");
+
+INSERT INTO food VALUES
+("1/3 lb Beef", 1, 2),
+("1/2 lb Beef", 2, 2.25),
+("Turkey", 3, 2),
+("Veggie", 4, 2),
+("White", 5, 0.5),
+("Wheat", 6, 0.5),
+("Texas Toast", 7, 0.75),
+("Cheddar", 8, 0.35),
+("American", 9, 0.35),
+("Swiss", 10, 0.35),
+("Tomatoes", 11, 0),
+("Lettuce", 12, 0),
+("Onions", 13, 0),
+("Pickles", 14, 0),
+("Bacon", 15, 0),
+("Red Onion", 16, 0),
+("Mushroms", 17, 0),
+("Jalapenos", 18, 0),
+("Ketchup", 19, 0),
+("Mustard", 20, 0),
+("Mayonnaise", 21, 0),
+("BBQ", 22, 0),
+("French Fries", 23, 2),
+("Tater tots", 24, 1),
+("Onion Rings", 25, 1);
 
 
 
