@@ -11,41 +11,45 @@ CREATE TABLE users
 	pw			VARCHAR(30),
 	PRIMARY KEY(username)
 );
+#Table to store food 
+CREATE TABLE Food #Store all items on the menue 
+(	
+	name VARCHAR(30),
+	id INTEGER,
+	price	FLOAT(5,2),
+	PRIMARY KEY(name, id)
+);
 #Create a databse to store the order, containing the order, price and username
 CREATE TABLE foodOrders
 (
 	username VARCHAR(30),
 	orderID INTEGER,
-	PRIMARY KEY(username),	
-	foreign key (username)references users (username)
+    name   VARCHAR(30),
+	PRIMARY KEY(username, orderID),	
+	foreign key (username)references users (username),
+    foreign key (name) references Food (name)
 );
 
-CREATE TABLE Food #Store all items on the menue 
-(	
-	name VARCHAR(30),
-	orderId INTEGER,
-	price	FLOAT(5,2),
-	PRIMARY KEY(name, orderId)cgtebybn
-);
 
-CREATE TABLE orderInProgress 
-( 
-	orderId INTEGER,
-	food INTEGER, 
-	PRIMARY key(orderId)
-	#foreign key (food) references Food (name)
-);
+
+#CREATE TABLE orderInProgress 
+#( 
+#	orderId INTEGER,
+#	food INTEGER, 
+#	PRIMARY key(orderId)
+#	#foreign key (food) references Food (name)
+#);
 # Create a tabel to store most recent orders, should this be most recent or favorites 
-CREATE TABLE orderHistory 
-(
-	username		VARCHAR(30),
-	orderId INTEGER,
-	food INTEGER, 
-	processes		timestamp, 	
-	PRIMARY KEY(username),
-	Foreign key (username) references users (username),
-	foreign key (orderId) references orderInProgress(orderID)
-);
+#CREATE TABLE orderHistory 
+#(
+#	username		VARCHAR(30),
+#	orderId INTEGER,
+#	food INTEGER, 
+#	processes		timestamp, 	
+#PRIMARY KEY(username),
+#	Foreign key (username) references users (username),
+#	foreign key (orderId) references orderInProgress(orderID)
+#);
 
 
 
