@@ -15,16 +15,17 @@ CREATE TABLE users
 CREATE TABLE Food #Store all items on the menue 
 (	
 	name VARCHAR(30),
-	id INTEGER,
+    id INTEGER,
 	price	FLOAT(5,2),
 	PRIMARY KEY(name, id)
 );
 #Create a databse to store the order, containing the order, price and username
 CREATE TABLE foodOrders
 (
-	username VARCHAR(30),
-	orderID INTEGER,
+    username VARCHAR(30),
     name   VARCHAR(30),
+    orderID INTEGER,
+    inCart tinyint, #true if item in unporcesses and still in cart
 	#Primary key (orderID) cannot have this
 	foreign key (username)references users (username),
     foreign key (name) references Food (name)
@@ -56,7 +57,7 @@ INSERT INTO paymentInfo VALUES
 	("Karoline", 1, 123456789, "Visa", "3669 Asbury Street", "75205", "Dallas", "7/7/12"),
 	("Karoline", 2, 987654321, "MasterCard", "3669 Asbury Street", "75205", "Dallas", "7/7/12");
 
-INSERT INTO food VALUES
+INSERT INTO food(name, id, price) VALUES
 ("1/3 lb Beef", 1, 2),
 ("1/2 lb Beef", 2, 2.25),
 ("Turkey", 3, 2),
@@ -83,19 +84,11 @@ INSERT INTO food VALUES
 ("Tater Tots", 24, 1),
 ("Onion Rings", 25, 1);
 
-INSERT INTO foodOrders VALUES
-("Karoline", 1, "Turkey"),
-("Karoline", 1, "Wheat"),
-("Karoline", 1, "Tomatoes"),
-("Karoline", 1, "Tater Tots"),
-("Karoline", 2, "1/3 lb Beef"),
-("Karoline", 2, "Texas Toast"),
-("Karoline", 2, "Mustard"),
-("Karoline", 2, "Onion Rings"),
-("Brandon", 1, "1/3 lb Beef"),
-("Brandon", 1, "Texas Toast"),
-("Brandon", 1, "Mustard"),
-("Brandon", 1, "Onion Rings");
+INSERT INTO foodOrders(username, orderID, name, inCart) VALUES
+("Karoline", 1, "Turkey", 1),
+("Karoline", 1, "Wheat", 1),
+("Karoline", 1, "Tomatoes", 1),
+("Karoline", 1, "French Fries", 1);
 
 
 
