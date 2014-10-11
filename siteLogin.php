@@ -7,7 +7,7 @@
     {
         die('could not connect:'.mysql_error());
     }
-    mysql_select_db("phptest", $con) //choose the right database
+    mysql_select_db("DBBurger", $con) //choose the right database
         or die ("unable to connect".mysql_error());
 
     $query = "select * from users where id = '";
