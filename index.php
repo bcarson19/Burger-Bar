@@ -14,6 +14,7 @@ $app->get('/recentOrder', 'getRecentOrder'); //M get the most recent order from 
 $app->get('/getCart', 'getCart'); //M get everything in the order table that is not yet checked out, return JSON
 $app->get('/getPaymentInfo', 'getPaymentInfo'); //B public 
 $app->get('/logOut', 'logOut'); //end session and log out user 
+$app->get('/updateOrder', 'updateOrder'); //delete item no longer in cart
 
 $app->post('/loginIn', 'validateLogin'); //K remeber to set the user value 
 $app->post('/createAccount', 'createAccount'); //N remeber to set the user value, udate table with new user info
