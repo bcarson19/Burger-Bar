@@ -38,3 +38,9 @@
 	background-color: blue;
 	border: solid black;
 }
+
+.foodSelect{
+	background-color: white;
+	border: 2px red solid;
+	margin: 3px;
+}
