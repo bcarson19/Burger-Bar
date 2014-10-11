@@ -44,3 +44,7 @@
 	border: 2px red solid;
 	margin: 3px;
 }
+
+#makeOrder form div input {
+	margin-left: 40px;
+}
