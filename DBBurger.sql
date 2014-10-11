@@ -25,33 +25,10 @@ CREATE TABLE foodOrders
 	username VARCHAR(30),
 	orderID INTEGER,
     name   VARCHAR(30),
-	PRIMARY KEY(username, orderID),	
+	#Primary key (orderID) cannot have this
 	foreign key (username)references users (username),
     foreign key (name) references Food (name)
 );
-
-
-
-#CREATE TABLE orderInProgress 
-#( 
-#	orderId INTEGER,
-#	food INTEGER, 
-#	PRIMARY key(orderId)
-#	#foreign key (food) references Food (name)
-#);
-# Create a tabel to store most recent orders, should this be most recent or favorites 
-#CREATE TABLE orderHistory 
-#(
-#	username		VARCHAR(30),
-#	orderId INTEGER,
-#	food INTEGER, 
-#	processes		timestamp, 	
-#PRIMARY KEY(username),
-#	Foreign key (username) references users (username),
-#	foreign key (orderId) references orderInProgress(orderID)
-#);
-
-
 
 # Create a table to create users 
 CREATE TABLE paymentInfo
@@ -103,8 +80,22 @@ INSERT INTO food VALUES
 ("Mayonnaise", 21, 0),
 ("BBQ", 22, 0),
 ("French Fries", 23, 2),
-("Tater tots", 24, 1),
+("Tater Tots", 24, 1),
 ("Onion Rings", 25, 1);
+
+INSERT INTO foodOrders VALUES
+("Karoline", 1, "Turkey"),
+("Karoline", 1, "Wheat"),
+("Karoline", 1, "Tomatoes"),
+("Karoline", 1, "Tater Tots"),
+("Karoline", 2, "1/3 lb Beef"),
+("Karoline", 2, "Texas Toast"),
+("Karoline", 2, "Mustard"),
+("Karoline", 2, "Onion Rings"),
+("Brandon", 1, "1/3 lb Beef"),
+("Brandon", 1, "Texas Toast"),
+("Brandon", 1, "Mustard"),
+("Brandon", 1, "Onion Rings");
 
 
 
