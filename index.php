@@ -59,8 +59,7 @@ function addBurger() {
    }
     
     //what do you want returned
-        
-}
+    
     $mysqli->close(); //close instance of mysql 
 }
 
