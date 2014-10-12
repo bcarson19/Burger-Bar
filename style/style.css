@@ -46,7 +46,7 @@
 	float: right;
 	width: 45%;
 	height: auto;
-	background-color: blue;
+	background-color: navy;
 
 }
 
@@ -67,7 +67,7 @@
 	float: right;
 	width: 45%;
 	height: auto;
-	background-color: blue;
+	background-color: navy;
 }
 
 .orderList ul li{
@@ -78,6 +78,10 @@
 	background-color: white;
 	margin: 3px;
 	border: 2px solid red;
+}
+
+#checkoutButton{
+	margin: auto;
 }
 
 
