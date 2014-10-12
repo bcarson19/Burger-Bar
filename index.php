@@ -61,18 +61,6 @@ function addBurger() {
     //what do you want returned
         
 }
-    
-
-//
-//  $array = array();
-//  
-//  while ($row = $result->fetch_assoc()) {
-//    $array[] = $row;
-//  }
-//
-//  echo json_encode($array);
-    
-    echo json_encode($query); //return the result
     $mysqli->close(); //close instance of mysql 
 }
 
