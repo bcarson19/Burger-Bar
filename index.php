@@ -36,6 +36,7 @@ function getConnection() {
 }
 
 function addBurger() {
+    
     $mysqli = getConnection(); //establish connection
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
@@ -64,6 +65,7 @@ function addBurger() {
 }
 
 function validateLogin() { //this is done
+    global $user;
     $mysqli = getConnection(); //establish connection
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
@@ -85,15 +87,16 @@ function validateLogin() { //this is done
             }
 			else
 				echo '{"error":{"text": "Login Info was not set" }}'; 		
-		} 
+		  } 
 		catch(PDOException $e) 
 		{
 			echo '{"error":{"text":' . "\"" . $e->getMessage() . "\"" . '}}'; 
 		}
-	}
+    
 
-   
-
+    $user = $loginInfo->username; //set the username 
+    
+}
 
 //
 //
