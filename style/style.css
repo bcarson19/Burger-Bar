@@ -1,10 +1,3 @@
-#navbar{
-	height: 50px;
-	background-color: red;
-	top: 0;
-	left: 0;
-	width: 100%;
-}
 
 #content{
 	margin: auto;
@@ -48,3 +41,50 @@
 #makeOrder form div input {
 	margin-left: 40px;
 }
+
+#userInfo{
+	float: right;
+	width: 45%;
+	height: auto;
+	background-color: blue;
+
+}
+
+#userInfo li{
+	list-style-type: none;
+	margin: 3px;
+}
+
+#userInfo li input{
+	border-radius: 5px;
+	border: none;
+	height: 40px;
+	width: 400px;
+	font-size: 100%;
+}
+
+#orderSummary{
+	float: right;
+	width: 45%;
+	height: auto;
+	background-color: blue;
+}
+
+.orderList ul li{
+	list-style-type: none;
+}
+
+.orderList ul {
+	background-color: white;
+	margin: 3px;
+	border: 2px solid red;
+}
+
+
+
+
+
+
+
+
+
