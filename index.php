@@ -50,9 +50,9 @@ function addBurger() {
     {
         foreach ($item as $key => $val)
         {
-            if ($val != 0)
+            if ($val != 0) //insert only if that item has been selected 
             {
-                $query = "INSERT INTO foodOrder (name, price, id) VALUES ($key, $foodPrice, $counter)";
+                $query = "INSERT INTO foodOrder (username, orderID, name, inCart) VALUES ($user, $orderID, $key, $bool)";
                 
             }
         }
