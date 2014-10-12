@@ -39,27 +39,30 @@ function addBurger() {
     $mysqli = getConnection(); //establish connection
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
-    $order = json_decode(json_encode($request), true); //decode the request needs a double because it is an JSON array of objects 
-    
-    foreach($order as $item) 
-    {
-        if(.$item[])
-        {
-             mysql_query("INSERT INTO `db512172115`.`trial` (name, phone, city, email) 
-  VALUES ('".$item['name']."', '".$item['phone']."', '".$item['city']."', '".$item['email']."')");
+    $order = json_decode($request, true); //decode the request needs a double because it is an JSON array of objects 
+    $bool = 1;
+    $query = "SELECT MAX(orderID) from foodOrders WHERE username= '".$user."'";
+    $orderID = mysql_query($query);
+    $orderID = $orderID + 1; //find the max orderId and increment it 
+        
 
+   foreach($order as $item) 
+    {
+        foreach ($item as $key => $val)
+        {
+            if ($val != 0)
+            {
+                $query = "INSERT INTO foodOrder (name, price, id) VALUES ($key, $foodPrice, $counter)";
+                
+            }
         }
+   }
+    
+    //what do you want returned
         
 }
     
-    $sql = "INSERT INTO foodOrders (username, name, orderID, inCart) VALUES (:username, :name, :orderID:)";
-    $stmt = $mysqli->prepare($sql);
-    
-    
-        
-    $result = $mysqli->query($query);
-    
-    $sql = "INSERT ";
+
 //
 //  $array = array();
 //  
@@ -73,7 +76,7 @@ function addBurger() {
     $mysqli->close(); //close instance of mysql 
 }
 
-function validateLogin() {
+function validateLogin() { //this is done
     $mysqli = getConnection(); //establish connection
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
