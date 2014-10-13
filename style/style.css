@@ -10,6 +10,12 @@ body{
 	margin: 10px;
 }
 
+#login {
+        width: 20%;
+        text-align: right;
+        float: left;
+}
+
 #lastOrder{
 	float: left;
 	width: 20%;

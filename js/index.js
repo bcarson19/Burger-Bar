@@ -27,4 +27,16 @@ $("#loginButton").click(function(){
 /*Add Burger function starter - Brandon C*/
 $('#addBurger').click(function(){
 console.log("test");
-}
+});
+
+/*Display either login form or past order*/
+$(document).ready ( function(){
+    if (localStorage.get("username")) {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("lastOrder").style.display = "block";
+    }
+    else {
+        document.getElementById("lastOrder").style.display = "none";
+        document.getElementById("login").style.display = "block";
+    }
+});​
