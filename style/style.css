@@ -77,7 +77,7 @@ body{
 	background-color: navy;
 }
 
-.orderList ul li{
+.orderList ul > li{
 	list-style-type: none;
 }
 

@@ -1,6 +1,24 @@
 console.log("in checkout js");
 var rootURL = "http://localhost:8888/Burger-Bar/api/index.php";
 
+$(document).ready(function(){
+	
+	//var send = new Object();
+
+	$.ajax({
+      type: 'GET',
+      url: rootURL+"/getCart",
+      dataType: "json", // data type of response
+      success: function(data, textStatus, jqXHR){
+         
+      },
+      error: function(jqXHR, textStatus, errorThrown){
+         console.log(jqXHR, textStatus, errorThrown);
+      }
+   });
+
+});
+
 $('#checkoutButton').click(function(){
 	var send = new Object();
 	send.firstName = $('#firstNameField').val();
@@ -35,5 +53,7 @@ $('#checkoutButton').click(function(){
          console.log(jqXHR, textStatus, errorThrown);
       }
    });
+
+
 
 });
