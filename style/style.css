@@ -82,9 +82,10 @@ body{
 }
 
 .orderList ul {
-	background-color: white; 
+	background-color: #90FFDD; /*teal*/
+	border: 2px #5C2B31 solid; /*Burgundy*/
 	margin: 3px;
-	border: 2px solid red;
+	border-radius: 5px;
 }
 
 #checkoutButton{
@@ -96,8 +97,16 @@ color:#C7446A;
 font-size:120%;
 }
 
+#content > div {
+	background-color: #568999; /*grayish blue*/
+}
 
-
+#content > div div{
+	background-color: #90FFDD; /*teal*/
+	border: 2px #5C2B31 solid; /*Burgundy*/
+	margin: 3px;
+	border-radius: 5px;
+}
 
 
 
