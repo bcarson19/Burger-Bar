@@ -1,6 +1,23 @@
 console.log("in index javascript");
 var rootURL = "http://localhost:8888/Burger-Bar/index.php";
 
+/*Display either login form or past order*/
+/*
+$(document).ready ( function(){
+    if (localStorage.get("username")) {
+    	console.log("username exists");
+        document.getElementById("login").style.display = "none";
+        document.getElementById("lastOrder").style.display = "block";
+    }
+    else {
+    	console.log("no username");
+        document.getElementById("lastOrder").style.display = "none";
+        document.getElementById("login").style.display = "block";
+    }
+});​
+*/
+
+
 $("#loginButton").click(function(){
 	
 	var send = new Object();
@@ -28,15 +45,3 @@ $("#loginButton").click(function(){
 $('#addBurger').click(function(){
 console.log("test");
 });
-
-/*Display either login form or past order*/
-$(document).ready ( function(){
-    if (localStorage.get("username")) {
-        document.getElementById("login").style.display = "none";
-        document.getElementById("lastOrder").style.display = "block";
-    }
-    else {
-        document.getElementById("lastOrder").style.display = "none";
-        document.getElementById("login").style.display = "block";
-    }
-});​
