@@ -17,7 +17,7 @@
 			make order - select ingredients
 			<form>
 			  <div class="foodSelect" id="meatSelect">
-			  	Select your Meat: <br>
+			  	<span class="title">Select your Meat:</span> <br>
 				<input type="radio" name="meats" value="1/3 lb. Beef" id="meat1"><label for="meat1">1/3 lb. Beef</label><br>
 				<input type="radio" name="meats" value="1/2 lb. Beef" id="meat2"><label for="meat2">1/2 lb. Beef</label><br>
 				<input type="radio" name="meats" value="2/3 lb. Beef" id="meat3"><label for="meat3">2/3 lb. Beef</label><br>
@@ -26,21 +26,21 @@
 			  </div>
 			  
 			  <div class="foodSelect" id="bunSelect">
-			  	Select your Bun: <br>
+			  	<span class="title">Select your Bun:</span> <br>
 				<input type="radio" name="buns" value="White" id="bun1"><label for="bun1">White</label><br>
 				<input type="radio" name="buns" value="Wheat" id="bun2"><label for="bun2">Wheat</label><br>
 				<input type="radio" name="buns" value="Texas Toast" id="bun3"><label for="bun3">Texas Toast</label><br>
 			  </div>
 			  
 			  <div class="foodSelect" id="cheeseSelect">	
-			  	Select your Cheese: <br>
+			  	<span class="title">Select your Cheese:</span> <br>
 				<input type="radio" name="cheeses" value="Cheddar" id="cheese1"><label for="cheese1">Cheddar</label><br>
 				<input type="radio" name="cheeses" value="American" id="cheese2"><label for="cheese2">American</label><br>
 				<input type="radio" name="cheeses" value="Swiss" id="cheese3"><label for="cheese3">Swiss</label><br>
 			  </div>
 			  
 			  <div class="foodSelect" id="toppingSelect">
-			  	Select your toppings: <br>
+			  	<span class="title">Select your toppings:</span> <br>
 				<input type="checkbox" name="toppings" value="Tomatoes" id="topping1"><label for="topping1">Tomatoes</label><br>
 				<input type="checkbox" name="toppings" value="Lettuce" id="topping2"><label for="topping2">Lettuce</label><br>
 				<input type="checkbox" name="toppings" value="Onions" id="topping3"><label for="topping3">Onions</label><br>
@@ -52,7 +52,7 @@
 			  </div>
 			  
 			  <div class="foodSelect" id="sauceSelect">
-			  	Select your sauces: <br>
+			  	<span class="title">Select your sauces:</span> <br>
 				<input type="checkbox" name="sauces" value="Ketchup" id="sauce1"><label for="sauce1">Ketchup</label><br>
 				<input type="checkbox" name="sauces" value="Mustard" id="sauce2"><label for="sauce2">Mustard</label><br>
 				<input type="checkbox" name="sauces" value="Mayonaise" id="sauce3"><label for="sauce3">Mayonaise</label><br>
@@ -60,7 +60,7 @@
 			  </div>
 			  
 			  <div class="foodSelect" id="sideSelect">
-			  	Select your Sides: <br>
+			  	<span class="title">Select your Sides:</span> <br>
 				<input type="radio" name="sides" value="French Fries" id="side1"><label for="side1">French Fries</label><br>
 				<input type="radio" name="sides" value="Tater tots" id="side2"><label for="side2">Tater tots</label><br>
 				<input type="radio" name="sides" value="Onion Rings" id="side3"><label for="side3">Onion Rings</label><br>
@@ -73,6 +73,10 @@
 		</div>
 		<div id="cart">
 			cart
+			<form>
+			<input type="submit" value="Checkout" id="checkoutButton>
+			</form
+			
 		</div>
 
 	</div>
