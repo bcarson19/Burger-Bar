@@ -15,7 +15,7 @@ CREATE TABLE users
 	PRIMARY KEY(username)
 );
 #Table to store food 
-CREATE TABLE Food #Store all items on the menue 
+CREATE TABLE food #Store all items on the menue 
 (	
 	name VARCHAR(30),
     id INTEGER,
@@ -32,7 +32,7 @@ CREATE TABLE foodOrders
     inCart tinyint, #true if item in unporcesses and still in cart
 	#Primary key (orderID) cannot have this
 	foreign key (username)references users (username),
-    foreign key (name) references Food (name)
+    foreign key (name) references food (name)
 );
 
 # Create a table to create users 
