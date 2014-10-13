@@ -99,6 +99,8 @@ font-size:120%;
 
 #content > div {
 	background-color: #568999; /*grayish blue*/
+	border: solid black;
+	border-radius: 10px;
 }
 
 #content > div div{
