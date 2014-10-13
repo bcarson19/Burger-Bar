@@ -71,7 +71,7 @@ INSERT INTO food(name, id, price, type) VALUES
 ("Swiss", 10, 0.35, "Cheese"),
 ("Tomatoes", 11, 0, "Topping"),
 ("Lettuce", 12, 0, "Topping"),
-("Onions", 13, 0), "Topping"),
+("Onions", 13, 0, "Topping"),
 ("Pickles", 14, 0, "Topping"),
 ("Bacon", 15, 0, "Topping"),
 ("Red Onion", 16, 0, "Topping"),
