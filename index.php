@@ -104,20 +104,25 @@ function getRecentOrder() { //get the most recent order from that user but also 
     
     $mysqli = getConnection();     
     
-    $rows = array();
-    //get the most recent order
-    $query = "select name from foodOrders where inCart = 0 and orderID = (select max(orderID) from foodOrders where username = '";
-    $query = $query.$user."'";
+        $rows = array();
+
+    $q1 = "SELECT MAX(orderID) as orderID from foodOrders WHERE username= '".$user."'";
+    $orderID = mysql_query($q1);
+
+   while ($r = mysql_fetch_assoc($orderID)) //find the max orderID and increment it
+    { 
+        $orderID = $r["orderID"];
+    }
+    $query = "select name from foodOrders where inCart = 0 and orderID ='".$orderID."'";
 
     $result = mysql_query($query);
-    //echo $result;
     
    while($r = mysql_fetch_assoc($result)) 
    {
     $rows[] = $r;
    }
     
-    $q1 = "select sum(price) from foodOrders natural join food where inCart = 0 and orderID = (select max(orderID) from foodOrders where  username = '".$user."'";
+    $q1 = "select sum(price) from foodOrders natural join food where inCart = 0 and orderID ='".$orderID."'";
     $tp = mysql_query($q1);
     
     while ($r = mysql_fetch_assoc($tp)) 
@@ -137,7 +142,7 @@ function getCart() { //get items in the cart that is not checked out
     $mysqli = getConnection(); 
     $rows = array();
     //get the order that has not yet been checked out 
-    $query = "select name from foodOrders where inCart";
+    $query = "select name from foodOrders where inCart and username ='".$user."'";
 
     $result = mysql_query($query);
     //echo $result;
@@ -155,7 +160,6 @@ function getCart() { //get items in the cart that is not checked out
         $rows[] = $r;   
     }
 
-    
     echo json_encode($rows);
     mysql_close($mysqli);
  } //getCart end 
