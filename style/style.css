@@ -11,8 +11,9 @@
 	float: left;
 	width: 20%;
 	height: 200px;
-	background-color: blue;
+	background-color: #568999; /*grayish blue*/
 	border: solid black;
+	border-radius: 10px;
 }
 
 #makeOrder{
@@ -20,22 +21,25 @@
 	float: left;
 	width: 50%;
 	height: auto;
-	background-color: blue;
+	background-color: #568999; /*grayish blue*/
 	border: solid black;
+	border-radius: 10px;
 }
 
 #cart{
 	float: left;
 	width: 20%;
 	height: 200px;
-	background-color: blue;
+	background-color: #568999; /*grayish blue*/
 	border: solid black;
+	border-radius: 10px;
 }
 
 .foodSelect{
-	background-color: white;
-	border: 2px red solid;
+	background-color: #90FFDD; /*teal*/
+	border: 2px #5C2B31 solid; /*Burgundy*/
 	margin: 3px;
+	border-radius: 5px;
 }
 
 #makeOrder form div input {
@@ -75,7 +79,7 @@
 }
 
 .orderList ul {
-	background-color: white;
+	background-color: white; 
 	margin: 3px;
 	border: 2px solid red;
 }
@@ -85,7 +89,8 @@
 }
 
 .title {
-color:blue;
+color:#C7446A;
+font-size:120%;
 }
 
 
