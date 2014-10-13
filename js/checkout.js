@@ -1,5 +1,5 @@
 console.log("in checkout js");
-var rootURL = "http://localhost:8888/Burger-Bar/api/index.php";
+var rootURL = "http://localhost:8888/Burger-Bar/index.php";
 
 $(document).ready(function(){
 	
@@ -10,7 +10,7 @@ $(document).ready(function(){
       url: rootURL+"/getCart",
       dataType: "json", // data type of response
       success: function(data, textStatus, jqXHR){
-         
+         console.log(data);
       },
       error: function(jqXHR, textStatus, errorThrown){
          console.log(jqXHR, textStatus, errorThrown);
