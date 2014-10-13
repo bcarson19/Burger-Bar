@@ -9,6 +9,9 @@ CREATE TABLE users
 (
 	username	VARCHAR(30),
 	pw			VARCHAR(30),
+    firstname VARCHAR(30),
+    lastname VARCHAR(30),
+    email VARCHAR(30),
 	PRIMARY KEY(username)
 );
 #Table to store food 
@@ -46,12 +49,9 @@ CREATE TABLE paymentInfo
 );
 
 INSERT INTO users VALUES
-	("Karoline", "123456789"),
-	("Brandon", "test"),
-	("Tom", "password"),
-	("Nariana", "TEST"),
-	("Jacob", "gui"),
-	("Michael", "db");
+	("Karoline", "123456789", "Karoline", "Skatteboe", "kskatteboe@smu.edu"),
+	("Brandon", "test", "Brandon", "Carson", "bcarson@smu.edu"),
+	("Tom", "password", "Tom", "Kennedy", "tkennedy@smu.edu");
 
 INSERT INTO paymentInfo VALUES
 	("Karoline", 1, 123456789, "Visa", "3669 Asbury Street", "75205", "Dallas", "7/7/12"),
