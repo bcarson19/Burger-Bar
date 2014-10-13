@@ -3,12 +3,16 @@ var rootURL = "http://localhost:8888/Burger-Bar/index.php";
 
 $(document).ready(function(){
 	
-	//var send = new Object();
+	var send = new Object();
+	send.username = "Tom";
+	send.password = "password";
+
 
 	$.ajax({
-      type: 'GET',
-      url: rootURL+"/getCart",
+      type: 'POST',
+      url: rootURL+"/loginIn",
       dataType: "json", // data type of response
+      data: send,
       success: function(data, textStatus, jqXHR){
          console.log(data);
       },
