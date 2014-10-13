@@ -20,6 +20,7 @@ CREATE TABLE Food #Store all items on the menue
 	name VARCHAR(30),
     id INTEGER,
 	price	FLOAT(5,2),
+    foodType VARCHAR(30),
 	PRIMARY KEY(name, id)
 );
 #Create a databse to store the order, containing the order, price and username

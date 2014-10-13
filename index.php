@@ -42,7 +42,7 @@ function addBurger() {
     $request = $app->request()->getBody();
     $order = json_decode($request, true); //decode the request needs a double because it is an JSON array of objects 
     $bool = 1;
-    $query = "SELECT MAX(orderID) from foodOrders WHERE username= '".$user."'";
+    $query = "SELECT MAX(orderID) as orderID from foodOrders WHERE username= '".$user."'";
     $orderID = mysql_query($query);
     
    while ($r = mysql_fetch_assoc($orderID)) //find the max orderID and increment it
@@ -58,16 +58,16 @@ function addBurger() {
         {
             if ($val != 0) //insert only if that item has been selected 
             {
-                mysqli_query($mysqli, "INSERT INTO foodOrder (username, orderID, name, inCart) VALUES ($user, $orderID, $key, $bool)");
+                mysql_query($mysqli, "INSERT INTO foodOrder (username, orderID, name, inCart) VALUES ($user, $orderID, $key, $bool)");
                 
             }
         }
    }
     
-    //what do you want returned
+    
     
     $mysqli->close(); //close instance of mysql 
-}
+} //addBurger 
 
 function validateLogin() { //this is done
     global $user;
@@ -119,7 +119,7 @@ function getRecentOrder() { //get the most recent order from that user but also 
     $rows[] = $r;
    }
     
-    $q1 = "select sum(price) from foodOrders natural join food where inCart = 0 and orderID = (select max(orderID) from foodOrders where  username = '".$user"'";
+    $q1 = "select sum(price) from foodOrders natural join food where inCart = 0 and orderID = (select max(orderID) from foodOrders where  username = '".$user."'";
     $tp = mysql_query($q1);
     
     while ($r = mysql_fetch_assoc($tp)) 
@@ -149,7 +149,7 @@ function getCart() { //get items in the cart that is not checked out
     $rows[] = $r;
    }
     
-    $q1 = "select sum(price) from foodOrders natural join food where inCart = '1'";
+    $q1 = "select sum(price) from foodOrders natural join food where inCart = '1' and username ='".$user."'";
     $tp = mysql_query($q1);
     
     while ($r = mysql_fetch_assoc($tp)) 
@@ -160,23 +160,23 @@ function getCart() { //get items in the cart that is not checked out
     
     echo json_encode($rows);
     mysql_close($mysqli);
- }
+ } //getCart end 
 
 
-function getPaymentInfo{ //return the different types of cards 
+function getPaymentInfo() { //return the different types of cards 
     $mysqli = getConnection();     $rows = array();
     $query = "select typeOfCard from paymentInfo where username = '".$user."'";
     $result = mysql_query($query);
 
    while ($r = mysql_fetch_assoc($result)) 
     {
-        echo $r["typeOfCard"];
+        //echo $r["typeOfCard"];
         $rows[] = $r;
     }
     
     echo json_encode($rows);
     mysql_close($mysqli);
-}
+} //end
 
 
 
