@@ -44,16 +44,21 @@ function addBurger() {
     $bool = 1;
     $query = "SELECT MAX(orderID) from foodOrders WHERE username= '".$user."'";
     $orderID = mysql_query($query);
-    $orderID = $orderID + 1; //find the max orderId and increment it 
-        
-
+    
+   while ($r = mysql_fetch_assoc($orderID)) //find the max orderID and increment it
+    {
+       //echo $r["orderID"];   
+        $orderID = $r["orderID"] +1 ;
+        //echo $orderID;
+    }
+    
    foreach($order as $item) 
     {
         foreach ($item as $key => $val)
         {
             if ($val != 0) //insert only if that item has been selected 
             {
-                $query = "INSERT INTO foodOrder (username, orderID, name, inCart) VALUES ($user, $orderID, $key, $bool)";
+                mysqli_query($mysqli, "INSERT INTO foodOrder (username, orderID, name, inCart) VALUES ($user, $orderID, $key, $bool)");
                 
             }
         }
@@ -76,6 +81,7 @@ function validateLogin() { //this is done
 		{
 			if(isset($loginInfo))
 			{
+                $user = $loginInfo->username; //set the username 
 				$stmt = $mysqli->prepare($sql);
 				$stmt->bindParam("username", $loginInfo->username);
 				$stmt->bindParam("pw",$loginInfo->pw);
@@ -83,7 +89,8 @@ function validateLogin() { //this is done
 				$userinfo = $stmt->fetch(PDO::FETCH_ASSOC);
 				$mysqli = null;
 				$response = array('username' => $userinfo['username'], 'firstame' => $userinfo['firstname'], 'lastname' => $userinfo['lastname'], 'email' => $userinfo['email']);
-				echo json_encode($response);		
+				echo json_encode($response);
+                echo true; 
             }
 			else
 				echo '{"error":{"text": "Login Info was not set" }}'; 		
@@ -92,11 +99,89 @@ function validateLogin() { //this is done
 		{
 			echo '{"error":{"text":' . "\"" . $e->getMessage() . "\"" . '}}'; 
 		}
-    
+}
 
-    $user = $loginInfo->username; //set the username 
+
+function getRecentOrder() { //get the most recent order from that user but also get the price 
+    
+    $mysqli = getConnection();     
+    
+    $rows = array();
+    //get the most recent order
+    $query = "select name from foodOrders where inCart = 0 and orderID = (select max(orderID) from foodOrders where username = '";
+    $query = $query.$user."'";
+
+    $result = mysql_query($query);
+    //echo $result;
+    
+   while($r = mysql_fetch_assoc($result)) 
+   {
+    $rows[] = $r;
+   }
+    
+    $q1 = "select sum(price) from foodOrders natural join food where inCart = 0 and orderID = (select max(orderID) from foodOrders where  username = '".$user"'";
+    $tp = mysql_query($q1);
+    
+    while ($r = mysql_fetch_assoc($tp)) 
+    {
+        $rows[] = $r;   
+    }
+    
+    echo json_encode($rows);
+    mysql_close($mysqli);
     
 }
+
+
+
+function getCart() { //get items in the cart that is not checked out
+      
+    $mysqli = getConnection(); 
+    $rows = array();
+    //get the order that has not yet been checked out 
+    $query = $query = "select name from foodOrders where inCart";
+
+    $result = mysql_query($query);
+    //echo $result;
+    
+   while($r = mysql_fetch_assoc($result)) 
+   {
+    $rows[] = $r;
+   }
+    
+    $q1 = "select sum(price) from foodOrders natural join food where inCart = '1'";
+    $tp = mysql_query($q1);
+    
+    while ($r = mysql_fetch_assoc($tp)) 
+    {
+        $rows[] = $r;   
+    }
+
+    
+    echo json_encode($rows);
+    mysql_close($mysqli);
+ }
+
+
+function getPaymentInfo{ //return the different types of cards 
+    $mysqli = getConnection();     $rows = array();
+    $query = "select typeOfCard from paymentInfo where username = '".$user."'";
+    $result = mysql_query($query);
+
+   while ($r = mysql_fetch_assoc($result)) 
+    {
+        echo $r["typeOfCard"];
+        $rows[] = $r;
+    }
+    
+    echo json_encode($rows);
+    mysql_close($mysqli);
+}
+
+
+
+
+
 
 //
 //

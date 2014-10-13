@@ -145,11 +145,16 @@ foreach ($result['menu'] as $item)
         mysql_query($query, $con);
         $counter = $counter + 1;    
         echo $query;
-    }
-    
-    
+    }  
 }
 
+
+$result = mysqli_query($con,"SELECT * FROM food");
+
+while($row = mysqli_fetch_array($result)) {
+  echo $row['name'] . " " . $row['price'];
+  echo "<br>";
+}
 
 echo " Finished!! "
 ?>
