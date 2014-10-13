@@ -2,9 +2,8 @@ console.log("in index javascript");
 var rootURL = "http://localhost:8888/Burger-Bar/index.php";
 
 /*Display either login form or past order*/
-/*
-$(document).ready ( function(){
-    if (localStorage.get("username")) {
+
+    if (localStorage.username) {
     	console.log("username exists");
         document.getElementById("login").style.display = "none";
         document.getElementById("lastOrder").style.display = "block";
@@ -14,8 +13,7 @@ $(document).ready ( function(){
         document.getElementById("lastOrder").style.display = "none";
         document.getElementById("login").style.display = "block";
     }
-});​
-*/
+
 
 
 $("#loginButton").click(function(){
