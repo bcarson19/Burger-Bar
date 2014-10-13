@@ -3,7 +3,7 @@ var rootURL = "http://localhost:8888/Burger-Bar/index.php";
 
 /*Display either login form or past order*/
 
-    if (!localStorage.username) {
+    if (localStorage.username) {
     	console.log("username exists");
         document.getElementById("login").style.display = "none";
         document.getElementById("lastOrder").style.display = "block";
