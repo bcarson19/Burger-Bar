@@ -13,11 +13,16 @@ function createAccount() {  // Note: Need to get individual values using code fo
 	$mysqli = getConnection();
 	$app = \Slim\Slim::getInstance();
 	$request = $app->request()->getBody();
-	$order = json_decode($request, true);
+	$user = json_decode($request, true);
 	$query = "INSERT INTO DBBurger.users
-	VALUES (),()";
+	VALUES ('" .$mysqli ->escape_string($user['username']) ."', '" .
+				$mysqli ->escape_string($user['pw']) ."', '" .
+				$mysqli ->escape_string($user['firstname']) ."', '" .
+				$mysqli ->escape_string($user['lastname']) ."', '" .
+				$mysqli ->escape_string($user['email']) ."')";
+
 	writeToLog($query);
-	$mysqli->query($query);
+	$mysqli->query($query) or trigger_error($mysqli->error);
 
 	$return['result']="successfully created";
 
