@@ -58,13 +58,11 @@ function addBurger() {
         {
             if ($val != 0) //insert only if that item has been selected 
             {
-                mysql_query($mysqli, "INSERT INTO foodOrder (username, orderID, name, inCart) VALUES ($user, $orderID, $key, $bool)");
-                
+               $query = "INSERT INTO foodOrders (username, orderID, name, inCart) VALUES '".$user."'".$orderID."'".$key."'".$bool."'";
+                mysql_query($query);
             }
         }
    }
-    
-    
     
     $mysqli->close(); //close instance of mysql 
 } //addBurger 
