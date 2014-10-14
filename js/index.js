@@ -3,6 +3,7 @@ var rootURL = "http://localhost:8888/Burger-Bar/index.php";
 
 /*Display either login form or past order*/
 changeLoginOrRecent();
+showCart();
 
 function changeLoginOrRecent(){
     if (localStorage.username) {
@@ -17,6 +18,18 @@ function changeLoginOrRecent(){
         $("#lastOrder").css("display", "none");
         $("#loginForm").css("display", "block");
     }
+}
+
+function showCart(){
+	//console.log($("#cart").children("ul").length > 0);
+	if($("#cart").children("ul").length > 0){
+		//console.log($("#cart").children("ul"));
+		$("#cart button").show();
+	}
+	else{
+		$("#cart").html("There are no items in your cart!");
+		$("#cart button").hide();
+	}
 }
 
 
@@ -66,6 +79,10 @@ $("#loginButton").click(function(){
          console.log(jqXHR, textStatus, errorThrown);
       }
    });
+});
+
+$("#checkoutButton").click(function(){
+	window.location.href = "checkout.html";
 
 });
 
