@@ -27,7 +27,7 @@ function showCart(){
 		$("#cart button").show();
 	}
 	else{
-		$("#cart").html("There are no items in your cart!");
+		$("#cart").html("there are no items in your cart!");
 		$("#cart button").hide();
 	}
 }
