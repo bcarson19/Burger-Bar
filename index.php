@@ -21,7 +21,7 @@ $app->get('/logOut', 'logOut'); //end session and log out user
 
 $app->post('/loginIn', 'validateLogin'); //K remeber to set the user value 
 // $app->post('/createAccount', 'createAccount'); //N remeber to set the user value, udate table with new user info
-// $app->post('/addPaymentInfo', 'addPaymentInfo'); //N add payment info to the table 
+$app->post('/addPaymentInfo', 'addPaymentInfo'); //N add payment info to the table 
 
 // $app->put('/checkOut/:id', 'updateCheckedOut'); //B checked out update variables 
  $app->get('/deleteOrder/:orderID', 'deleteOrder'); //delete item no longer in cart
@@ -75,31 +75,22 @@ function validateLogin() { //this is done
     $mysqli = getConnection(); //establish connection
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
-    $loginInfo = json_decode($request, true); 
-    $sql = "SELECT username, firstname, lastname, email FROM USERS WHERE username = :username AND pw = :pw";
+    $loginInfo = json_decode($request, true);
+    $username = $loginInfo['username'];
+    $password = $loginInfo['password'];
+    $sql = "SELECT username, firstname, lastname, email FROM USERS WHERE username ='".$username."' AND pw ='".$password."'";
+    $result = mysql_query($query);
     
-    try 
-		{
-			if(isset($loginInfo))
-			{
-                $user = $loginInfo->username; //set the username 
-				$stmt = $mysqli->prepare($sql);
-				$stmt->bindParam("username", $loginInfo->username);
-				$stmt->bindParam("pw",$loginInfo->pw);
-				$stmt->execute();
-				$userinfo = $stmt->fetch(PDO::FETCH_ASSOC);
-				$mysqli = null;
-				$response = array('username' => $userinfo['username'], 'firstame' => $userinfo['firstname'], 'lastname' => $userinfo['lastname'], 'email' => $userinfo['email']);
-				echo json_encode($response);
-                echo true; 
-            }
-			else
-				echo '{"error":{"text": "Login Info was not set" }}'; 		
-		  } 
-		catch(PDOException $e) 
-		{
-			echo '{"error":{"text":' . "\"" . $e->getMessage() . "\"" . '}}'; 
-		}
+    if (mysql_num_rows($result) == 0)
+    {
+
+        exit;
+    }
+    else
+    {
+        exit;
+    }
+    	
 }
 
 
@@ -145,13 +136,16 @@ function getCart() { //get items in the cart that is not checked out
     $mysqli = getConnection(); 
     $rows = array();
     //get the order that has not yet been checked out 
-    $query = "select name from foodOrders where inCart and username ='".$user."' order by orderID";
+    $query = "select name, type from foodOrders where inCart and username ='".$user."' order by orderID";
 
     $result = mysqli_query($mysqli, $query);
     //echo $result;
     
    while($r = mysqli_fetch_assoc($result)) 
    {
+       
+       
+       
     $rows[] = $r;
    }
     
@@ -198,4 +192,10 @@ function deleteOrder($orderID){
     mysqli_query($mysqli, $query);
     mysqli_close($mysqli);
     
+}
+
+function addPaymentInfo()
+{
+    global $user;
+    $mysqli = getConnection();
 }
