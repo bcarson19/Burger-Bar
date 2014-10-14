@@ -6,27 +6,30 @@
 require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 $app = new \Slim\Slim(); //using the slim API
-$user = "";
+$user = "Karoline";
 
 $app->get('/addBurger', 'addBurger'); //K add burger to the foodOrder table, it has not yet been checked out 
-$app->get('/recentOrder', 'getRecentOrder'); //M get the most recent order from the the table and return it with price 
+$app->get('/getRecentOrder', 'getRecentOrder'); //M get the most recent order from the the table and return it with price 
 $app->get('/getCart', 'getCart'); //M get everything in the order table that is not yet checked out, return JSON
 $app->get('/getPaymentInfo', 'getPaymentInfo'); //B public 
-$app->get('/logOut', 'logOut'); //end session and log out user 
-$app->get('/deleteOrder', 'deleteOrder'); //delete item no longer in cart
+// $app->get('/lgetlogOut', 'logOut'); //end session and log out user 
+// $app->get('/deleteOrder', 'deleteOrder'); //delete item no longer in cart
 
 $app->post('/loginIn', 'validateLogin'); //K remeber to set the user value 
-$app->post('/createAccount', 'createAccount'); //N remeber to set the user value, udate table with new user info
-$app->post('/addPaymentInfo', 'addPaymentInfo'); //N add payment info to the table 
+// $app->post('/createAccount', 'createAccount'); //N remeber to set the user value, udate table with new user info
+// $app->post('/addPaymentInfo', 'addPaymentInfo'); //N add payment info to the table 
 
-$app->put('/checkOut/:id', 'updateCheckedOut'); //B checked out update variables 
+// $app->put('/checkOut/:id', 'updateCheckedOut'); //B checked out update variables 
 
 
 $app->run();
 
 function getConnection() {
-	$dbConnection = new mysqli("localhost", "root", "root", "DBBurger"); //put in your password
+	$dbConnection = new mysqli("localhost", "root", "", "DBBurger"); //put in your password
   // Check mysqli connection
   if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
@@ -101,67 +104,67 @@ function validateLogin() { //this is done
 
 
 function getRecentOrder() { //get the most recent order from that user but also get the price 
-    
+    global $user;
     $mysqli = getConnection();     
     
-        $rows = array();
+    $rows = array();
 
-    $q1 = "SELECT MAX(orderID) as orderID from foodOrders WHERE username= '".$user."'";
-    $orderID = mysql_query($q1);
+    $q1 = "select max(orderID) as orderID from foodOrders where username= '".$user."'";
+    $orderID = mysqli_query($mysqli, $q1);
 
-   while ($r = mysql_fetch_assoc($orderID)) //find the max orderID and increment it
+   while ($r = mysqli_fetch_assoc($orderID)) //find the max orderID and increment it
     { 
         $orderID = $r["orderID"];
     }
     $query = "select name from foodOrders where inCart = 0 and orderID ='".$orderID."'";
 
-    $result = mysql_query($query);
+    $result = mysqli_query($mysqli, $query);
     
-   while($r = mysql_fetch_assoc($result)) 
+   while($r = mysqli_fetch_assoc($result)) 
    {
     $rows[] = $r;
    }
     
     $q1 = "select sum(price) from foodOrders natural join food where inCart = 0 and orderID ='".$orderID."'";
-    $tp = mysql_query($q1);
+    $tp = mysqli_query($mysqli, $q1);
     
-    while ($r = mysql_fetch_assoc($tp)) 
+    while ($r = mysqli_fetch_assoc($tp))
     {
         $rows[] = $r;   
     }
     
     echo json_encode($rows);
-    mysql_close($mysqli);
+    mysqli_close($mysqli);
     
 }
 
 
 
 function getCart() { //get items in the cart that is not checked out
-      
+    global $user;
     $mysqli = getConnection(); 
     $rows = array();
     //get the order that has not yet been checked out 
     $query = "select name from foodOrders where inCart and username ='".$user."'";
 
-    $result = mysql_query($query);
+    $result = mysqli_query($mysqli, $query);
     //echo $result;
     
-   while($r = mysql_fetch_assoc($result)) 
+   while($r = mysqli_fetch_assoc($result)) 
    {
     $rows[] = $r;
    }
     
     $q1 = "select sum(price) from foodOrders natural join food where inCart = '1' and username ='".$user."'";
-    $tp = mysql_query($q1);
+    $tp = mysqli_query($mysqli, $q1);
     
-    while ($r = mysql_fetch_assoc($tp)) 
+    while ($r = mysqli_fetch_assoc($tp)) 
     {
         $rows[] = $r;   
     }
 
     echo json_encode($rows);
-    mysql_close($mysqli);
+    mysqli_close($mysqli);
  } //getCart end 
 
 
