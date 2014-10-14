@@ -16,7 +16,7 @@ $app->get('/addBurger', 'addBurger'); //K add burger to the foodOrder table, it 
 $app->get('/getRecentOrder', 'getRecentOrder'); //M get the most recent order from the the table and return it with price 
 $app->get('/getCart', 'getCart'); //M get everything in the order table that is not yet checked out, return JSON
 $app->get('/getPaymentInfo', 'getPaymentInfo'); //B public 
-// $app->get('/lgetlogOut', 'logOut'); //end session and log out user 
+ $app->get('/getlogOut', 'logOut'); //end session and log out user 
 // $app->get('/deleteOrder', 'deleteOrder'); //delete item no longer in cart
 
 $app->post('/login', 'validateLogin'); //K remeber to set the user value 
@@ -75,8 +75,7 @@ function validateLogin() { //this is done
     $mysqli = getConnection(); //establish connection
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
-    echo $request;
-    
+
     $loginInfo = json_decode($request, true);
     
     $username = $loginInfo['username'];
@@ -85,22 +84,28 @@ function validateLogin() { //this is done
     $sql = "SELECT username, firstname, lastname, email FROM USERS WHERE username ='".$username."' AND pw ='".$password."'";
     $result = mysql_query($sql);
     try 
-{
+    {
 			
     if (mysql_num_rows($result) == 0)
-    {
+    {  
         echo '{"error":{"text": "Login Info was not set" }}'; 
+        return false;
     }
     else
     {
+        echo $request;
         return true;
         exit;
     }
-} 
-		catch(PDOException $e) 
-		{
-			echo '{"error":{"text":' . "\"" . $e->getMessage() . "\"" . '}}'; 
-		}
+    } 
+    catch(PDOException $e) 
+    {
+        echo $request;
+        echo $username;
+        echo $loginInfo;
+        echo $password;
+	echo '{"error":{"text":' . "\"" . $e->getMessage() . "\"" . '}}'; 
+	}
     	
 }
 
