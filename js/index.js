@@ -3,20 +3,33 @@ var rootURL = "http://localhost:8888/Burger-Bar/index.php";
 
 /*Display either login form or past order*/
 changeLoginOrRecent();
+showCart();
 
 function changeLoginOrRecent(){
     if (localStorage.username) {
     	console.log("username exists"); //display recent order
-        document.getElementById("login").style.display = "none";
-        document.getElementById("lastOrder").style.display = "block";
+        $("#lastOrder").css("display", "block");
+        $("#loginForm").css("display", "none");
 
 
     }
     else {
     	console.log("no username"); //display Login screen
-        document.getElementById("lastOrder").style.display = "none";
-        document.getElementById("login").style.display = "block";
+        $("#lastOrder").css("display", "none");
+        $("#loginForm").css("display", "block");
     }
+}
+
+function showCart(){
+	//console.log($("#cart").children("ul").length > 0);
+	if($("#cart").children("ul").length > 0){
+		//console.log($("#cart").children("ul"));
+		$("#cart button").show();
+	}
+	else{
+		$("#cart").html("there are no items in your cart!");
+		$("#cart button").hide();
+	}
 }
 
 
@@ -49,8 +62,10 @@ function addToCart(data){
 $("#loginButton").click(function(){
 	
 	var send = new Object();
-	send.username = "";//whatever username is
-	send.password = "";//watever password is;
+	send.username = $("#usernameField").val();//whatever username is
+	send.password = $("#passwordField").val();//watever password is;
+
+	console.log(send);
 
 	$.ajax({
       type: 'POST',
@@ -59,8 +74,48 @@ $("#loginButton").click(function(){
       data: send,
       success: function(data, textStatus, jqXHR){
          console.log(data);
+         localStorage.loginInfo = data;
       },
       error: function(jqXHR, textStatus, errorThrown){
+      	alert("Login invalid!");
+         console.log(jqXHR, textStatus, errorThrown);
+      }
+   });
+	window.location.reload();
+
+
+});
+
+$("#checkoutButton").click(function(){
+	window.location.href = "checkout.html";
+
+});
+
+$("#createAccountButton").click(function(){
+	$("#loginForm").hide();
+	$("#createAccountForm").show();
+});
+
+$("#createAccountSubmitButton").click(function(){
+	var send = new Object();
+	send.firstName = $("#firstNameField").val();
+	send.lastName = $("#lastNameField").val();
+	send.username = $("#userNameField").val();
+	send.password = $("#passwordField").val();
+
+	console.log(send);
+
+	$.ajax({
+      type: 'POST',
+      url: rootURL+"/createAccount",
+      dataType: "json", // data type of response
+      data: send,
+      success: function(data, textStatus, jqXHR){
+         console.log(data);
+         localStorage.loginInfo = data;
+      },
+      error: function(jqXHR, textStatus, errorThrown){
+      	alert("Account invalid!");
          console.log(jqXHR, textStatus, errorThrown);
       }
    });

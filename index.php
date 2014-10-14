@@ -16,15 +16,15 @@ $app->get('/addBurger', 'addBurger'); //K add burger to the foodOrder table, it 
 $app->get('/getRecentOrder', 'getRecentOrder'); //M get the most recent order from the the table and return it with price 
 $app->get('/getCart', 'getCart'); //M get everything in the order table that is not yet checked out, return JSON
 $app->get('/getPaymentInfo', 'getPaymentInfo'); //B public 
-$app->get('/logOut', 'logOut'); //end session and log out user 
+// $app->get('/lgetlogOut', 'logOut'); //end session and log out user 
+// $app->get('/deleteOrder', 'deleteOrder'); //delete item no longer in cart
 
-
-$app->post('/loginIn', 'validateLogin'); //K remeber to set the user value 
+$app->post('/login', 'validateLogin'); //K remeber to set the user value 
 // $app->post('/createAccount', 'createAccount'); //N remeber to set the user value, udate table with new user info
 $app->post('/addPaymentInfo', 'addPaymentInfo'); //N add payment info to the table 
 
 // $app->put('/checkOut/:id', 'updateCheckedOut'); //B checked out update variables 
- $app->get('/deleteOrder/:orderID', 'deleteOrder'); //delete item no longer in cart
+
 
 $app->run();
 
@@ -101,20 +101,26 @@ function getRecentOrder() { //get the most recent order from that user but also 
     $rows = array();
 
     $q1 = "select max(orderID) as orderID from foodOrders where username= '".$user."'";
-    $orderID = mysqli_query($mysqli, $q1);
+    $orderID = mysqli_query($mysqli, $q1); 
 
-   while ($r = mysqli_fetch_assoc($orderID)) //find the max orderID and increment it
+    while($r = mysqli_fetch_assoc($orderID)) 
+   	{
+   	 	$rows[] = $r;
+   	}
+
+   	while ($r = mysqli_fetch_assoc($orderID)) //find the max orderID and increment it
     { 
         $orderID = $r["orderID"];
     }
-    $query = "select name from foodOrders where inCart = 0 and orderID ='".$orderID."'";
+
+	$query = "select name from foodOrders where inCart = 0 and orderID =.$orderID.";
 
     $result = mysqli_query($mysqli, $query);
     
-   while($r = mysqli_fetch_assoc($result)) 
-   {
-    $rows[] = $r;
-   }
+   	while($r = mysqli_fetch_assoc($result)) 
+   	{
+   	 $rows[] = $r;
+   	}
     
     $q1 = "select sum(price) from foodOrders natural join food where inCart = 0 and orderID ='".$orderID."'";
     $tp = mysqli_query($mysqli, $q1);
@@ -131,26 +137,25 @@ function getRecentOrder() { //get the most recent order from that user but also 
 
 
 
-function getCart() { //get items in the cart that is not checked out
+function getCart() { //get items in the cart that are not checked out
+	
     global $user;
-    $mysqli = getConnection(); 
+    $connection = getConnection(); 
     $rows = array();
     //get the order that has not yet been checked out 
+
     $query = "select name, type from foodOrders where inCart and username ='".$user."' order by orderID";
 
-    $result = mysqli_query($mysqli, $query);
-    //echo $result;
+
+    $result = mysqli_query($connection, $query);
+
+   	while($r = mysqli_fetch_assoc($result)) 
+   	{
+   	 	$rows[] = $r;
+   	}
     
-   while($r = mysqli_fetch_assoc($result)) 
-   {
-       
-       
-       
-    $rows[] = $r;
-   }
-    
-    $q1 = "select sum(price) from foodOrders natural join food where inCart = '1' and username ='".$user."' group by orderID";
-    $tp = mysqli_query($mysqli, $q1);
+    $q1 = "select sum(price) from foodOrders natural join food where inCart = '1' and username ='".$user."'";
+    $tp = mysqli_query($connection, $q1);
     
     while ($r = mysqli_fetch_assoc($tp)) 
     {
@@ -158,13 +163,11 @@ function getCart() { //get items in the cart that is not checked out
     }
 
     echo json_encode($rows);
-    mysqli_close($mysqli);
+    mysqli_close($connection);
  } //getCart end 
 
-
 function getPaymentInfo() { //return the different types of cards 
-    $mysqli = getConnection();    
-    $rows = array();
+    $mysqli = getConnection();     $rows = array();
     $query = "select typeOfCard from paymentInfo where username = '".$user."'";
     $result = mysql_query($query);
 
@@ -178,6 +181,7 @@ function getPaymentInfo() { //return the different types of cards
     mysql_close($mysqli);
 } //end
 
+<<<<<<< HEAD
 function logOut(){
     global $user = "";
     echo true;
@@ -199,3 +203,5 @@ function addPaymentInfo()
     global $user;
     $mysqli = getConnection();
 }
+=======
+>>>>>>> FETCH_HEAD
