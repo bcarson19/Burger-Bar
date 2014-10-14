@@ -79,7 +79,7 @@ function validateLogin() { //this is done
     $username = $loginInfo['username'];
     $password = $loginInfo['password'];
     $sql = "SELECT username, firstname, lastname, email FROM USERS WHERE username ='".$username."' AND pw ='".$password."'";
-    $result = mysql_query($query);
+    $result = mysql_query($sql);
     
     if (mysql_num_rows($result) == 0)
     {
