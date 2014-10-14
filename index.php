@@ -19,7 +19,7 @@ $app->get('/getPaymentInfo', 'getPaymentInfo'); //B public
 // $app->get('/lgetlogOut', 'logOut'); //end session and log out user 
 // $app->get('/deleteOrder', 'deleteOrder'); //delete item no longer in cart
 
-$app->post('/loginIn', 'validateLogin'); //K remeber to set the user value 
+$app->post('/login', 'validateLogin'); //K remeber to set the user value 
 // $app->post('/createAccount', 'createAccount'); //N remeber to set the user value, udate table with new user info
 // $app->post('/addPaymentInfo', 'addPaymentInfo'); //N add payment info to the table 
 

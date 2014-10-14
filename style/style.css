@@ -10,7 +10,7 @@ body{
 	margin: 10px;
 }
 
-#login {
+#loginForm {
         width: 20%;
         text-align: right;
         float: left;
@@ -116,6 +116,20 @@ font-size:120%;
 	border-radius: 5px;
 }
 
+#loginForm *{
+	display: block;
+}
+
+#loginForm li{
+	padding: 3px;
+}
+
+#loginForm input{
+	width: 80%;
+	font-size: 100%;
+	border-radius: 5px;
+	border: none;
+}
 
 
 

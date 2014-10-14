@@ -7,15 +7,15 @@ changeLoginOrRecent();
 function changeLoginOrRecent(){
     if (localStorage.username) {
     	console.log("username exists"); //display recent order
-        document.getElementById("login").style.display = "none";
-        document.getElementById("lastOrder").style.display = "block";
+        $("#lastOrder").css("display", "block");
+        $("#loginForm").css("display", "none");
 
 
     }
     else {
     	console.log("no username"); //display Login screen
-        document.getElementById("lastOrder").style.display = "none";
-        document.getElementById("login").style.display = "block";
+        $("#lastOrder").css("display", "none");
+        $("#loginForm").css("display", "block");
     }
 }
 
@@ -49,8 +49,10 @@ function addToCart(data){
 $("#loginButton").click(function(){
 	
 	var send = new Object();
-	send.username = "";//whatever username is
-	send.password = "";//watever password is;
+	send.username = $("#usernameField").val();//whatever username is
+	send.password = $("#passwordField").val();//watever password is;
+
+	console.log(send);
 
 	$.ajax({
       type: 'POST',
