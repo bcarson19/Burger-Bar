@@ -88,7 +88,7 @@ body{
 }
 
 .orderList ul {
-	background-color: #90FFDD; /*teal*/
+	background-color: #8ae383; /*teal*/
 	border: 2px #5C2B31 solid; /*Burgundy*/
 	margin: 3px;
 	border-radius: 5px;
@@ -110,7 +110,7 @@ font-size:120%;
 }
 
 #content > div div{
-	background-color: #90FFDD; /*teal*/
+	background-color: #8ae383; /*teal*/
 	border: 2px #5C2B31 solid; /*Burgundy*/
 	margin: 3px;
 	border-radius: 5px;

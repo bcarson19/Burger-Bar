@@ -48,8 +48,6 @@ function addToCart(data){
 			$("#"+order + " ."+k).append("<li>"+ v +"</li>");
 		});
 	}
-
-
 }
 
 $('#checkoutButton').click(function(){

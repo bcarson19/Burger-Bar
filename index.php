@@ -29,7 +29,7 @@ $app->post('/loginIn', 'validateLogin'); //K remeber to set the user value
 $app->run();
 
 function getConnection() {
-	$dbConnection = new mysqli("localhost", "root", "", "DBBurger"); //put in your password
+	$dbConnection = new mysqli("localhost", "root", "root", "DBBurger"); //put in your password
   // Check mysqli connection
   if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
