@@ -155,7 +155,7 @@ function getCart() { //get items in the cart that are not checked out
    	 	$rows[] = $r;
    	}
     
-    $q1 = "select sum(price) from foodOrders natural join food where inCart = '1' and username ='".$user."'";
+    $q1 = "select sum(price) from foodOrders natural join food where inCart = '1' and username ='".$user."' group by orderID";
     $tp = mysqli_query($connection, $q1);
     
     while ($r = mysqli_fetch_assoc($tp)) 
@@ -182,7 +182,6 @@ function getPaymentInfo() { //return the different types of cards
     mysql_close($mysqli);
 } //end
 
-<<<<<<< HEAD
 function logOut(){
     global $user = "";
     echo true;
@@ -204,5 +203,4 @@ function addPaymentInfo()
     global $user;
     $mysqli = getConnection();
 }
-=======
->>>>>>> FETCH_HEAD
+
