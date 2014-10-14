@@ -198,7 +198,8 @@ function getPaymentInfo() { //return the different types of cards
 } //end
 
 function logOut(){
-    global $user = "";
+    global $user; 
+    $user = "";
     echo true;
     
 }
