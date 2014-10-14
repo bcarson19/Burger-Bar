@@ -27,21 +27,23 @@ function getCart(){
 
 function addToCart(data){
 
+	console.log(data.length);
 	$("#orderSummary").append("<ul id='orderList'");
 
-	for (var i = data.length; i >= 0; i--) {
+	for(var i =0; i<data.length; i++){
 
-		var list = "<ul id='order" + j + "'></ul>";
+		var list = "<ul id='order" + i + "'></ul>";
 		var burger = "<ul class='burger'></ul>";
 		var topping = "<ul class='topping'></ul>";
 		var bun = "<ul class='bun'></ul>";
 		var sauces = "<ul class='sauces'></ul>";
 		var cheese = "<ul class='cheese'></ul>";
 
-		list.append(burger).append(topping).append(bun).append(sauces).append(cheese);
+		$("#order"+i).append(burger).append(topping).append(bun).append(sauces).append(cheese);
 
-		$('$orderList').append(list);
+		$('#orderList').append(list);
 
+		console.log(data[i]);
 		$.each(data[i], function(k,v){
 			alert(k + "  " + v);
 			var order = "order"+j;
