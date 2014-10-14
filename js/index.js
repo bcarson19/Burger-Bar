@@ -20,6 +20,32 @@ function changeLoginOrRecent(){
 }
 
 
+function addToCart(data){
+
+	$("#orderSummary").append("<ul id='orderList'");
+
+	for (var i = data.length; i >= 0; i--) {
+
+		var list = "<ul id='order" + j + "'></ul>";
+		var burger = "<ul class='burger'></ul>";
+		var topping = "<ul class='topping'></ul>";
+		var bun = "<ul class='bun'></ul>";
+		var sauces = "<ul class='sauces'></ul>";
+		var cheese = "<ul class='cheese'></ul>";
+
+		list.append(burger).append(topping).append(bun).append(sauces).append(cheese);
+
+		$('$orderList').append(list);
+
+		$.each(data[i], function(k,v){
+			alert(k + "  " + v);
+			var order = "order"+j;
+			$("#"+order + " ."+k).append("<li>"+ v +"</li>");
+		});
+	}
+}
+
+
 $("#loginButton").click(function(){
 	
 	var send = new Object();
