@@ -39,7 +39,7 @@ body{
 #cart{
 	float: left;
 	width: 20%;
-	height: 200px;
+	height: auto;
 	background-color: #568999; /*grayish blue*/
 	border: solid black;
 	border-radius: 10px;
@@ -54,6 +54,10 @@ body{
 
 #makeOrder form div input {
 	margin-left: 40px;
+}
+
+#makeOrder form {
+	padding: 2em;
 }
 
 #userInfo{
@@ -137,6 +141,11 @@ font-size:120%;
 	border: none;
 }
 
+.leftColumn ul {
+	padding-bottom: 2em;
+	padding-top: 1em;
+}
+
 #createAccountForm {
 	float: left;
 	width: 20%;
@@ -147,4 +156,7 @@ font-size:120%;
 	display: none;
 }
 
+#cart p {
+	padding: 3em;
+}
 
