@@ -58,14 +58,19 @@ function addToCart(data){
 	}
 }
 
-
+//to login
 $("#loginButton").click(function(){
 	
 	var send = new Object();
-	send.username = $("#usernameField").val();//whatever username is
-	send.password = $("#passwordField").val();//watever password is;
+	var username = $("#usernameField").val();//whatever username is
+	var password = $("#passwordField").val();//watever password is;
+
+	send = {"username": username, "password": password};
+	send = JSON.stringify(send);
 
 	console.log(send);
+
+	send = jQuery.parseJSON(send);
 
 	$.ajax({
       type: 'POST',
@@ -86,16 +91,21 @@ $("#loginButton").click(function(){
 
 });
 
+
+//to go to checkout screen
 $("#checkoutButton").click(function(){
 	window.location.href = "checkout.html";
 
 });
 
+//to show create account form
 $("#createAccountButton").click(function(){
 	$("#loginForm").hide();
 	$("#createAccountForm").show();
 });
 
+
+//To create account
 $("#createAccountSubmitButton").click(function(){
 	var send = new Object();
 	send.firstName = $("#firstNameField").val();
