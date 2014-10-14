@@ -40,7 +40,7 @@ function addToCart(data){
 		$.each(data[i], function(k,v){
 			alert(k + "  " + v);
 			var order = "order"+j;
-			$("#"+order + " ."+k).append("<li>"+ v +"</li>");
+			$("#"+order + "> li ."+k).append("<li>"+ v +"</li>");
 		});
 	}
 }
