@@ -74,15 +74,51 @@ $("#loginButton").click(function(){
       data: send,
       success: function(data, textStatus, jqXHR){
          console.log(data);
+         localStorage.loginInfo = data;
       },
       error: function(jqXHR, textStatus, errorThrown){
+      	alert("Login invalid!");
          console.log(jqXHR, textStatus, errorThrown);
       }
    });
+	window.location.reload();
+
+
 });
 
 $("#checkoutButton").click(function(){
 	window.location.href = "checkout.html";
+
+});
+
+$("#createAccountButton").click(function(){
+	$("#loginForm").hide();
+	$("#createAccountForm").show();
+});
+
+$("#createAccountSubmitButton").click(function(){
+	var send = new Object();
+	send.firstName = $("#firstNameField").val();
+	send.lastName = $("#lastNameField").val();
+	send.username = $("#userNameField").val();
+	send.password = $("#passwordField").val();
+
+	console.log(send);
+
+	$.ajax({
+      type: 'POST',
+      url: rootURL+"/createAccount",
+      dataType: "json", // data type of response
+      data: send,
+      success: function(data, textStatus, jqXHR){
+         console.log(data);
+         localStorage.loginInfo = data;
+      },
+      error: function(jqXHR, textStatus, errorThrown){
+      	alert("Account invalid!");
+         console.log(jqXHR, textStatus, errorThrown);
+      }
+   });
 
 });
 

@@ -11,14 +11,32 @@
 <body>
 
 	<div id="content">
-                <div id="loginForm">
-                    <ul>
-                        <li><input type="text" name="username" placeholder=" Enter username" id="usernameField"></li>
-                        <li><input type="password" name="password" placeholder=" Enter password" id="passwordField"></li>
-                        <li><button value="Login" id="loginButton">Login!</button></li>
-                    </ul>
-                </div>
-		<div id="lastOrder">
+
+		<!--  Show when not logged in -->
+        <div id="loginForm" class="leftColumn">
+            <ul>
+                <li><input type="text" name="username" placeholder=" Enter username" id="usernameField"></li>
+                <li><input type="password" name="password" placeholder=" Enter password" id="passwordField"></li>
+                <li>
+                 	<button value="Login" id="loginButton">Login</button>
+                   	<button value="createAccount" id="createAccountButton">Create Account</button>
+                </li>
+            </ul>
+        </div>
+
+        <!--  Show when "create account" button pressed  -->
+        <div id="createAccountForm" class="leftColumn">
+            <ul>
+                <li><input type="text" name="first name" placeholder=" First name" id="firstNameField"></li>
+                <li><input type="text" name="last name" placeholder=" Last name" id="lastNameField"></li>
+                <li><input type="text" name="username" placeholder=" Username" id="userNameField"></li>
+                <li><input type="password" name="password" placeholder=" Enter password" id="passwordField"></li>
+                <li><button value="createAccount" id="createAccountSubmitButton">Create Account!</button></li>
+            </ul>
+        </div>
+
+        <!--  Show when logged in  -->
+		<div id="lastOrder" class="leftColumn">
 			<ul class="orderList">
 				<ul id="order1">
 					Sample order
@@ -35,6 +53,9 @@
 				</ul>
 			</ul>
 		</div>
+
+
+
 		<div id="makeOrder">
 			make order - select ingredients
 			<form>
@@ -93,6 +114,9 @@
 			</form>
 			
 		</div>
+
+
+
 		<div id="cart">
 			<button id="checkoutButton">Checkout!</button>
 			
