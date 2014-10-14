@@ -161,7 +161,7 @@ function getCart() { //get items in the cart that are not checked out
     $rows = array();
     //get the order that has not yet been checked out 
 
-    $query = "select name, type from foodOrders where inCart and username ='".$user."' order by orderID";
+    $query = "select name, type from foodOrders natural join food where inCart and username ='".$user."' order by orderID";
 
 
     $result = mysqli_query($connection, $query);
