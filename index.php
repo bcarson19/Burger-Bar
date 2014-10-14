@@ -16,15 +16,15 @@ $app->get('/addBurger', 'addBurger'); //K add burger to the foodOrder table, it 
 $app->get('/getRecentOrder', 'getRecentOrder'); //M get the most recent order from the the table and return it with price 
 $app->get('/getCart', 'getCart'); //M get everything in the order table that is not yet checked out, return JSON
 $app->get('/getPaymentInfo', 'getPaymentInfo'); //B public 
-// $app->get('/lgetlogOut', 'logOut'); //end session and log out user 
-// $app->get('/deleteOrder', 'deleteOrder'); //delete item no longer in cart
+$app->get('/logOut', 'logOut'); //end session and log out user 
+
 
 $app->post('/loginIn', 'validateLogin'); //K remeber to set the user value 
 // $app->post('/createAccount', 'createAccount'); //N remeber to set the user value, udate table with new user info
 // $app->post('/addPaymentInfo', 'addPaymentInfo'); //N add payment info to the table 
 
 // $app->put('/checkOut/:id', 'updateCheckedOut'); //B checked out update variables 
-
+ $app->get('/deleteOrder/:orderID', 'deleteOrder'); //delete item no longer in cart
 
 $app->run();
 
@@ -145,7 +145,7 @@ function getCart() { //get items in the cart that is not checked out
     $mysqli = getConnection(); 
     $rows = array();
     //get the order that has not yet been checked out 
-    $query = "select name from foodOrders where inCart and username ='".$user."'";
+    $query = "select name from foodOrders where inCart and username ='".$user."' order by orderID";
 
     $result = mysqli_query($mysqli, $query);
     //echo $result;
@@ -155,7 +155,7 @@ function getCart() { //get items in the cart that is not checked out
     $rows[] = $r;
    }
     
-    $q1 = "select sum(price) from foodOrders natural join food where inCart = '1' and username ='".$user."'";
+    $q1 = "select sum(price) from foodOrders natural join food where inCart = '1' and username ='".$user."' group by orderID";
     $tp = mysqli_query($mysqli, $q1);
     
     while ($r = mysqli_fetch_assoc($tp)) 
@@ -169,7 +169,8 @@ function getCart() { //get items in the cart that is not checked out
 
 
 function getPaymentInfo() { //return the different types of cards 
-    $mysqli = getConnection();     $rows = array();
+    $mysqli = getConnection();    
+    $rows = array();
     $query = "select typeOfCard from paymentInfo where username = '".$user."'";
     $result = mysql_query($query);
 
@@ -183,3 +184,18 @@ function getPaymentInfo() { //return the different types of cards
     mysql_close($mysqli);
 } //end
 
+function logOut(){
+    global $user = "";
+    echo true;
+    
+}
+
+function deleteOrder($orderID){
+    
+    global $user;
+    $mysqli = getConnection(); 
+    $query = "delete from foodOrders where  orderID ='".$orderID."'";
+    mysqli_query($mysqli, $query);
+    mysqli_close($mysqli);
+    
+}
