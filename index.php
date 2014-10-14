@@ -98,16 +98,16 @@ function validateLogin() { //this is done
 //        return true;
 //        exit;
 //    }
-    } 
-    catch(PDOException $e) 
-    {
-        echo $request;
-        echo $username;
-        echo $loginInfo;
-        echo $password;
-	echo '{"error":{"text":' . "\"" . $e->getMessage() . "\"" . '}}'; 
-	}
-    	
+//    } 
+//    catch(PDOException $e) 
+//    {
+//        echo $request;
+//        echo $username;
+//        echo $loginInfo;
+//        echo $password;
+//	echo '{"error":{"text":' . "\"" . $e->getMessage() . "\"" . '}}'; 
+//	}
+//    	
 }
 
 
