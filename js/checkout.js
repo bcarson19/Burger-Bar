@@ -1,18 +1,20 @@
 console.log("in checkout js");
 var rootURL = "http://localhost:8888/Burger-Bar/index.php";
 
-$(document).ready(function(){
+getCart();
+
+function getCart(){
 	
+	/*
 	var send = new Object();
 	send.username = "Tom";
 	send.password = "password";
-
+	*/
 
 	$.ajax({
-      type: 'POST',
-      url: rootURL+"/loginIn",
+      type: 'GET',
+      url: rootURL+"/getCart",
       dataType: "json", // data type of response
-      data: send,
       success: function(data, textStatus, jqXHR){
          console.log(data);
       },
@@ -20,8 +22,7 @@ $(document).ready(function(){
          console.log(jqXHR, textStatus, errorThrown);
       }
    });
-
-});
+}
 
 $('#checkoutButton').click(function(){
 	var send = new Object();
