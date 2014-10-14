@@ -83,11 +83,12 @@ function validateLogin() { //this is done
     
     if (mysql_num_rows($result) == 0)
     {
-
+        return false;
         exit;
     }
     else
     {
+        return true;
         exit;
     }
     	
