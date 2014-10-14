@@ -75,16 +75,19 @@ function validateLogin() { //this is done
     $mysqli = getConnection(); //establish connection
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
+    echo $request;
+    
     $loginInfo = json_decode($request, true);
+    
     $username = $loginInfo['username'];
     $password = $loginInfo['password'];
+   
     $sql = "SELECT username, firstname, lastname, email FROM USERS WHERE username ='".$username."' AND pw ='".$password."'";
     $result = mysql_query($sql);
     
     if (mysql_num_rows($result) == 0)
     {
-        return false;
-        exit;
+        echo '{"error":{"text": "Login Info was not set" }}'; 
     }
     else
     {
