@@ -16,8 +16,9 @@ $app->get('/addBurger', 'addBurger'); //K add burger to the FoodOrder table, it 
 $app->get('/getRecentOrder', 'getRecentOrder'); //M get the most recent order from the the table and return it with price 
 $app->get('/getCart', 'getCart'); //M get everything in the order table that is not yet checked out, return JSON
 $app->get('/getPaymentInfo', 'getPaymentInfo'); //B public 
- $app->get('/getlogOut', 'logOut'); //end session and log out user 
-// $app->get('/deleteOrder', 'deleteOrder'); //delete item no longer in cart
+$app->get('/getlogOut', 'logOut'); //end session and log out user 
+
+//$app->get('/deleteOrder', 'deleteOrder'); //delete 
 
 $app->get('/startOrder', 'startOrder'); //B public 
 
@@ -224,7 +225,7 @@ function getCart() { //get items in the cart with the most recent order, gets th
     //get the burger id for every burger in cart
     $sql = "select burgerID from burger where orderID = (select max(orderID) from burger);"; //get the BurgerIDs corresponding to this order
     $result = mysqli_query($con, $sql); 
-     $result = mysqli_query($con, $query);
+ 
 
         while($r = mysqli_fetch_assoc($result)) 
         {
