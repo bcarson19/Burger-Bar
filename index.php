@@ -147,7 +147,7 @@ function getRecentOrder() { //get the most recent order from that user but also 
     
     if (mysqli_num_rows($result) == 0)
     {
-        echo '{"error":{"text": "You have no recent orders }}';
+        echo '{"error":{"text": "You have no recent orders" }}';
         exit;
     }
     
@@ -208,7 +208,7 @@ function getCart() { //get items in the cart with the most recent order, gets th
     
     //GETCART 
 
-    $sql = "select name, type from BurgerDetail natural join Food natural join burger where orderID = (select max(orderID) from burger)";
+    $sql = "select name, type from BurgerDetail natural join Food natural join burger where orderID = (select max(orderID) from burger) and username = '".$user."')";
 
 
  	$result= $mysqli->query($sql);
@@ -220,10 +220,8 @@ function getCart() { //get items in the cart with the most recent order, gets th
         echo '{"error":{"text": "Your cart is empty" }}';
         exit;
     }
-    else 
-    {
-        echo '{"error":{"text": "Ysomething else is wring" }}';
-    }
+
+    
    	while($r = mysqli_fetch_assoc($result)) 
    	{
    		$rows[] = $r;
