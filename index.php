@@ -87,10 +87,11 @@ function validateLogin() { //this is done
    $sql = "SELECT username, firstname, lastname, email FROM USERS WHERE username ='".$username."' AND pw ='".$password."'";
    echo $sql;
 
-   $result = $mysqli->query($sql);
+   $result= mysqli_query($con, $sql);
    try 
    {
 			
+
    if (mysqli_num_rows($result) == 0)
    {  
        echo '{"error":{"text": "Login Info was not set" }}'; 
@@ -103,15 +104,6 @@ function validateLogin() { //this is done
        return true;
        exit;
    }
-   } 
-   catch(PDOException $e) 
-   {
-       echo $request;
-       echo $username;
-       echo $loginInfo;
-       echo $password;
-	   echo '{"error":{"text":' . "\"" . $e->getMessage() . "\"" . '}}'; 
-	}
    	
 }
 
