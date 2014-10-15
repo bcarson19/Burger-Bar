@@ -20,7 +20,7 @@ body{
 #lastOrder{
 	float: left;
 	width: 20%;
-	height: 200px;
+	height: auto;
 	background-color: #568999; /*grayish blue*/
 	border: solid black;
 	border-radius: 10px;
@@ -51,6 +51,7 @@ body{
 	margin: 3px;
 	border-radius: 5px;
 }
+
 
 #makeOrder form div input {
 	margin-left: 40px;
@@ -142,7 +143,7 @@ font-size:120%;
 }
 
 .leftColumn ul {
-	padding-bottom: 2em;
+	padding-bottom: 1em;
 	padding-top: 1em;
 }
 
@@ -166,5 +167,10 @@ font-size:120%;
 
 #makeOrder li{
 	padding: 10px;
+}
+
+#lastOrder ul ul{
+	float: left;
+	width: 60%;
 }
 

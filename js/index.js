@@ -84,7 +84,7 @@ $("#loginButton").click(function(){
          console.log(jqXHR, textStatus, errorThrown);
       }
    });
-	//window.location.reload();
+	window.location.reload();
 
 
 });
@@ -123,7 +123,6 @@ $("#createAccountSubmitButton").click(function(){
          localStorage.loginInfo = data;
       },
       error: function(jqXHR, textStatus, errorThrown){
-      	alert("Account invalid!");
          console.log(jqXHR, textStatus, errorThrown);
       }
    });
