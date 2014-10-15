@@ -27,7 +27,7 @@ function showCart(){
       dataType: "json", // data type of response
       success: function(data, textStatus, jqXHR){
          console.log(data);
-         addToCart( $("#cart") ,data);
+         //addToCart( $("#cart") ,data);
          /*for(var i=0; i<data.length; i++){
          	console.log(data[i].name + "  " + data[i].type);
          }*/
@@ -82,6 +82,8 @@ function addToCart(addTo, data){
 
 //to login
 $("#loginButton").click(function(){
+
+	alert("about to run login");
 	
 	var send = new Object();
 	var username = $("#usernameField").val();//whatever username is
@@ -106,7 +108,7 @@ $("#loginButton").click(function(){
          console.log(jqXHR, textStatus, errorThrown);
       }
    });
-	window.location.reload();
+	//window.location.reload();
 
 
 });

@@ -109,11 +109,11 @@ function validateLogin() { //this is done
     $username = $loginInfo['username'];
     $password = $loginInfo['password'];
 
-    echo $username;
-    echo $password;
+    //echo $username;
+    //echo $password;
   
    $sql = "SELECT username, firstname, lastname, email FROM USERS WHERE username ='".$username."' AND pw ='".$password."'";
-   echo $sql;
+   //echo $sql;
 
    $result= $mysqli->query($sql);
 
@@ -212,6 +212,8 @@ function getCart() { //get items in the cart with the most recent order, gets th
 
 
  	$result= $mysqli->query($sql);
+
+  echo $sql;
     
     if (mysqli_num_rows($result) == 0)
     {
