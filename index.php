@@ -112,8 +112,10 @@ function validateLogin() { //this is done
    }
    else
    {
+        $user = $username;
+       startOrder();
        echo $request;
-       $user = $username;
+      
    }
    	
 }
@@ -178,7 +180,7 @@ function getCart() { //get items in the cart with the most recent order, gets th
     $rows = array();
     $quantities = array();
     $prices = array();
-    $TP = array();
+    $burgerID = array();
     
     
     //GETCART 
@@ -218,8 +220,20 @@ function getCart() { //get items in the cart with the most recent order, gets th
 
     	$prices['totalPrice'] = $prices['totalPrice'] + $price;
    	}
+    
+    //get the burger id for every burger in cart
+    $sql = "select burgerID from burger where orderID = (select max(orderID) from burger);"; //get the BurgerIDs corresponding to this order
+    $result = mysqli_query($con, $sql); 
+     $result = mysqli_query($con, $query);
+
+        while($r = mysqli_fetch_assoc($result)) 
+        {
+            $burgerID['burgerID'] = $r;
+        }
+    
 	$rows['prices'] = $prices;
 	$rows['quantities'] = $quantities;
+    $rows['burgerID'] = $burgerID;
    
 	echo json_encode($rows);
 
