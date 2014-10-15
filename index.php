@@ -106,69 +106,150 @@ function validateLogin() { //this is done
 
 function getRecentOrder() { //get the most recent order from that user but also get the price 
     global $user;
-    $mysqli = getConnection();     
-    
+    $con = getConnection();     
     $rows = array();
+    $quantities = array();
+    $prices = array();
+    $TP = array();
+ 
+//get content of recent order 
 
-    $q1 = "select max(orderID) as orderID from foodOrders where username= '".$user."'";
-    $orderID = mysqli_query($mysqli, $q1); 
-
-   	$r = mysqli_fetch_row($orderID); //find the max orderID and increment it
-    $orderID = $r[0];
-
-	$query = "select name, type from foodOrders natural join food where inCart = 0 and orderID ='".$orderID."'";
-
-    $result = mysqli_query($mysqli, $query);
-    
-   	while($r = mysqli_fetch_assoc($result))
+$sql = "select name, type from BurgerDetail natural join food natural join burger where orderID = (select recentorder from users where username = '".$user."')";
+$result = mysqli_query($con, $sql); 
+   	while($r = mysqli_fetch_assoc($result)) 
    	{
-   	 $rows[] = $r;
+         $rows[] = $r;
+   	 //$rows[$r[1]] = $r[0];
    	}
-    
-    $q1 = "select sum(price) from foodOrders natural join food where inCart = 0 and orderID ='".$orderID."'";
-    $tp = mysqli_query($mysqli, $q1);
-    
-    while ($r = mysqli_fetch_assoc($tp))
+
+//get quantity of each of the burgers 
+$sql = "select quantity from burgerdetail natural join food natural join burger where orderID = (select recentorder from users where username = '".$user."') group by burgerID";
+
+$result = mysqli_query($con, $sql); 
+$counter = 1;
+   	while($r = mysqli_fetch_array($result)) 
+   	{
+        $quantities[$counter] = $r[0];
+        $counter = $counter + 1;
+   	}
+//echo json_encode($quantities);
+
+//get the price of each of the orders 
+$counter = 1;
+$sql = "select sum(price) from burgerdetail natural join food natural join burger where orderID = (select recentorder from users where username = '".$user."') group by burgerID";
+$result = mysqli_query($con, $sql); 
+   	while($r = mysqli_fetch_array($result)) 
+   	{
+    if( $quantities[$counter] > 1)
     {
-        $rows[] = $r;   
+        $prices[$counter] = $r[0] * $quantities[$counter];
+        $price = ($r[0] * $quantities[$counter]);
     }
+        else 
+        {
+            $prices[$counter] = $r[0];
+            $price = $r[0];
+        }        
+        
+    $counter = $counter + 1;
+    $TP[0] = $TP[0] + $price;
+   	}
+$rows['prices'] = $prices;
+$rows['quantities'] = $quantities;
+$rows['priceOfOrder'] = $TP;
     
     echo json_encode($rows);
     mysqli_close($mysqli);
     
 }
 
-function getCart() { //get items in the cart that are not checked out
+function getCart() { //get items in the cart with the most recent order 
 	
     global $user;
     $connection = getConnection(); 
     $rows = array();
-    //get the order that has not yet been checked out 
+    $quantities = array();
+    $prices = array();
+    $TP = array();
+    
+    
+    //GETCART 
 
-    $query = "select name, type from foodOrders natural join food where inCart and username ='".$user."' order by orderID";
+    $sql = "select name, type from burgerdetail natural join food natural join burger where orderID = (select max(orderID) from burger)";
 
-
-    $result = mysqli_query($connection, $query);
-
+//GET THE CONTENT OF THE CART
+ $result = mysqli_query($con, $sql); 
    	while($r = mysqli_fetch_assoc($result)) 
    	{
-   	 	$rows[] = $r;
+   	 $rows[] = $r;
    	}
-    
-    $q1 = "select sum(price) from foodOrders natural join food where inCart = '1' and username ='".$user."' group by orderID";
-    $tp = mysqli_query($connection, $q1);
-    
-    while ($r = mysqli_fetch_assoc($tp)) 
-    {
-        $rows[] = $r;   
-    }
 
-    echo json_encode($rows);
+//get quanity of burger 
+$sql = "select quantity from BurgerDetail natural join food natural join burger where orderID = (select max(orderID) from burger) group by burgerID";
+$counter = 1;
+
+    $result = mysqli_query($con, $sql); 
+    $counter = 1;
+   	while($r = mysqli_fetch_array($result)) 
+   	{
+        $quantities[$counter] = $r[0];
+        $counter = $counter + 1;
+   	}
+
+//get price of everything in order
+$sql = "select sum(price) from BurgerDetail natural join food natural join burger where orderID = (select max(orderID) from burger) group by burgerID";
+$counter = 1;
+$result = mysqli_query($con, $sql); 
+   	while($r = mysqli_fetch_array($result)) 
+   	{
+    if( $quantities[$counter] > 1)
+    {
+        $prices[$counter] = $r[0] * $quantities[$counter];
+        $price = ($r[0] * $quantities[$counter]);
+    }
+        else 
+        {
+            $prices[$counter] = $r[0];
+            $price = $r[0];
+        }        
+        
+    $counter = $counter + 1;
+    $TP[0] = $TP[0] + $price;
+   	}
+$rows['prices'] = $prices;
+$rows['quantities'] = $quantities;
+$rows['priceOfOrder'] = $TP;
+
+   
+echo json_encode($rows);
+
+//    //get the order that has not yet been checked out 
+//
+//    $query = "select name, type from foodOrders natural join food where inCart and username ='".$user."' order by orderID";
+//
+//
+//    $result = mysqli_query($connection, $query);
+//
+//   	while($r = mysqli_fetch_assoc($result)) 
+//   	{
+//   	 	$rows[] = $r;
+//   	}
+//    
+//    $q1 = "select sum(price) from foodOrders natural join food where inCart = '1' and username ='".$user."' group by orderID";
+//    $tp = mysqli_query($connection, $q1);
+//    
+//    while ($r = mysqli_fetch_assoc($tp)) 
+//    {
+//        $rows[] = $r;   
+//    }
+
+// echo json_encode($rows);
     mysqli_close($connection);
  } //getCart end 
 
 function getPaymentInfo() { //return the different types of cards 
-    $mysqli = getConnection();     $rows = array();
+    $mysqli = getConnection();     
+    $rows = array();
     $query = "select typeOfCard from paymentInfo where username = '".$user."'";
     $result = mysql_query($query);
 
@@ -184,6 +265,12 @@ function getPaymentInfo() { //return the different types of cards
 
 function logOut(){
     global $user; 
+    //update the most recent order for that user 
+    if ($user != "")
+    {
+    $sql = "update users set recentorder = (select max(orderID) from foodOrder where username = '".$user."') where username = '".user."'";
+    }
+    
     $user = "";
     echo true;
     

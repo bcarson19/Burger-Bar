@@ -4,12 +4,49 @@
 \paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
 
-\f0\fs24 \cf0 \
-SELECT SUM(price) from FOOD natural join foodOrders WHERE username = "Brandon";\
-select name from foodOrders WHERE username = "Brandon";\
+\f0\fs24 \cf0 HOW TO GET CART\
 \
-select SUM(price) from FOOD natural join foodOrders where orderId = (select MAX(orderID) from foodOrders where username  = "Karoline");\
+select name, type from BurgerDetail natural join food natural join burger where orderID = (select max(orderID) from burger);\
 \
-select name from FOOD natural join foodOrders where orderId = (select MAX(orderID) from foodOrders where username  = "Karoline");\
+total price of cart\
 \
-select typeOfCard from paymentInfo where username = "Karoline";}
+select sum(price) from BurgerDetail natural join food natural join burger where orderID = (select max(orderID) from burger);\
+\
+price pr burger \
+\
+select sum(price) from BurgerDetail natural join food natural join burger where orderID = (select max(orderID) from burger) group by burgerID;\
+\
+multiplied with \
+\
+select quantity from BurgerDetail natural join food natural join burger where orderID = (select max(orderID) from burger) group by burgerID;\
+\
+UPDATE RECENT ORDER\
+DO THIS WHEN CHECKING OUT \
+\
+update users set recentorder = (select max(orderID) from foodOrder where username = "Rolf") where username = "Rolf";\
+\
+\
+GET RECENT ORDER\
+\
+select name, type from BurgerDetail natural join food natural join burger where orderID = (select recentorder from users where username = "Karoline");\
+\
+select sum(price) from BurgerDetail natural join food natural join burger where orderID = (select recentorder from users where username = "Karoline");\
+\
+select sum(price) from burgerdetail natural join food natural join burger where orderID = (select recentorder from users where username = "Karoline") group by burgerID;\
+\
+multiply with \
+\
+select quantity from burgerdetail natural join food natural join burger where orderID = (select recentorder from users where username = "Karoline") group by burgerID;\
+\
+\
+ADD ORDER \
+insert into foodOrder(username) values ("Brandon");\
+\
+ADD BURGER \
+\
+add quantity INSERT INTO burger(orderID, quantity) values ((select max(orderID) from foodOrder where username = "Brandon") ,1);\
+\
+insert into burgerdetail (name, burgerID) values ("turkey", 6);\
+\
+\
+}
