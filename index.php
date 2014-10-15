@@ -78,13 +78,16 @@ function validateLogin() { //this is done
         
     $loginInfo = json_decode($request, true);
 
-    echo var_dump($loginInfo);
-
     $username = $loginInfo['username'];
     $password = $loginInfo['password'];
+
+    echo $username;
+    echo $password;
   
    $sql = "SELECT username, firstname, lastname, email FROM USERS WHERE username ='".$username."' AND pw ='".$password."'";
-   $result = mysqli_query($sql);
+   echo $sql;
+
+   $result = $mysqli->query($sql);
    try 
    {
 			
