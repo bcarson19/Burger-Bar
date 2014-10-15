@@ -265,7 +265,7 @@ function getCart() { //get items in the cart with the most recent order, gets th
     
     //get the orderID for that order
     $sql = "select max(orderID) from burger"; //get the current burgerID
-<<<<<<< HEAD
+
      $result = $mysqli->query($sql); 
     $row = mysqli_fetch_row($result);
     $orderID = $row[0];
