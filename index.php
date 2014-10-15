@@ -216,7 +216,6 @@ function getCart() { //get items in the cart with the most recent order, gets th
    	{
         $prices[$counter] = $r[0] * $quantities[$counter];
         $price = ($r[0] * $quantities[$counter]);       
-        
     	$counter = $counter + 1;
 
     	$prices['totalPrice'] = $prices['totalPrice'] + $price;
@@ -226,39 +225,23 @@ function getCart() { //get items in the cart with the most recent order, gets th
     $sql = "select burgerID from burger where orderID = (select max(orderID) from burger);"; //get the BurgerIDs corresponding to this order
     $result = mysqli_query($con, $sql); 
  
-
-        while($r = mysqli_fetch_assoc($result)) 
-        {
-            $burgerID['burgerID'] = $r;
-        }
+    while($r = mysqli_fetch_assoc($result)) 
+    {
+        $burgerID['burgerID'] = $r;
+    }
+    
+    //get the orderID for that order
+    $sql = "select max(orderID) from burger"; //get the current burgerID
+    $result = mysqli_query($con, $sql); 
+    $row = mysqli_fetch_row($result);
+    $orderID = $row[0];
     
 	$rows['prices'] = $prices;
 	$rows['quantities'] = $quantities;
     $rows['burgerID'] = $burgerID;
+    $rows['orderID'] = $orderID;
    
 	echo json_encode($rows);
-
-//    //get the order that has not yet been checked out 
-//
-//    $query = "select name, type from FoodOrders natural join Food where inCart and username ='".$user."' order by orderID";
-//
-//
-//    $result = mysqli_query($connection, $query);
-//
-//   	while($r = mysqli_fetch_assoc($result)) 
-//   	{
-//   	 	$rows[] = $r;
-//   	}
-//    
-//    $q1 = "select sum(price) from FoodOrders natural join Food where inCart = '1' and username ='".$user."' group by orderID";
-//    $tp = mysqli_query($connection, $q1);
-//    
-//    while ($r = mysqli_fetch_assoc($tp)) 
-//    {
-//        $rows[] = $r;   
-//    }
-
-// echo json_encode($rows);
 	mysqli_close($con);
  } //getCart end 
 
