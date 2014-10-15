@@ -76,8 +76,8 @@ $("#loginButton").click(function(){
       dataType: "json", // data type of response
       data: send,
       success: function(data, textStatus, jqXHR){
-         console.log(data);
-         localStorage.loginInfo = data;
+         //console.log(data['username']);
+         localStorage.username = data['username'];
       },
       error: function(jqXHR, textStatus, errorThrown){
       	alert("Login invalid!");

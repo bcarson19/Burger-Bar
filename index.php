@@ -81,43 +81,25 @@ function validateLogin() { //this is done
     $username = $loginInfo['username'];
     $password = $loginInfo['password'];
 
-    echo $username;
-    echo $password;
+    //echo $username;
+    //echo $password;
   
    $sql = "SELECT username, firstname, lastname, email FROM USERS WHERE username ='".$username."' AND pw ='".$password."'";
-   echo $sql;
+   //echo $sql;
 
-   $result= mysqli_query($con, $sql);
-   try 
-   {
-			
+   $result= $mysqli->query( $sql);
 
    if (mysqli_num_rows($result) == 0)
    {  
        echo '{"error":{"text": "Login Info was not set" }}'; 
-       return false;
    }
    else
    {
-      echo "IN ELSE";
        echo $request;
        $user = $username;
-       return true;
-       exit;
    }
-<<<<<<< HEAD
-   } 
-   catch(PDOException $e) 
-   {
-      echo "IN CATCH";
-       echo $request;
-       echo $username;
-       echo $loginInfo;
-       echo $password;
-	   echo '{"error":{"text":' . "\"" . $e->getMessage() . "\"" . '}}'; 
-	}
-=======
->>>>>>> FETCH_HEAD
+   
+
    	
 }
 
