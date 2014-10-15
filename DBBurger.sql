@@ -39,7 +39,6 @@ CREATE TABLE foodOrders
 CREATE TABLE paymentInfo
 (
 	username	VARCHAR(30),
-	paymentId	INTEGER,
 	cardNumber 	INTEGER,
 	typeOfCard	VARCHAR(30),
 	address 		VARCHAR(30),
@@ -55,8 +54,8 @@ INSERT INTO users VALUES
 	("Tom", "password", "Tom", "Kennedy", "tkennedy@smu.edu");
 
 INSERT INTO paymentInfo VALUES
-	("Karoline", 1, 123456789, "Visa", "3669 Asbury Street", "75205", "Dallas", "7/7/12"),
-	("Karoline", 2, 987654321, "MasterCard", "3669 Asbury Street", "75205", "Dallas", "7/7/12");
+	("Karoline", 123456789, "Visa", "3669 Asbury Street", "75205", "Dallas", "7/7/12"),
+	("Karoline", 987654321, "MasterCard", "3669 Asbury Street", "75205", "Dallas", "7/7/12");
 
 INSERT INTO food(name, id, price, type) VALUES
 ("1/3 lb Beef", 1, 2, "Burger"),

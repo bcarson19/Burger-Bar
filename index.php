@@ -20,7 +20,7 @@ $app->get('/getPaymentInfo', 'getPaymentInfo'); //B public
 // $app->get('/deleteOrder', 'deleteOrder'); //delete item no longer in cart
 
 $app->post('/login', 'validateLogin'); //K remeber to set the user value 
-// $app->post('/createAccount', 'createAccount'); //N remeber to set the user value, udate table with new user info
+$app->post('/createAccount', 'createAccount'); //N remeber to set the user value, udate table with new user info
 $app->post('/addPaymentInfo', 'addPaymentInfo'); //N add payment info to the table 
 
 // $app->put('/checkOut/:id', 'updateCheckedOut'); //B checked out update variables 
@@ -75,39 +75,41 @@ function validateLogin() { //this is done
     $mysqli = getConnection(); //establish connection
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
-    echo $request;
-    
+        
     $loginInfo = json_decode($request, true);
-    
-//    $username = $loginInfo['username'];
-//    $password = $loginInfo['password'];
-//   
-//    $sql = "SELECT username, firstname, lastname, email FROM USERS WHERE username ='".$username."' AND pw ='".$password."'";
-//    $result = mysql_query($sql);
-//    try 
-//    {
-//			
-//    if (mysql_num_rows($result) == 0)
-//    {  
-//        echo '{"error":{"text": "Login Info was not set" }}'; 
-//        return false;
-//    }
-//    else
-//    {
-//        echo $request;
-//        return true;
-//        exit;
-//    }
-//    } 
-//    catch(PDOException $e) 
-//    {
-//        echo $request;
-//        echo $username;
-//        echo $loginInfo;
-//        echo $password;
-//	echo '{"error":{"text":' . "\"" . $e->getMessage() . "\"" . '}}'; 
-//	}
-//    	
+
+    echo var_dump($loginInfo);
+
+    $username = $loginInfo['username'];
+    $password = $loginInfo['password'];
+  
+   $sql = "SELECT username, firstname, lastname, email FROM USERS WHERE username ='".$username."' AND pw ='".$password."'";
+   $result = mysqli_query($sql);
+   try 
+   {
+			
+   if (mysqli_num_rows($result) == 0)
+   {  
+       echo '{"error":{"text": "Login Info was not set" }}'; 
+       return false;
+   }
+   else
+   {
+       echo $request;
+       $user = $username;
+       return true;
+       exit;
+   }
+   } 
+   catch(PDOException $e) 
+   {
+       echo $request;
+       echo $username;
+       echo $loginInfo;
+       echo $password;
+	   echo '{"error":{"text":' . "\"" . $e->getMessage() . "\"" . '}}'; 
+	}
+   	
 }
 
 
@@ -209,6 +211,55 @@ function deleteOrder($orderID){
 function addPaymentInfo()
 {
     global $user;
-    $mysqli = getConnection();
+    $con = getConnection();
+    $app = \Slim\Slim::getInstance();
+    $request = $app->request()->getBody();
+    
+    $paymentInfo = json_decode($request, true); //need to change this when we get it to work
+
+    $TOC = $paymentInfo['typeOfCard'];
+    $CN = $paymenInfo['cardNumber'];
+    $A =$paymenInfo['adress'];
+    $ZC = $paymenInfo['zipCode'];
+    $S = $paymenInfo['state'];
+    $ED = $paymenInfo['expireDate'];
+
+
+    $stmt = $con->prepare("INSERT INTO paymentInfo (username, typeOfCard, cardNumber, adress, zipCode, state, expireDate) VALUES (?,?,?,?,?,?,?)"); 
+    $stmt->bind_param('ssissss', $user, $TOC, $CN, $A, $ZC, $S, $ED);
+    $stmt->execute();
+
 }
 
+
+function createAccount()
+{
+    global $user;
+    $con = getConnection();
+    $app = \Slim\Slim::getInstance();
+    $reuest = $app->request()->getBody();
+    $userInfo = json_decode($request, true);
+    
+    $user = $userInfo['username'];
+    $pw = $userInfo['pw'];
+    $firstname = $userInfo['firstname'];
+    $lastname = $userInfo['lastname'];
+    $email = $userInfo['email'];
+
+    $sql = "SELECT username FROM USERS WHERE username ='".$user."'";
+
+    $result = mysqli_query($con, $sql); 
+	
+    if (mysqli_num_rows($result) != 0)
+    {          
+        echo "username already in use"; 
+        return false;
+    }
+    else
+    {
+        $stmt = $con->prepare("INSERT INTO users (username, pw, firstname, lastname, email) VALUES (?,?,?,?,?)"); 
+        $stmt->bind_param('sssss', $user, $pw, $firstname, $lastname, $email);
+    $stmt->execute();   
+    }
+
+}
