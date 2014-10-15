@@ -215,10 +215,13 @@ function getCart() { //get items in the cart with the most recent order, gets th
     
     if (mysqli_num_rows($result) == 0)
     {
-        echo '{"error":{"text": "Your cart is empty }}';
+        echo '{"error":{"text": "Your cart is empty" }}';
         exit;
     }
-    
+    else 
+    {
+        echo '{"error":{"text": "Ysomething else is wring" }}';
+    }
    	while($r = mysqli_fetch_assoc($result)) 
    	{
    		$rows[] = $r;
@@ -268,7 +271,7 @@ function getCart() { //get items in the cart with the most recent order, gets th
     //get the orderID for that order
     $sql = "select max(orderID) from burger"; //get the current burgerID
 
-     $result = $mysqli->query($sql); 
+    $result = $mysqli->query($sql); 
     $row = mysqli_fetch_row($result);
     $orderID = $row[0];
  
