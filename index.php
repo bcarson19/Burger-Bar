@@ -20,7 +20,7 @@ $app->get('/getPaymentInfo', 'getPaymentInfo'); //B public
 // $app->get('/deleteOrder', 'deleteOrder'); //delete item no longer in cart
 
 $app->post('/login', 'validateLogin'); //K remeber to set the user value 
-// $app->post('/createAccount', 'createAccount'); //N remeber to set the user value, udate table with new user info
+$app->post('/createAccount', 'createAccount'); //N remeber to set the user value, udate table with new user info
 $app->post('/addPaymentInfo', 'addPaymentInfo'); //N add payment info to the table 
 
 // $app->put('/checkOut/:id', 'updateCheckedOut'); //B checked out update variables 
@@ -86,7 +86,7 @@ function validateLogin() { //this is done
    try 
    {
 			
-   if (mysql_num_rows($result) == 0)
+   if (mysqli_num_rows($result) == 0)
    {  
        echo '{"error":{"text": "Login Info was not set" }}'; 
        return false;
@@ -94,6 +94,7 @@ function validateLogin() { //this is done
    else
    {
        echo $request;
+       $user = $username;
        return true;
        exit;
    }
@@ -104,7 +105,7 @@ function validateLogin() { //this is done
        echo $username;
        echo $loginInfo;
        echo $password;
-	echo '{"error":{"text":' . "\"" . $e->getMessage() . "\"" . '}}'; 
+	   echo '{"error":{"text":' . "\"" . $e->getMessage() . "\"" . '}}'; 
 	}
    	
 }
