@@ -207,7 +207,7 @@ function getCart() { //get items in the cart with the most recent order, gets th
     
     //GETCART 
 
-    $sql = "select name, type from BurgerDetail natural join Food natural join burger where orderID = (select max(orderID) from burger where username = '".$user."')";
+    $sql = "select name, type from BurgerDetail natural join Food natural join burger where orderID = (select max(orderID) from burger natural join foodOrder where username = '".$user."')";
 
 
  	$result= $mysqli->query($sql);
