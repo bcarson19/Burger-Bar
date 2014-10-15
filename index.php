@@ -224,18 +224,19 @@ function getCart() { //get items in the cart with the most recent order, gets th
    		$rows[] = $r;
    	}
 
-//get quanity of burger 
+    //get quanity of burger 
+    
 	$sql = "select quantity from BurgerDetail natural join Food natural join burger where orderID = (select max(orderID) from burger) group by burgerID";
 	$counter = 1;
 
     $result = $mysqli->query( $sql); 
 
     $counter = 1;
-   	//while($r = mysqli_fetch_array($result)) 
-   	//{
-      //  $quantities[$counter] = $r[0];
-        //$counter = $counter + 1;
-   	//}
+   	while($r = mysqli_fetch_array($result)) 
+   	{
+        $quantities[$counter] = $r[0];
+        $counter = $counter + 1;
+   	}
 
 //get price of everything in order
 	$sql = "select sum(price) from BurgerDetail natural join Food natural join burger where orderID = (select max(orderID) from burger) group by burgerID";
@@ -244,14 +245,15 @@ function getCart() { //get items in the cart with the most recent order, gets th
 	$result = $mysqli->query($sql); 
 
 	$prices['totalPrice'] = 0;
-   	/*while($r = mysqli_fetch_array($result)) 
+    
+   	while($r = mysqli_fetch_array($result)) 
    	{
         $prices[$counter] = $r[0] * $quantities[$counter];
         $price = ($r[0] * $quantities[$counter]);       
     	$counter = $counter + 1;
 
     	$prices['totalPrice'] = $prices['totalPrice'] + $price;
-   	}*/
+   	}
     
     //get the burger id for every burger in cart
     $sql = "select burgerID from burger where orderID = (select max(orderID) from burger);"; //get the BurgerIDs corresponding to this order
@@ -274,10 +276,10 @@ function getCart() { //get items in the cart with the most recent order, gets th
 	$rows['prices'] = $prices;
 	$rows['quantities'] = $quantities;
     $rows['burgerID'] = $burgerID;
-    $rows['orderID'] = $orderID;*/
+    $rows['orderID'] = $orderID;
    
 	echo json_encode($info);
-	//mysqli_close($con);
+	mysqli_close($mysqli);
  } //getCart end 
 
 function getPaymentInfo() { //return the different types of cards 
