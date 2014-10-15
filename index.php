@@ -10,7 +10,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 $app = new \Slim\Slim(); //using the slim API
-$user = "Karoline";
+$user = "Karoline"; //REMEBER TO REMOVE THIS
 
 $app->get('/addBurger', 'addBurger'); //K add burger to the foodOrder table, it has not yet been checked out 
 $app->get('/getRecentOrder', 'getRecentOrder'); //M get the most recent order from the the table and return it with price 
@@ -19,11 +19,12 @@ $app->get('/getPaymentInfo', 'getPaymentInfo'); //B public
  $app->get('/getlogOut', 'logOut'); //end session and log out user 
 // $app->get('/deleteOrder', 'deleteOrder'); //delete item no longer in cart
 
+$app->get('/startOrder', 'startOrder'); //B public 
+
 $app->post('/login', 'validateLogin'); //K remeber to set the user value 
 $app->post('/createAccount', 'createAccount'); //N remeber to set the user value, udate table with new user info
 $app->post('/addPaymentInfo', 'addPaymentInfo'); //N add payment info to the table 
 
-// $app->put('/checkOut/:id', 'updateCheckedOut'); //B checked out update variables 
 
 
 $app->run();
@@ -38,34 +39,51 @@ function getConnection() {
   return $dbConnection;
 }
 
-function addBurger() {
-    
-    $mysqli = getConnection(); //establish connection
+
+function startOrder()
+{
+    $con = getConnection();
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
+    
+
+    $stmt = "insert into foodOrder(username) values ('".$user."')";
+    mysqli_query($con, $stmt);
+
+    
+}
+function addBurger() {
+
+    $mysqli = getConnection(); //establish connection
+    $app = \Slim\Slim::getInstance();      
+    $request = $app->request()->getBody();
     $order = json_decode($request, true); //decode the request needs a double because it is an JSON array of objects 
-    $bool = 1;
-    $query = "SELECT MAX(orderID) as orderID from foodOrders WHERE username= '".$user."'";
-    $orderID = mysql_query($query);
-    
-   while ($r = mysql_fetch_assoc($orderID)) //find the max orderID and increment it
+
+
+    $quantity = $order['quantity'];
+    unset($order['quantity']); //remove the quantity element before iteration
+
+    //add a burger to the correct oder
+    $sql = $con->prepare("INSERT INTO burger(orderID, quantity) values ((select max(orderID) from foodOrder where username = '".$user."') , ?)");
+    $sql->bind_param('i', $quantity);
+    $sql->execute();
+
+
+    $sql = "select max(burgerID) from burger"; //get the current burgerID
+    $result = mysqli_query($con, $sql); 
+    $row = mysqli_fetch_row($result);
+    $burgerID = $row[0];
+
+
+    $sql = $con->prepare("insert into burgerdetail (name, burgerID) values (?,?)");
+
+    foreach ($order as $item) //add each item to the burgerdetail
     {
-       //echo $r["orderID"];   
-        $orderID = $r["orderID"] +1 ;
-        //echo $orderID;
+        $sql->bind_param('si', $item, $burgerID);
+        $sql->execute();
     }
-    
-   foreach($order as $item) 
-    {
-        foreach ($item as $key => $val)
-        {
-            if ($val != 0) //insert only if that item has been selected 
-            {
-               $query = "INSERT INTO foodOrders (username, orderID, name, inCart) VALUES '".$user."'".$orderID."'".$key."'".$bool."'";
-                mysql_query($query);
-            }
-        }
-   }
+
+
     
     $mysqli->close(); //close instance of mysql 
 } //addBurger 
@@ -98,13 +116,11 @@ function validateLogin() { //this is done
        echo $request;
        $user = $username;
    }
-   
-
    	
 }
 
 
-function getRecentOrder() { //get the most recent order from that user but also get the price 
+function getRecentOrder() { //get the most recent order from that user but also get the price, the most recent order will be the one with the highest orderId because of autoincrement 
     global $user;
     $con = getConnection();     
     $rows = array();
@@ -163,10 +179,10 @@ $rows['priceOfOrder'] = $TP;
     
 }
 
-function getCart() { //get items in the cart with the most recent order 
+function getCart() { //get items in the cart with the most recent order, gets the highest orderId without regard to the user 
 	
     global $user;
-    $connection = getConnection(); 
+    $con = getConnection(); 
     $rows = array();
     $quantities = array();
     $prices = array();
