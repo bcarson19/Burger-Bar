@@ -98,6 +98,7 @@ function validateLogin() { //this is done
    }
    else
    {
+      echo "IN ELSE";
        echo $request;
        $user = $username;
        return true;
@@ -106,6 +107,7 @@ function validateLogin() { //this is done
    } 
    catch(PDOException $e) 
    {
+      echo "IN CATCH";
        echo $request;
        echo $username;
        echo $loginInfo;
