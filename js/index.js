@@ -69,14 +69,14 @@ function addToCart(addTo, data){
 		$("#order"+i).append(burger);
 		//.append(topping).append(bun).append(sauces).append(cheese);
 
-		for(var j=0; j<data.length; j++){
+		/*for(var j=0; j<data.length; j++){
 			console.log(data[j].name + "  " + data[j].type);
 			var food = data[j].name;
 			var type = data[j].type;
 			var order = "order"+i;
 			console.log($("#"+order + "> ."+type));
 			$("#"+order + ">  ."+type).append("<li>"+ food +"</li>");
-		}
+		}*/
 	}
 }
 
@@ -98,7 +98,7 @@ $("#loginButton").click(function(){
       dataType: "json", // data type of response
       data: send,
       success: function(data, textStatus, jqXHR){
-         //console.log(data['username']);
+         console.log(data);
          localStorage.username = data['username'];
       },
       error: function(jqXHR, textStatus, errorThrown){
