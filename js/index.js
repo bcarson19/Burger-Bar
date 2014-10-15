@@ -155,5 +155,10 @@ $("#createAccountSubmitButton").click(function(){
 
 /*Add Burger function starter - Brandon C*/
 $('#addBurger').click(function(){
-console.log("test");
+	var list = $(":checked");
+	for(var i =0; i<list.length; i++){
+		console.log(list[i]["defaultValue"] + "  " + list[i]["name"]);
+	}
+
+	//console.log(list);
 });
