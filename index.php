@@ -228,7 +228,7 @@ function createAccount()
     global $user;
     $con = getConnection();
     $app = \Slim\Slim::getInstance();
-    $reuest = $app->request()->getBody();
+    $request = $app->request()->getBody();
     $userInfo = json_decode($request, true);
     
     $user = $userInfo['username'];
