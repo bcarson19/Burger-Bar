@@ -42,7 +42,7 @@ CREATE TABLE paymentInfo
 	paymentId	INTEGER,
 	cardNumber 	INTEGER,
 	typeOfCard	VARCHAR(30),
-	adress 		VARCHAR(30),
+	address 		VARCHAR(30),
 	zipCode		VARCHAR(30),
 	state		VARCHAR(30),
 	expireDate	VARCHAR(30),
