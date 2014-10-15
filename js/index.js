@@ -70,7 +70,7 @@ $("#loginButton").click(function(){
 
 	console.log(send);
 
-	send = jQuery.parseJSON(send);
+	//send = JSON.stringify(send);
 
 	$.ajax({
       type: 'POST',

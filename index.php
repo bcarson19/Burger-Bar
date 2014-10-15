@@ -75,39 +75,38 @@ function validateLogin() { //this is done
     $mysqli = getConnection(); //establish connection
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
-    echo $request;
-    
+        
     $loginInfo = json_decode($request, true);
-    
-//    $username = $loginInfo['username'];
-//    $password = $loginInfo['password'];
-//   
-//    $sql = "SELECT username, firstname, lastname, email FROM USERS WHERE username ='".$username."' AND pw ='".$password."'";
-//    $result = mysql_query($sql);
-//    try 
-//    {
-//			
-//    if (mysql_num_rows($result) == 0)
-//    {  
-//        echo '{"error":{"text": "Login Info was not set" }}'; 
-//        return false;
-//    }
-//    else
-//    {
-//        echo $request;
-//        return true;
-//        exit;
-//    }
-//    } 
-//    catch(PDOException $e) 
-//    {
-//        echo $request;
-//        echo $username;
-//        echo $loginInfo;
-//        echo $password;
-//	echo '{"error":{"text":' . "\"" . $e->getMessage() . "\"" . '}}'; 
-//	}
-//    	
+
+    $username = $loginInfo['username'];
+    $password = $loginInfo['password'];
+  
+   $sql = "SELECT username, firstname, lastname, email FROM USERS WHERE username ='".$username."' AND pw ='".$password."'";
+   $result = mysqli_query($sql);
+   try 
+   {
+			
+   if (mysql_num_rows($result) == 0)
+   {  
+       echo '{"error":{"text": "Login Info was not set" }}'; 
+       return false;
+   }
+   else
+   {
+       echo $request;
+       return true;
+       exit;
+   }
+   } 
+   catch(PDOException $e) 
+   {
+       echo $request;
+       echo $username;
+       echo $loginInfo;
+       echo $password;
+	echo '{"error":{"text":' . "\"" . $e->getMessage() . "\"" . '}}'; 
+	}
+   	
 }
 
 
