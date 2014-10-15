@@ -120,21 +120,14 @@ function getRecentOrder() { //get the most recent order from that user but also 
     $q1 = "select max(orderID) as orderID from foodOrders where username= '".$user."'";
     $orderID = mysqli_query($mysqli, $q1); 
 
-    while($r = mysqli_fetch_assoc($orderID)) 
-   	{
-   	 	$rows[] = $r;
-   	}
+   	$r = mysqli_fetch_row($orderID); //find the max orderID and increment it
+    $orderID = $r[0];
 
-   	while ($r = mysqli_fetch_assoc($orderID)) //find the max orderID and increment it
-    { 
-        $orderID = $r["orderID"];
-    }
-
-	$query = "select name from foodOrders where inCart = 0 and orderID =.$orderID.";
+	$query = "select name, type from foodOrders natural join food where inCart = 0 and orderID ='".$orderID."'";
 
     $result = mysqli_query($mysqli, $query);
     
-   	while($r = mysqli_fetch_assoc($result)) 
+   	while($r = mysqli_fetch_assoc($result))
    	{
    	 $rows[] = $r;
    	}
@@ -151,8 +144,6 @@ function getRecentOrder() { //get the most recent order from that user but also 
     mysqli_close($mysqli);
     
 }
-
-
 
 function getCart() { //get items in the cart that are not checked out
 	
