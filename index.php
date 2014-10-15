@@ -100,7 +100,6 @@ function addBurger() {
 } //addBurger 
 
 function validateLogin() { //this is done
-    global $user;
     $mysqli = getConnection(); //establish connection
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
@@ -123,7 +122,7 @@ function validateLogin() { //this is done
    }
    else
    {
-        $user = $username;
+        global $user = $username;
        //startOrder();
        echo $request;
       
@@ -208,7 +207,7 @@ function getCart() { //get items in the cart with the most recent order, gets th
     
     //GETCART 
 
-    $sql = "select name, type from BurgerDetail natural join Food natural join burger where orderID = (select max(orderID) from burger) and username = '".$user."')";
+    $sql = "select name, type from BurgerDetail natural join Food natural join burger where orderID = (select max(orderID) from burger where username = '".$user."')";
 
 
  	$result= $mysqli->query($sql);
