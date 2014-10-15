@@ -20,7 +20,7 @@ $app->get('/getPaymentInfo', 'getPaymentInfo'); //B public
 // $app->get('/deleteOrder', 'deleteOrder'); //delete item no longer in cart
 
 $app->post('/login', 'validateLogin'); //K remeber to set the user value 
- $app->post('/createAccount', 'createAccount'); //N remeber to set the user value, udate table with new user info
+// $app->post('/createAccount', 'createAccount'); //N remeber to set the user value, udate table with new user info
 $app->post('/addPaymentInfo', 'addPaymentInfo'); //N add payment info to the table 
 
 // $app->put('/checkOut/:id', 'updateCheckedOut'); //B checked out update variables 
@@ -77,12 +77,7 @@ function validateLogin() { //this is done
     $request = $app->request()->getBody();
     echo $request;
     
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    
     $loginInfo = json_decode($request, true);
-    
-    
     
 //    $username = $loginInfo['username'];
 //    $password = $loginInfo['password'];
@@ -125,22 +120,14 @@ function getRecentOrder() { //get the most recent order from that user but also 
     $q1 = "select max(orderID) as orderID from foodOrders where username= '".$user."'";
     $orderID = mysqli_query($mysqli, $q1); 
 
-    while($r = mysqli_fetch_assoc($orderID)) 
-   	{
-   	 	$rows[] = $r;
-   	}
+   	$r = mysqli_fetch_row($orderID); //find the max orderID and increment it
+    $orderID = $r[0];
 
-   	while ($r = mysqli_fetch_assoc($orderID)) //find the max orderID and increment it
-    { 
-        $orderID = $r["orderID"];
-    }
-
-	$query = "select name from foodOrders natural join food 
-    where inCart = 0 and orderID =.$orderID.";
+	$query = "select name, type from foodOrders natural join food where inCart = 0 and orderID ='".$orderID."'";
 
     $result = mysqli_query($mysqli, $query);
     
-   	while($r = mysqli_fetch_assoc($result)) 
+   	while($r = mysqli_fetch_assoc($result))
    	{
    	 $rows[] = $r;
    	}
@@ -157,8 +144,6 @@ function getRecentOrder() { //get the most recent order from that user but also 
     mysqli_close($mysqli);
     
 }
-
-
 
 function getCart() { //get items in the cart that are not checked out
 	
@@ -196,6 +181,7 @@ function getPaymentInfo() { //return the different types of cards
 
    while ($r = mysql_fetch_assoc($result)) 
     {
+        //echo $r["typeOfCard"];
         $rows[] = $r;
     }
     

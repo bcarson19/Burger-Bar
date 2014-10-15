@@ -74,7 +74,7 @@ INSERT INTO food(name, id, price, type) VALUES
 ("Pickles", 14, 0, "Topping"),
 ("Bacon", 15, 0, "Topping"),
 ("Red Onion", 16, 0, "Topping"),
-("Mushroms", 17, 0, "Topping"),
+("Mushrooms", 17, 0, "Topping"),
 ("Jalapenos", 18, 0, "Topping"),
 ("Ketchup", 19, 0, "Sauce"),
 ("Mustard", 20, 0, ",Sauce"),
@@ -90,5 +90,14 @@ INSERT INTO foodOrders(username, orderID, name, inCart) VALUES
 ("Karoline", 1, "Tomatoes", 1),
 ("Karoline", 1, "French Fries", 1);
 
+INSERT INTO foodOrders(username, orderID, name, inCart) VALUES
+("Karoline", 4, "Turkey", 0),
+("Karoline", 4, "Wheat", 0),
+("Karoline", 4, "Pickles", 0),
+("Karoline", 4, "Tater Tots", 0);
 
-
+INSERT INTO foodOrders(username, orderID, name, inCart) VALUES
+("Karoline", 5, "Veggie", 0),
+("Karoline", 5, "Texas Toast", 0),
+("Karoline", 5, "BBQ", 0),
+("Karoline", 5, "Tater Tots", 0);
