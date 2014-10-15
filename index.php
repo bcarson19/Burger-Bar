@@ -12,7 +12,7 @@ ini_set('display_errors', 1);
 $app = new \Slim\Slim(); //using the slim API
 $user = "Karoline"; //REMEBER TO REMOVE THIS
 
-$app->get('/addBurger', 'addBurger'); //K add burger to the foodOrder table, it has not yet been checked out 
+$app->get('/addBurger', 'addBurger'); //K add burger to the FoodOrder table, it has not yet been checked out 
 $app->get('/getRecentOrder', 'getRecentOrder'); //M get the most recent order from the the table and return it with price 
 $app->get('/getCart', 'getCart'); //M get everything in the order table that is not yet checked out, return JSON
 $app->get('/getPaymentInfo', 'getPaymentInfo'); //B public 
@@ -47,7 +47,7 @@ function startOrder()
     $request = $app->request()->getBody();
     
 
-    $stmt = "insert into foodOrder(username) values ('".$user."')";
+    $stmt = "insert into FoodOrder(username) values ('".$user."')";
     mysqli_query($con, $stmt);
 
     
@@ -64,7 +64,7 @@ function addBurger() {
     unset($order['quantity']); //remove the quantity element before iteration
 
     //add a burger to the correct oder
-    $sql = $con->prepare("INSERT INTO burger(orderID, quantity) values ((select max(orderID) from foodOrder where username = '".$user."') , ?)");
+    $sql = $con->prepare("INSERT INTO burger(orderID, quantity) values ((select max(orderID) from FoodOrder where username = '".$user."') , ?)");
     $sql->bind_param('i', $quantity);
     $sql->execute();
 
@@ -75,9 +75,9 @@ function addBurger() {
     $burgerID = $row[0];
 
 
-    $sql = $con->prepare("insert into burgerdetail (name, burgerID) values (?,?)");
+    $sql = $con->prepare("insert into BurgerDetail (name, burgerID) values (?,?)");
 
-    foreach ($order as $item) //add each item to the burgerdetail
+    foreach ($order as $item) //add each item to the BurgerDetail
     {
         $sql->bind_param('si', $item, $burgerID);
         $sql->execute();
@@ -93,7 +93,6 @@ function validateLogin() { //this is done
     $mysqli = getConnection(); //establish connection
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
-        
     $loginInfo = json_decode($request, true);
 
     $username = $loginInfo['username'];
@@ -126,12 +125,12 @@ function getRecentOrder() { //get the most recent order from that user but also 
     $rows = array();
     $quantities = array();
     $prices = array();
-    $TP = array();
+    $prices['totalPrice'] = 0;
  
 //get content of recent order 
 
-$sql = "select name, type from BurgerDetail natural join food natural join burger where orderID = (select recentorder from users where username = '".$user."')";
-$result = mysqli_query($con, $sql); 
+	$sql = "select name, type from BurgerDetail natural join Food natural join burger where orderID = (select recentorder from users where username = '".$user."')";
+	$result = mysqli_query($con, $sql); 
    	while($r = mysqli_fetch_assoc($result)) 
    	{
          $rows[] = $r;
@@ -139,10 +138,10 @@ $result = mysqli_query($con, $sql);
    	}
 
 //get quantity of each of the burgers 
-$sql = "select quantity from burgerdetail natural join food natural join burger where orderID = (select recentorder from users where username = '".$user."') group by burgerID";
+	$sql = "select quantity from BurgerDetail natural join Food natural join burger where orderID = (select recentorder from users where username = '".$user."') group by burgerID";
 
-$result = mysqli_query($con, $sql); 
-$counter = 1;
+	$result = mysqli_query($con, $sql); 
+	$counter = 1;
    	while($r = mysqli_fetch_array($result)) 
    	{
         $quantities[$counter] = $r[0];
@@ -151,32 +150,25 @@ $counter = 1;
 //echo json_encode($quantities);
 
 //get the price of each of the orders 
-$counter = 1;
-$sql = "select sum(price) from burgerdetail natural join food natural join burger where orderID = (select recentorder from users where username = '".$user."') group by burgerID";
-$result = mysqli_query($con, $sql); 
+	$counter = 1;
+	$sql = "select sum(price) from BurgerDetail natural join Food natural join burger where orderID = (select recentorder from users where username = '".$user."') group by burgerID";
+	$result = mysqli_query($con, $sql); 
+
    	while($r = mysqli_fetch_array($result)) 
    	{
-    if( $quantities[$counter] > 1)
-    {
         $prices[$counter] = $r[0] * $quantities[$counter];
-        $price = ($r[0] * $quantities[$counter]);
-    }
-        else 
-        {
-            $prices[$counter] = $r[0];
-            $price = $r[0];
-        }        
-        
-    $counter = $counter + 1;
-    $TP[0] = $TP[0] + $price;
+        $price = ($r[0] * $quantities[$counter]); 
+
+    	$counter = $counter + 1;
+
+    	$prices['totalPrice'] = $prices['totalPrice'] + $price;
    	}
-$rows['prices'] = $prices;
-$rows['quantities'] = $quantities;
-$rows['priceOfOrder'] = $TP;
+
+	$rows['prices'] = $prices;
+	$rows['quantities'] = $quantities;
     
     echo json_encode($rows);
-    mysqli_close($mysqli);
-    
+    mysqli_close($con);
 }
 
 function getCart() { //get items in the cart with the most recent order, gets the highest orderId without regard to the user 
@@ -191,18 +183,18 @@ function getCart() { //get items in the cart with the most recent order, gets th
     
     //GETCART 
 
-    $sql = "select name, type from burgerdetail natural join food natural join burger where orderID = (select max(orderID) from burger)";
+    $sql = "select name, type from BurgerDetail natural join Food natural join burger where orderID = (select max(orderID) from burger)";
 
 //GET THE CONTENT OF THE CART
- $result = mysqli_query($con, $sql); 
+ 	$result = mysqli_query($con, $sql); 
    	while($r = mysqli_fetch_assoc($result)) 
    	{
-   	 $rows[] = $r;
+   		$rows[] = $r;
    	}
 
 //get quanity of burger 
-$sql = "select quantity from BurgerDetail natural join food natural join burger where orderID = (select max(orderID) from burger) group by burgerID";
-$counter = 1;
+	$sql = "select quantity from BurgerDetail natural join Food natural join burger where orderID = (select max(orderID) from burger) group by burgerID";
+	$counter = 1;
 
     $result = mysqli_query($con, $sql); 
     $counter = 1;
@@ -213,35 +205,27 @@ $counter = 1;
    	}
 
 //get price of everything in order
-$sql = "select sum(price) from BurgerDetail natural join food natural join burger where orderID = (select max(orderID) from burger) group by burgerID";
-$counter = 1;
-$result = mysqli_query($con, $sql); 
+	$sql = "select sum(price) from BurgerDetail natural join Food natural join burger where orderID = (select max(orderID) from burger) group by burgerID";
+	$counter = 1;
+	$result = mysqli_query($con, $sql); 
+	$prices['totalPrice'] = 0;
    	while($r = mysqli_fetch_array($result)) 
    	{
-    if( $quantities[$counter] > 1)
-    {
         $prices[$counter] = $r[0] * $quantities[$counter];
-        $price = ($r[0] * $quantities[$counter]);
-    }
-        else 
-        {
-            $prices[$counter] = $r[0];
-            $price = $r[0];
-        }        
+        $price = ($r[0] * $quantities[$counter]);       
         
-    $counter = $counter + 1;
-    $TP[0] = $TP[0] + $price;
-   	}
-$rows['prices'] = $prices;
-$rows['quantities'] = $quantities;
-$rows['priceOfOrder'] = $TP;
+    	$counter = $counter + 1;
 
+    	$prices['totalPrice'] = $prices['totalPrice'] + $price;
+   	}
+	$rows['prices'] = $prices;
+	$rows['quantities'] = $quantities;
    
-echo json_encode($rows);
+	echo json_encode($rows);
 
 //    //get the order that has not yet been checked out 
 //
-//    $query = "select name, type from foodOrders natural join food where inCart and username ='".$user."' order by orderID";
+//    $query = "select name, type from FoodOrders natural join Food where inCart and username ='".$user."' order by orderID";
 //
 //
 //    $result = mysqli_query($connection, $query);
@@ -251,7 +235,7 @@ echo json_encode($rows);
 //   	 	$rows[] = $r;
 //   	}
 //    
-//    $q1 = "select sum(price) from foodOrders natural join food where inCart = '1' and username ='".$user."' group by orderID";
+//    $q1 = "select sum(price) from FoodOrders natural join Food where inCart = '1' and username ='".$user."' group by orderID";
 //    $tp = mysqli_query($connection, $q1);
 //    
 //    while ($r = mysqli_fetch_assoc($tp)) 
@@ -260,7 +244,7 @@ echo json_encode($rows);
 //    }
 
 // echo json_encode($rows);
-    mysqli_close($connection);
+	mysqli_close($con);
  } //getCart end 
 
 function getPaymentInfo() { //return the different types of cards 
@@ -284,7 +268,7 @@ function logOut(){
     //update the most recent order for that user 
     if ($user != "")
     {
-    $sql = "update users set recentorder = (select max(orderID) from foodOrder where username = '".$user."') where username = '".user."'";
+    	$sql = "update users set recentorder = (select max(orderID) from FoodOrder where username = '".$user."') where username = '".user."'";
     }
     
     $user = "";
@@ -296,7 +280,7 @@ function deleteOrder($orderID){
     
     global $user;
     $mysqli = getConnection(); 
-    $query = "delete from foodOrders where  orderID ='".$orderID."'";
+    $query = "delete from FoodOrders where  orderID ='".$orderID."'";
     mysqli_query($mysqli, $query);
     mysqli_close($mysqli);
     

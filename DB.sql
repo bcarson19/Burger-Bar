@@ -119,23 +119,23 @@ LOCK TABLES `BurgerDetail` WRITE;
 
 INSERT INTO `BurgerDetail` (`name`, `burgerID`)
 VALUES
-	('Tomatoes',1),
 	('Turkey',1),
+	('Tomatoes',1),
 	('Wheat',1),
+	('Veggie',2),
 	('Ketchup',2),
 	('Texas Toast',2),
-	('Veggie',2),
+	('Veggie',3),
 	('Mustard',3),
 	('Onions',3),
-	('Veggie',3),
 	('Wheat',3),
-	('Onions',4),
-	('Texas Toast',4),
 	('Veggie ',4),
+	('Onions',4),
+	('Veggie',6),
+	('Texas Toast',4),
 	('French Fries',6),
 	('Texas Toast',6),
-	('Tomatoes',6),
-	('Veggie',6);
+	('Tomatoes',6);
 
 /*!40000 ALTER TABLE `BurgerDetail` ENABLE KEYS */;
 UNLOCK TABLES;
