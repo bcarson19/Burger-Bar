@@ -70,8 +70,6 @@ $("#loginButton").click(function(){
 
 	console.log(send);
 
-	//send = JSON.stringify(send);
-
 	$.ajax({
       type: 'POST',
       url: rootURL+"/login",

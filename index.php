@@ -78,6 +78,8 @@ function validateLogin() { //this is done
         
     $loginInfo = json_decode($request, true);
 
+    echo var_dump($loginInfo);
+
     $username = $loginInfo['username'];
     $password = $loginInfo['password'];
   
