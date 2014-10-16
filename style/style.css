@@ -173,7 +173,11 @@ font-size:120%;
 	float: left;
 	width: 60%;
 }
-
+/*Quantity Button styling from Brandon C*/
 #quantity_textField {
 width: 2em;
+}
+
+#quantity_label {
+color: white;
 }
