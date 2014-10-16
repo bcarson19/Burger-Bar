@@ -27,12 +27,13 @@ function showCart(){
       dataType: "json", // data type of response
       success: function(data, textStatus, jqXHR){
          console.log(data);
-         //addToCart( $("#cart") ,data);
+         addToCart( $("#cart") ,data);
          /*for(var i=0; i<data.length; i++){
          	console.log(data[i].name + "  " + data[i].type);
          }*/
       },
       error: function(jqXHR, textStatus, errorThrown){
+      	alert("getCart error!");
          console.log(jqXHR, textStatus, errorThrown);
       }
    });

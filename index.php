@@ -122,7 +122,8 @@ function validateLogin() { //this is done
    }
    else
    {
-        global $user = $username;
+       global $user;
+        $user = $username;
        //startOrder();
        echo $request;
       
@@ -280,7 +281,7 @@ function getCart() { //get items in the cart with the most recent order, gets th
     $rows['burgerID'] = $burgerID;
     $rows['orderID'] = $orderID;
    
-	echo json_encode($info);
+	echo json_encode($rows);
 	mysqli_close($mysqli);
  } //getCart end 
 
