@@ -60,7 +60,7 @@ DROP TABLE IF EXISTS `Food`;
 CREATE TABLE `Food` (
   `name` varchar(30) NOT NULL DEFAULT '',
   `id` int(11) NOT NULL DEFAULT '0',
-  `price` float(5,2) DEFAULT NULL,
+  `price` double DEFAULT '0',
   `type` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`name`,`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -76,19 +76,19 @@ VALUES
 	('Bacon',15,0.00,'Topping'),
 	('BBQ',22,0.00,'Sauce'),
 	('Cheddar',8,0.35,'Cheese'),
-	('French Fries',23,2.00,'Sides'),
+	('French fries',23,2.00,'Sides'),
 	('Jalapenos',18,0.00,'Topping'),
 	('Ketchup',19,0.00,'Sauce'),
 	('Lettuce',12,0.00,'Topping'),
 	('Mayonnaise',21,0.00,'Sauce'),
 	('Mushroms',17,0.00,'Topping'),
 	('Mustard',20,0.00,'Sauce'),
-	('Onion Rings',25,1.00,'Sides'),
+	('Onion rings',25,1.00,'Sides'),
 	('Onions',13,0.00,'Topping'),
 	('Pickles',14,0.00,'Topping'),
-	('Red Onion',16,0.00,'Topping'),
+	('Red onion',16,0.00,'Topping'),
 	('Swiss',10,0.35,'Cheese'),
-	('Tater Tots',24,1.00,'Sides'),
+	('Tater tots',24,1.00,'Sides'),
 	('Texas Toast',7,0.75,'Bun'),
 	('Tomatoes',11,0.00,'Topping'),
 	('Turkey',3,2.00,'Burger'),
@@ -119,23 +119,23 @@ LOCK TABLES `BurgerDetail` WRITE;
 
 INSERT INTO `BurgerDetail` (`name`, `burgerID`)
 VALUES
-	('Turkey',1),
 	('Tomatoes',1),
+	('Turkey',1),
 	('Wheat',1),
-	('Veggie',2),
 	('Ketchup',2),
 	('Texas Toast',2),
-	('Veggie',3),
+	('Veggie',2),
 	('Mustard',3),
 	('Onions',3),
+	('Veggie',3),
 	('Wheat',3),
-	('Veggie ',4),
 	('Onions',4),
-	('Veggie',6),
 	('Texas Toast',4),
+	('Veggie ',4),
 	('French Fries',6),
 	('Texas Toast',6),
-	('Tomatoes',6);
+	('Tomatoes',6),
+	('Veggie',6);
 
 /*!40000 ALTER TABLE `BurgerDetail` ENABLE KEYS */;
 UNLOCK TABLES;

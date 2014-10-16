@@ -1,6 +1,14 @@
 <?php
 echo "Hello";
-    
+$con = new mysqli("localhost", "root", "root", "DBBurger");
+$counter = 0;
+
+    if(!$con)
+    {
+        echo "Error";
+        die('could not connect:'.mysql_error());
+    }
+
 $jsonObject = '{
     "menu": {
         "meats": [
@@ -122,39 +130,60 @@ $jsonObject = '{
     }
 }';
 
-
 $result = json_decode($jsonObject, true);
-$con = mysql_connect('localhost', 'root', 'root');
-$counter =1;
 
-    if(!$con)
+// copy menu items each into a separate corresponding array
+    $fillMenu = $result['menu'];
+    $meats = $fillMenu['meats'];
+    $buns = $fillMenu['buns'];
+    $cheeses = $fillMenu['cheeses'];
+    $toppings = $fillMenu['toppings'];
+    $sauces = $fillMenu['sauces'];
+    $sides = $fillMenu['sides'];
+
+
+    // write overall menu with new arrays
+    $sections = [$meats, $buns, $cheeses, $toppings, $sauces, $sides];
+    $sectionNames = ['meats', 'buns', 'cheeses', 'toppings', 'sauces', 'sides'];
+    $i = 0;
+
+
+    //prepare statement 
+    $sql = $con->prepare("INSERT INTO Food(name, price, id, type) values (?, ?,?,?)");
+
+    // loop thorugh each sub array of sections to populate table 
+   
+foreach ($sections as $part) 
     {
-        die('could not connect:'.mysql_error());
+        $type = $sectionNames[$i];
+       
+            foreach ($part as $map) 
+            {
+                $name = $map['name'];
+                //echo $name;
+                $price = $map['price'];
+                //echo "counter ".$counter."foodname".$name."price ".$price." type: ".$type;   
+
+                // call to insert into mySQL database
+                $sql->bind_param('sdis', $name, $price, $counter, $type);
+                $sql->execute();
+                $counter = $counter +1;
+                
+                //printf("%d rows ", $sql->affected_rows);
+                
+            }
+        $i++;
+        
     }
-    mysql_select_db("DBBurger", $con)
-        or die ("unable to connect".mysql_error());
-
-foreach ($result['menu'] as $item)
-{
-    
-    foreach ($item as $value)
-    {
-        $foodname = $value['name'];
-        $foodPrice= $value['price'];
-        $query = "INSERT INTO food (name, price, id) VALUES ($foodname, $foodPrice, $counter)";
-        mysql_query($query, $con);
-        $counter = $counter + 1;    
-        echo $query;
-    }  
-}
 
 
-$result = mysqli_query($con,"SELECT * FROM food");
+ /* $sql = "select name from Food"; //get the current burgerID
+    $result= $con->query($sql);
+   	while($r = mysqli_fetch_array($result)) 
+   	{ 
+        $rows[]=$r;
+    }
 
-while($row = mysqli_fetch_array($result)) {
-  echo $row['name'] . " " . $row['price'];
-  echo "<br>";
-}
-
-echo " Finished!! "
+print_r($rows);
+echo " Finished!! " */
 ?>
