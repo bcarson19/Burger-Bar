@@ -159,9 +159,29 @@ $("#createAccountSubmitButton").click(function(){
 /*Add Burger function starter - Brandon C*/
 $('#addBurger').click(function(){
 	var list = $(":checked");
+	var send = new Object();
+	
 	for(var i =0; i<list.length; i++){
 		console.log(list[i]["defaultValue"] + "  " + list[i]["name"]);
+		send.name = list[i]["defaultValue"];
+		send.type = list[i]["name"];
+		console.log(send);
 	}
+	
+	
+	$.ajax({
+      type: 'POST',
+      url: rootURL+"/cart",
+      dataType: "json", // data type of response
+      data: send,
+      success: function(data, textStatus, jqXHR){
+         console.log(data);
+         localStorage.loginInfo = data;
+      },
+      error: function(jqXHR, textStatus, errorThrown){
+         console.log(jqXHR, textStatus, errorThrown);
+      }
+   });
 
 	//console.log(list);
 });
