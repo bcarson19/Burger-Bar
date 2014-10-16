@@ -178,7 +178,7 @@ CREATE TABLE `paymentInfo` (
   `paymentId` int(11) DEFAULT NULL,
   `cardNumber` int(11) DEFAULT NULL,
   `typeOfCard` varchar(30) DEFAULT NULL,
-  `adress` varchar(30) DEFAULT NULL,
+  `address` varchar(30) DEFAULT NULL,
   `zipCode` varchar(30) DEFAULT NULL,
   `state` varchar(30) DEFAULT NULL,
   `expireDate` varchar(30) DEFAULT NULL,
@@ -189,7 +189,7 @@ CREATE TABLE `paymentInfo` (
 LOCK TABLES `paymentInfo` WRITE;
 /*!40000 ALTER TABLE `paymentInfo` DISABLE KEYS */;
 
-INSERT INTO `paymentInfo` (`username`, `paymentId`, `cardNumber`, `typeOfCard`, `adress`, `zipCode`, `state`, `expireDate`)
+INSERT INTO `paymentInfo` (`username`, `paymentId`, `cardNumber`, `typeOfCard`, `address`, `zipCode`, `state`, `expireDate`)
 VALUES
 	('Karoline',1,123456789,'Visa','3669 Asbury Street','75205','Dallas','7/7/12'),
 	('Karoline',2,987654321,'MasterCard','3669 Asbury Street','75205','Dallas','7/7/12'),

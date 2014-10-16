@@ -338,13 +338,13 @@ function addPaymentInfo()
 
     $TOC = $paymentInfo['typeOfCard'];
     $CN = $paymenInfo['cardNumber'];
-    $A =$paymenInfo['adress'];
+    $A =$paymenInfo['address'];
     $ZC = $paymenInfo['zipCode'];
     $S = $paymenInfo['state'];
     $ED = $paymenInfo['expireDate'];
 
 
-    $stmt = $con->prepare("INSERT INTO paymentInfo (username, typeOfCard, cardNumber, adress, zipCode, state, expireDate) VALUES (?,?,?,?,?,?,?)"); 
+    $stmt = $con->prepare("INSERT INTO paymentInfo (username, typeOfCard, cardNumber, address, zipCode, state, expireDate) VALUES (?,?,?,?,?,?,?)"); 
     $stmt->bind_param('ssissss', $user, $TOC, $CN, $A, $ZC, $S, $ED);
     $stmt->execute();
 
