@@ -176,7 +176,6 @@ $('#addBurger').click(function(){
       data: send,
       success: function(data, textStatus, jqXHR){
          console.log(data);
-         localStorage.loginInfo = data;
       },
       error: function(jqXHR, textStatus, errorThrown){
          console.log(jqXHR, textStatus, errorThrown);
