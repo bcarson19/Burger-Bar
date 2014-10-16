@@ -109,7 +109,7 @@ $("#loginButton").click(function(){
          console.log(jqXHR, textStatus, errorThrown);
       }
    });
-	//window.location.reload();
+	window.location.reload();
 
 
 });
@@ -162,16 +162,18 @@ $('#addBurger').click(function(){
 	var send = new Object();
 	
 	for(var i =0; i<list.length; i++){
-		console.log(list[i]["defaultValue"] + "  " + list[i]["name"]);
-		send.name = list[i]["defaultValue"];
-		send.type = list[i]["name"];
-		console.log(send);
+		//console.log(list[i]["defaultValue"] + "  " + list[i]["name"]);
+		var name = list[i]["defaultValue"];
+		var type = list[i]["name"];
+		send[i] = {name: name, type: type};
+		//console.log(send[i]);
 	}
 	
+	console.log(send);
 	
 	$.ajax({
-      type: 'POST',
-      url: rootURL+"/cart",
+      type: 'GET',
+      url: rootURL+"/getCart",
       dataType: "json", // data type of response
       data: send,
       success: function(data, textStatus, jqXHR){

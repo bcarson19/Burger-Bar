@@ -213,7 +213,7 @@ function getCart() { //get items in the cart with the most recent order, gets th
 
  	$result= $mysqli->query($sql);
 
-  echo $sql;
+  //echo $sql;
     
     if (mysqli_num_rows($result) == 0)
     {
