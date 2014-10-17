@@ -143,7 +143,7 @@ $("#createAccountSubmitButton").click(function(){
 	send.firstName = $("#firstNameField").val();
 	send.lastName = $("#lastNameField").val();
 	send.username = $("#userNameField").val();
-	send.password = $("#passwordField").val();
+	send.password = $("#passwordCAField").val();
 
 	console.log(send);
 
