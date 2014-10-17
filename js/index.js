@@ -6,7 +6,8 @@ changeLoginOrRecent();
 showCart();
 
 function changeLoginOrRecent(){
-    if (localStorage.username) {
+	console.log(localStorage.getItem("username"));
+    if (localStorage.getItem("username")) {
 
     	console.log("username exists"); //display recent order
         $("#lastOrder").css("display", "block");
@@ -108,6 +109,7 @@ $("#loginButton").click(function(){
          console.log(data);
          localStorage.username = data['username'];
          var nameString = ""+data['username']+"";
+         window.location.reload();
       },
       error: function(jqXHR, textStatus, errorThrown){
       	alert("Login invalid!");
@@ -116,7 +118,7 @@ $("#loginButton").click(function(){
    });
 	//alert("wait");
 	//window.location.reload();
-
+	//changeLoginOrRecent();
 
 });
 
@@ -230,5 +232,17 @@ changeQuantity();
 
 $("#logoutButton").click(function(){
 
+$.ajax({
+      type: 'GET',
+      url: rootURL+"/logout",
+      dataType: "json", // data type of response
+      success: function(data, textStatus, jqXHR){
+        localStorage.clear();
+        window.location.reload();
+      },
+      error: function(jqXHR, textStatus, errorThrown){
+         console.log(jqXHR, textStatus, errorThrown);
+      }
+   });
 
 });

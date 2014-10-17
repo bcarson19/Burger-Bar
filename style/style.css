@@ -187,3 +187,10 @@ color: white;
 	position: relative;
 	top: 5px;
 }
+
+h4 {
+	margin-bottom: -10px;
+	margin-top: 20px;
+	margin-left: 2em;
+	color: white;
+}
