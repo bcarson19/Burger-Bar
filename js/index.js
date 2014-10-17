@@ -11,6 +11,7 @@ function changeLoginOrRecent(){
     	console.log("username exists"); //display recent order
         $("#lastOrder").css("display", "block");
         $("#loginForm").css("display", "none");
+        $('#usernameShow').html("Welcome " + localStorage.username + "!");
     }
     else {
     	console.log("no username"); //display Login screen
@@ -104,7 +105,7 @@ $("#loginButton").click(function(){
       success: function(data, textStatus, jqXHR){
          console.log(data);
          localStorage.username = data['username'];
-         $('#usernameShow').append(data['username']);
+         var nameString = ""+data['username']+"";
       },
       error: function(jqXHR, textStatus, errorThrown){
       	alert("Login invalid!");
@@ -172,6 +173,7 @@ $('#addBurger').click(function(){
 		//console.log(send[i]);
 	}
 	
+	send.quantity = +$("#quantity_textField").val();
 	console.log(send);
 	
 	$.ajax({
@@ -190,6 +192,39 @@ $('#addBurger').click(function(){
 
 	//console.log(list);
 });
+
+var quantity = +document.getElementById("quantity_textField").value;
+
+function changeQuantity() {
+	var plus = document.getElementsByTagName('img')[0]
+	var minus = document.getElementsByTagName('img')[1]
+	
+	plus.onclick=function() {
+	//console.log("+");
+	quantity = quantity + 1;
+	
+	if (quantity <= 30) {
+			document.getElementById("quantity_textField").value = quantity;
+		}
+		else {
+			document.getElementById("quantity_textField").value = 30;
+			quantity = 30;
+		}
+	}
+	minus.onclick=function() {
+	//console.log("-");
+	quantity = quantity - 1;
+		if (quantity >= 0) {
+			document.getElementById("quantity_textField").value = quantity;
+		}
+		else {
+			document.getElementById("quantity_textField").value = 0;
+			quantity = 0;
+		}
+	}
+}
+changeQuantity();
+
 
 $("#logoutButton").click(function(){
 

@@ -16,7 +16,7 @@ $app->get('/addBurger', 'addBurger'); //K add burger to the FoodOrder table, it 
 $app->get('/getRecentOrder', 'getRecentOrder'); //M get the most recent order from the the table and return it with price 
 $app->get('/getCart', 'getCart'); //M get everything in the order table that is not yet checked out, return JSON
 $app->get('/getPaymentInfo', 'getPaymentInfo'); //B public 
-$app->get('/getlogOut', 'logOut'); //end session and log out user 
+$app->get('/logOut', 'logOut'); //end session and log out user 
 
 $app->put('/deleteBurger/:burgerID', 'deleteBurger'); //delete 
 
