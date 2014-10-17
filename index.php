@@ -26,8 +26,6 @@ $app->post('/login', 'validateLogin'); //K remeber to set the user value
 $app->post('/createAccount', 'createAccount'); //N remeber to set the user value, udate table with new user info
 $app->post('/addPaymentInfo', 'addPaymentInfo'); //N add payment info to the table 
 
-
-
 $app->run();
 
 function getConnection() {
@@ -127,9 +125,7 @@ function validateLogin() { //this is done
         $user = $username;
        //startOrder();
        echo $request;
-      
    }
-   	
 }
 
 
@@ -206,15 +202,11 @@ function getCart() { //get items in the cart with the most recent order, gets th
     $prices = array();
     $burgerID = array();
     
-    
     //GETCART 
 
-    $sql = "select name, type from BurgerDetail natural join Food natural join burger where orderID = (select max(orderID) from burger natural join foodOrder where username = '".$user."')";
-
+    $sql = "select name, type, burgerID from BurgerDetail natural join Food natural join burger where orderID = (select max(orderID) from burger natural join foodOrder where username = '".$user."')";
 
  	$result= $mysqli->query($sql);
-
-  //echo $sql;
     
     if (mysqli_num_rows($result) == 0)
     {
@@ -258,29 +250,10 @@ function getCart() { //get items in the cart with the most recent order, gets th
 
     	$prices['totalPrice'] = $prices['totalPrice'] + $price;
    	}
-    
-    //get the burger id for every burger in cart
-    $sql = "select burgerID from burger where orderID = (select max(orderID) from burger);"; //get the BurgerIDs corresponding to this order
-
-    $result = $mysqli->query( $sql); 
- 
-    while($r = mysqli_fetch_assoc($result)) 
-    {
-        $burgerID['burgerID'] = $r;
-    }
-    
-    //get the orderID for that order
-    $sql = "select max(orderID) from burger"; //get the current burgerID
-
-    $result = $mysqli->query($sql); 
-    $row = mysqli_fetch_row($result);
-    $orderID = $row[0];
- 
 
 	$rows['prices'] = $prices;
 	$rows['quantities'] = $quantities;
     $rows['burgerID'] = $burgerID;
-    $rows['orderID'] = $orderID;
    
 	echo json_encode($rows);
 	mysqli_close($mysqli);
