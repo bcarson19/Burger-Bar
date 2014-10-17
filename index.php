@@ -306,24 +306,26 @@ function deleteOrder($orderID){
 function addPaymentInfo()
 {
     global $user;
-    $con = getConnection();
+    $mysqli = getConnection();
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
     
     $paymentInfo = json_decode($request, true); //need to change this when we get it to work
 
     $TOC = $paymentInfo['typeOfCard'];
-    $CN = $paymenInfo['cardNumber'];
-    $A =$paymenInfo['address'];
-    $ZC = $paymenInfo['zipCode'];
-    $S = $paymenInfo['state'];
-    $ED = $paymenInfo['expireDate'];
+    $CN = $paymentInfo['cardNumber'];
+    $A =$paymentInfo['address'];
+    $ZC = $paymentInfo['zipCode'];
+    $S = $paymentInfo['state'];
+    $ED = $paymentInfo['expireDate'];
 
 
-    $stmt = $con->prepare("INSERT INTO paymentInfo (username, typeOfCard, cardNumber, address, zipCode, state, expireDate) VALUES (?,?,?,?,?,?,?)"); 
-    $stmt->bind_param('ssissss', $user, $TOC, $CN, $A, $ZC, $S, $ED);
-    $stmt->execute();
+    //$sql = "INSERT INTO paymentInfo (username, typeOfCard, cardNumber, address, zipCode, state, expireDate) VALUES (?,?,?,?,?,?,?)"; 
+    $sql = "SELECT typeOfCard, cardNumber, address, zipCode, state, expireDate FROM USERS WHERE typeOfCard = '".$TOC."' 
+            AND cardNumber = '".$CN."' AND address = '".$A."' AND zipCode = '".$ZC."' AND state = '".$S."' AND expireDate = '".$ED."'";
 
+    $result = $msqli -> query($sql); //bind_param('ssissss', $user, $TOC, $CN, $A, $ZC, $S, $ED);
+    //$stmt->execute();
 }
 
 
