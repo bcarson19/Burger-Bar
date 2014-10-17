@@ -183,7 +183,7 @@ $('#addBurger').click(function(){
 	
 	$.ajax({
       type: 'GET',
-      url: rootURL+"/getCart",
+      url: rootURL+"/addBurger",
       dataType: "json", // data type of response
       data: send,
       success: function(data, textStatus, jqXHR){
