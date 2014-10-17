@@ -22,6 +22,8 @@ function changeLoginOrRecent(){
 
 function showCart(){
 	//console.log($("#cart").children("ul").length > 0);
+
+	$("#cart").html("");
 	$.ajax({
       type: 'GET',
       url: rootURL+"/getCart",
