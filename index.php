@@ -16,7 +16,7 @@ $app->get('/addBurger', 'addBurger'); //K add burger to the FoodOrder table, it 
 $app->get('/getRecentOrder', 'getRecentOrder'); //M get the most recent order from the the table and return it with price 
 $app->get('/getCart', 'getCart'); //M get everything in the order table that is not yet checked out, return JSON
 $app->get('/getPaymentInfo', 'getPaymentInfo'); //B public 
-$app->get('/logOut', 'logOut'); //end session and log out user 
+$app->get('/getlogOut', 'logOut'); //end session and log out user 
 
 $app->put('/deleteBurger/:burgerID', 'deleteBurger'); //delete 
 
@@ -63,39 +63,41 @@ function startOrder()
 }
 function addBurger() {
 
+	global $user;
     $con = getConnection(); //establish connection
-    $app = \Slim\Slim::getInstance();      
+    $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
     $order = json_decode($request, true); //decode the request needs a double because it is an JSON array of objects 
+    echo $order;
 
 
-    $quantity = $order['quantity'];
-    unset($order['quantity']); //remove the quantity element before iteration
+    // $quantity = $order['quantity'];
+    // unset($order['quantity']); //remove the quantity element before iteration
 
-    //add a burger to the correct oder
-    $sql = $con->prepare("INSERT INTO burger(orderID, quantity) values ((select max(orderID) from FoodOrder where username = '".$user."') , ?)");
-    $sql->bind_param('i', $quantity);
-    $sql->execute();
-
-
-    $sql = "select max(burgerID) from burger"; //get the current burgerID
-    $result= $con->query($sql);
-    $row = mysqli_fetch_row($result);
-    $burgerID = $row[0];
+    // //add a burger to the correct oder
+    // $sql = $con->prepare("INSERT INTO burger(orderID, quantity) values ((select max(orderID) from FoodOrder where username = '".$user."') , ?)");
+    // $sql->bind_param('i', $quantity);
+    // $sql->execute();
 
 
-    $sql = $con->prepare("insert into BurgerDetail (name, burgerID) values (?,?)");
+    // $sql = "select max(burgerID) from burger"; //get the current burgerID
+    // $result= $con->query($sql);
+    // $row = mysqli_fetch_row($result);
+    // $burgerID = $row[0];
 
-    foreach ($order as $item) //add each item to the BurgerDetail
-    {
-        echo $item;
-        $sql->bind_param('si', $item, $burgerID);
-        $sql->execute();
-    }
+
+    // $sql = $con->prepare("insert into BurgerDetail (name, burgerID) values (?,?)");
+
+    // foreach ($order as $item) //add each item to the BurgerDetail
+    // {
+    //     echo $item;
+    //     $sql->bind_param('si', $item, $burgerID);
+    //     $sql->execute();
+    // }
 
 
     
-    $mysqli->close(); //close instance of mysql 
+    //$mysqli->close(); //close instance of mysql 
 } //addBurger 
 
 function validateLogin() { //this is done
