@@ -64,40 +64,40 @@ function startOrder()
 function addBurger() {
 
 	global $user;
-    $con = getConnection(); //establish connection
-    $app = \Slim\Slim::getInstance();
+    $mysqli = getConnection(); //establish connection
+    $app = \Slim\Slim::getInstance();      
     $request = $app->request()->getBody();
     $order = json_decode($request, true); //decode the request needs a double because it is an JSON array of objects 
-    echo $order;
 
 
-    // $quantity = $order['quantity'];
-    // unset($order['quantity']); //remove the quantity element before iteration
+    $quantity = $order['quantity'];
+    unset($order['quantity']); //remove the quantity element before iteration
 
-    // //add a burger to the correct oder
+    //add a burger to the correct oder
     // $sql = $con->prepare("INSERT INTO burger(orderID, quantity) values ((select max(orderID) from FoodOrder where username = '".$user."') , ?)");
     // $sql->bind_param('i', $quantity);
     // $sql->execute();
 
+    $sql = ("insert into burger(orderID, quantity) values ((select max(orderID) from FoodOrder where username = '".$user."') , ?)");
+    $result= $mysqli->query($sql);
 
-    // $sql = "select max(burgerID) from burger"; //get the current burgerID
-    // $result= $con->query($sql);
-    // $row = mysqli_fetch_row($result);
-    // $burgerID = $row[0];
-
-
-    // $sql = $con->prepare("insert into BurgerDetail (name, burgerID) values (?,?)");
-
-    // foreach ($order as $item) //add each item to the BurgerDetail
-    // {
-    //     echo $item;
-    //     $sql->bind_param('si', $item, $burgerID);
-    //     $sql->execute();
-    // }
+    $sql = "select max(burgerID) from burger"; //get the current burgerID
+    $result= $mysqli->query($sql);
+    $row = mysqli_fetch_row($result);
+    $burgerID = $row[0];
 
 
+    $sql = ("insert into BurgerDetail (name, burgerID) values (?,?)");
+    $result= $mysqli->query($sql);
+
+    foreach ((array)$order as $item) //add each item to the BurgerDetail
+    {
+        echo $item;
+        $sql->bind_param('si', $item, $burgerID);
+        $sql->execute();
+    }
     
-    //$mysqli->close(); //close instance of mysql 
+    $mysqli->close(); //close instance of mysql 
 } //addBurger 
 
 function validateLogin() { //this is done
