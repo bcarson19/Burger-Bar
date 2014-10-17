@@ -184,5 +184,6 @@ color: white;
 
 .change{
 	width: 20px;
-	background-color: white;
+	position: relative;
+	top: 5px;
 }
