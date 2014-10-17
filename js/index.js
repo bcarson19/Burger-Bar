@@ -224,12 +224,12 @@ function changeQuantity() {
 	minus.onclick=function() {
 	//console.log("-");
 	quantity = quantity - 1;
-		if (quantity >= 0) {
+		if (quantity >= 1) {
 			document.getElementById("quantity_textField").value = quantity;
 		}
 		else {
-			document.getElementById("quantity_textField").value = 0;
-			quantity = 0;
+			document.getElementById("quantity_textField").value = 1;
+			quantity = 1;
 		}
 	}
 }
