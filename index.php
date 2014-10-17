@@ -332,7 +332,7 @@ function addPaymentInfo()
 function createAccount()
 {
     global $user;
-    $con = getConnection();
+    $mysqli = getConnection();
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
     $userInfo = json_decode($request, true);
@@ -345,7 +345,7 @@ function createAccount()
 
     $sql = "SELECT username FROM USERS WHERE username ='".$user."'";
 
-    $result = mysqli_query($con, $sql); 
+    $result = $mysqli->query($sql); 
 	
     if (mysqli_num_rows($result) != 0)
     {          
@@ -354,9 +354,8 @@ function createAccount()
     }
     else
     {
-        $stmt = $con->prepare("INSERT INTO users (username, pw, firstname, lastname, email) VALUES (?,?,?,?,?)"); 
-        $stmt->bind_param('sssss', $user, $pw, $firstname, $lastname, $email);
-    $stmt->execute();   
+        $sql = 'INSERT INTO users (username, pw, firstname, lastname, email) VALUES ($user, $pw, $firstname, $lastname, $email)';
+        $result = $mysqli->query($sql); 
     }
 
 }
