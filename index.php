@@ -282,7 +282,7 @@ function logOut(){
     //update the most recent order for that user 
     if ($user != "")
     {
-    	$sql = "update users set recentorder = (select max(orderID) from FoodOrder where username = '".$user."') where username = '".user."'";
+    	$sql = "update users set recentorder = (select max(orderID) from FoodOrder where username = '".$user."') where username = '".$user."'";
         $mysqli->query($sql);
         
     }
