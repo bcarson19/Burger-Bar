@@ -199,13 +199,13 @@ function changeQuantity() {
 	var minus = document.getElementsByTagName('img')[1]
 	
 	plus.onclick=function() {
-	console.log("+");
+	//console.log("+");
 	quantity = quantity + 1;
 	document.getElementById("quantity_textField").value = quantity;
 
 	}
 	minus.onclick=function() {
-	console.log("-");
+	//console.log("-");
 	quantity = quantity - 1;
 	document.getElementById("quantity_textField").value = quantity;
 	}
