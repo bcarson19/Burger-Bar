@@ -46,8 +46,6 @@ function deleteBurger($orderID)
     
     $sql = "delete from burger where burgerID ='".$orderID."'";
     $con->query($sql);
-    
-    
 }
 
 function startOrder()
@@ -58,10 +56,10 @@ function startOrder()
     
     $stmt = "insert into foodOrder(username) values ('".$user."')";
     $con->query($stmt);
-
-    
 }
-function addBurger() {
+
+function addBurger() 
+{
 
 	global $user;
     $mysqli = getConnection(); //establish connection
@@ -78,7 +76,7 @@ function addBurger() {
     // $sql->bind_param('i', $quantity);
     // $sql->execute();
 
-    $sql = ("insert into burger(orderID, quantity) values ((select max(orderID) from FoodOrder where username = '".$user."') , ?)");
+    $sql = ("insert into burger(orderID, quantity) values ((select max(orderID) from FoodOrder where username = '".$user."') , '.$quantity')");
     $result= $mysqli->query($sql);
 
     $sql = "select max(burgerID) from burger"; //get the current burgerID
@@ -100,7 +98,8 @@ function addBurger() {
     $mysqli->close(); //close instance of mysql 
 } //addBurger 
 
-function validateLogin() { //this is done
+function validateLogin() 
+{ //this is done
     $mysqli = getConnection(); //establish connection
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
@@ -108,12 +107,8 @@ function validateLogin() { //this is done
 
     $username = $loginInfo['username'];
     $password = $loginInfo['password'];
-
-    // echo $username;
-    // echo $password;
   
    	$sql = "SELECT username, firstname, lastname, email FROM users WHERE username ='".$username."' AND pw ='".$password."'";
-   // echo $sql;
 
    	$result= mysqli_query($mysqli, $sql);
 
@@ -124,22 +119,13 @@ function validateLogin() { //this is done
    		echo $request;
    	}
 
-   // if (mysqli_num_rows($result) == 0)
-   // {  
-   //     echo '{"error":{"text": "Login Info was not set" }}'; 
-   // }
-   // else
-   // {
-   //     global $user;
-   //      $user = $username;
-   //     //startOrder();
-   //     echo $request;
-   // }
    	mysqli_close($mysqli);
 }
 
 
-function getRecentOrder() { //get the most recent order from that user but also get the price, the most recent order will be the one with the highest orderId because of autoincrement 
+function getRecentOrder() 
+{ //get the most recent order from that user but also get the price, the most recent order will be the one with the highest orderId because of autoincrement 
+
     global $user;
     $con = getConnection();     
     $rows = array();
