@@ -36,14 +36,18 @@ function showCart(){
          for(var item in data){
          	//console.log(data[item]);
          	if(data[item].name){
-         		console.log(data[item].name + "  " + data[item].type);
+         		console.log(data[item].name + "  " + data[item].type + "  " + data[item].burgerID);
+         		var name = data[item].name;
+         		var type = data[item].type;
+         		var burgerID = data[item].burgerID;
+         		addToCart($("#cart"), name, type, burgerID);
          	}
 
-         	//console.log(data[i].name + "  " + data[i].type);
+         	//console.log(data[i].name + "  " + data[i].type + "  " + data[i].burgerID);
          }
          console.log(data.prices.totalPrice);
          //console.log(data[quantity].totalPrice);
-         addToCart( $("#cart") ,data);
+         //addToCart( $("#cart") ,data);
          
       },
       error: function(jqXHR, textStatus, errorThrown){
@@ -65,34 +69,29 @@ function showCart(){
 }
 
 
-function addToCart(addTo, data){
+function addToCart(addTo, name, type, burgerID){
+
+	//$("#cart p").hide();
 
 	addTo.append("<ul id='orderList'");
 	console.log(addTo);
 
-	for (var i = 1; i > 0; i--) {
+	var list = "<ul id='order" + burgerID + "'></ul>";
+	var burger = "<ul class='Burger'></ul>";
+	var topping = "<ul class='Topping'></ul>";
+	var bun = "<ul class='Bun'></ul>";
+	var sauces = "<ul class='Sauces'></ul>";
+	var cheese = "<ul class='Cheese'></ul>";
 
-		var list = "<ul id='order" + i + "'></ul>";
-		var burger = "<ul class='Burger'></ul>";
-		var topping = "<ul class='Topping'></ul>";
-		var bun = "<ul class='Bun'></ul>";
-		var sauces = "<ul class='Sauces'></ul>";
-		var cheese = "<ul class='Cheese'></ul>";
+	$('#orderList').append(list);
+	console.log($('#orderList'));
+	$("#order"+burgerID).append(burger);
+	//.append(topping).append(bun).append(sauces).append(cheese);
+	
+	$("#order"+burgerID + ">  ."+type).append("<li>"+ name +"</li>");
+	console.log($("#order"+burgerID + ">  ."+type + " li").html());
 
-		$('#orderList').append(list);
-		console.log($('#orderList'));
-		$("#order"+i).append(burger);
-		//.append(topping).append(bun).append(sauces).append(cheese);
-
-		/*for(var j=0; j<data.length; j++){
-			console.log(data[j].name + "  " + data[j].type);
-			var food = data[j].name;
-			var type = data[j].type;
-			var order = "order"+i;
-			console.log($("#"+order + "> ."+type));
-			$("#"+order + ">  ."+type).append("<li>"+ food +"</li>");
-		}*/
-	}
+	
 }
 
 //to login
