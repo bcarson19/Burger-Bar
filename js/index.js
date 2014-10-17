@@ -1,5 +1,6 @@
-console.log("in index javascript");
+console.log("in index javascript5");
 var rootURL = "http://localhost:8888/Burger-Bar/index.php";
+//var rootURL = "http://localhost/Burger-Bar/index.php";
 
 /*Display either login form or past order*/
 changeLoginOrRecent();
@@ -142,7 +143,7 @@ $("#createAccountSubmitButton").click(function(){
 	send.firstName = $("#firstNameField").val();
 	send.lastName = $("#lastNameField").val();
 	send.username = $("#userNameField").val();
-	send.password = $("#passwordField").val();
+	send.password = $("#passwordCAField").val();
 
 	console.log(send);
 
@@ -182,7 +183,7 @@ $('#addBurger').click(function(){
 	
 	$.ajax({
       type: 'GET',
-      url: rootURL+"/getCart",
+      url: rootURL+"/addBurger",
       dataType: "json", // data type of response
       data: send,
       success: function(data, textStatus, jqXHR){
