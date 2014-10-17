@@ -232,5 +232,17 @@ changeQuantity();
 
 $("#logoutButton").click(function(){
 
+$.ajax({
+      type: 'GET',
+      url: rootURL+"/logout",
+      dataType: "json", // data type of response
+      success: function(data, textStatus, jqXHR){
+        localStorage.clear();
+        window.location.reload();
+      },
+      error: function(jqXHR, textStatus, errorThrown){
+         console.log(jqXHR, textStatus, errorThrown);
+      }
+   });
 
 });
