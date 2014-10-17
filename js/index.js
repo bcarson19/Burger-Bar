@@ -104,13 +104,15 @@ $("#loginButton").click(function(){
       success: function(data, textStatus, jqXHR){
          console.log(data);
          localStorage.username = data['username'];
+         $('#usernameShow').append(data['username']);
       },
       error: function(jqXHR, textStatus, errorThrown){
       	alert("Login invalid!");
          console.log(jqXHR, textStatus, errorThrown);
       }
    });
-	window.location.reload();
+	//alert("wait");
+	//window.location.reload();
 
 
 });
