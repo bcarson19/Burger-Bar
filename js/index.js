@@ -11,6 +11,7 @@ function changeLoginOrRecent(){
     	console.log("username exists"); //display recent order
         $("#lastOrder").css("display", "block");
         $("#loginForm").css("display", "none");
+        $('#usernameShow').html("Welcome " + localStorage.username + "!");
     }
     else {
     	console.log("no username"); //display Login screen
@@ -104,7 +105,7 @@ $("#loginButton").click(function(){
       success: function(data, textStatus, jqXHR){
          console.log(data);
          localStorage.username = data['username'];
-         $('#usernameShow').append(data['username']);
+         var nameString = ""+data['username']+"";
       },
       error: function(jqXHR, textStatus, errorThrown){
       	alert("Login invalid!");
