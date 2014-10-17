@@ -1,4 +1,4 @@
-console.log("in index javascript");
+console.log("in index javascript5");
 var rootURL = "http://localhost:8888/Burger-Bar/index.php";
 //var rootURL = "http://localhost/Burger-Bar/index.php";
 
