@@ -109,25 +109,33 @@ function validateLogin() { //this is done
     $username = $loginInfo['username'];
     $password = $loginInfo['password'];
 
-    //echo $username;
-    //echo $password;
+    // echo $username;
+    // echo $password;
   
-   $sql = "SELECT username, firstname, lastname, email FROM USERS WHERE username ='".$username."' AND pw ='".$password."'";
-   //echo $sql;
+   	$sql = "SELECT username, firstname, lastname, email FROM users WHERE username ='".$username."' AND pw ='".$password."'";
+   // echo $sql;
 
-   $result= $mysqli->query($sql);
+   	$result= mysqli_query($mysqli, $sql);
 
-   if (mysqli_num_rows($result) == 0)
-   {  
-       echo '{"error":{"text": "Login Info was not set" }}'; 
-   }
-   else
-   {
-       global $user;
-        $user = $username;
-       //startOrder();
-       echo $request;
-   }
+   	if (mysqli_num_rows($result) > 0) 
+   	{
+   		global $user;
+   		$user = $username;
+   		echo $request;
+   	}
+
+   // if (mysqli_num_rows($result) == 0)
+   // {  
+   //     echo '{"error":{"text": "Login Info was not set" }}'; 
+   // }
+   // else
+   // {
+   //     global $user;
+   //      $user = $username;
+   //     //startOrder();
+   //     echo $request;
+   // }
+   	mysqli_close($mysqli);
 }
 
 
