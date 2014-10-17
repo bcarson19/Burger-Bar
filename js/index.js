@@ -173,6 +173,7 @@ $('#addBurger').click(function(){
 		//console.log(send[i]);
 	}
 	
+	send.quantity = +$("#quantity_textField").val();
 	console.log(send);
 	
 	$.ajax({
