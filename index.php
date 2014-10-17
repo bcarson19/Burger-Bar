@@ -321,7 +321,7 @@ function addPaymentInfo()
 
 
     //$sql = "INSERT INTO paymentInfo (username, typeOfCard, cardNumber, address, zipCode, state, expireDate) VALUES (?,?,?,?,?,?,?)"; 
-    $sql = "SELECT typeOfCard, cardNumber, address, zipCode, state, expireDate FROM USERS WHERE typeOfCard = '".$TOC."' 
+    $sql = "SELECT typeOfCard, cardNumber, address, zipCode, state, expireDate FROM PAYMENTINFO WHERE typeOfCard = '".$TOC."' 
             AND cardNumber = '".$CN."' AND address = '".$A."' AND zipCode = '".$ZC."' AND state = '".$S."' AND expireDate = '".$ED."'";
 
     $result = $msqli -> query($sql); //bind_param('ssissss', $user, $TOC, $CN, $A, $ZC, $S, $ED);
