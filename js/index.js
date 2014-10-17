@@ -32,10 +32,19 @@ function showCart(){
       dataType: "json", // data type of response
       success: function(data, textStatus, jqXHR){
          console.log(data);
+         //console.log(data[0]);
+         for(var item in data){
+         	//console.log(data[item]);
+         	if(data[item].name){
+         		console.log(data[item].name + "  " + data[item].type);
+         	}
+
+         	//console.log(data[i].name + "  " + data[i].type);
+         }
+         console.log(data.prices.totalPrice);
+         //console.log(data[quantity].totalPrice);
          addToCart( $("#cart") ,data);
-         /*for(var i=0; i<data.length; i++){
-         	console.log(data[i].name + "  " + data[i].type);
-         }*/
+         
       },
       error: function(jqXHR, textStatus, errorThrown){
       	alert("getCart error!");
