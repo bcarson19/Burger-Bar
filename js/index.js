@@ -136,6 +136,11 @@ $("#createAccountButton").click(function(){
 	$("#createAccountForm").show();
 });
 
+//go back from create account form
+$("#createAccountBackButton").click(function(){
+    $("#createAccountForm").hide();
+    $("#loginForm").show();
+});
 
 //To create account
 $("#createAccountSubmitButton").click(function(){
