@@ -192,6 +192,27 @@ $('#addBurger').click(function(){
 	//console.log(list);
 });
 
+var quantity = +document.getElementById("quantity_textField").value;
+
+function changeQuantity() {
+	var plus = document.getElementsByTagName('img')[0]
+	var minus = document.getElementsByTagName('img')[1]
+	
+	plus.onclick=function() {
+	console.log("+");
+	quantity = quantity + 1;
+	document.getElementById("quantity_textField").value = quantity;
+
+	}
+	minus.onclick=function() {
+	console.log("-");
+	quantity = quantity - 1;
+	document.getElementById("quantity_textField").value = quantity;
+	}
+}
+changeQuantity();
+
+
 $("#logoutButton").click(function(){
 
 
