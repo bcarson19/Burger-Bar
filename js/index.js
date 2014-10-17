@@ -1,5 +1,6 @@
 console.log("in index javascript");
 var rootURL = "http://localhost:8888/Burger-Bar/index.php";
+//var rootURL = "http://localhost/Burger-Bar/index.php";
 
 /*Display either login form or past order*/
 changeLoginOrRecent();
