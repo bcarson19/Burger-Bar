@@ -90,6 +90,7 @@ function addBurger() {
 
     foreach ($order as $item) //add each item to the BurgerDetail
     {
+        echo $item;
         $sql->bind_param('si', $item, $burgerID);
         $sql->execute();
     }

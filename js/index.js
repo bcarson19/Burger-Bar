@@ -178,6 +178,7 @@ $('#addBurger').click(function(){
       data: send,
       success: function(data, textStatus, jqXHR){
          console.log(data);
+         showCart();
       },
       error: function(jqXHR, textStatus, errorThrown){
          console.log(jqXHR, textStatus, errorThrown);
@@ -185,4 +186,9 @@ $('#addBurger').click(function(){
    });
 
 	//console.log(list);
+});
+
+$("#logoutButton").click(function(){
+
+
 });
