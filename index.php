@@ -76,6 +76,7 @@ function addBurger()
     // $sql->bind_param('i', $quantity);
     // $sql->execute();
 
+
     $sql = ("insert into burger(orderID, quantity) values ((select max(orderID) from FoodOrder where username = '".$user."') , '.$quantity')");
     $result= $mysqli->query($sql);
 
@@ -86,13 +87,14 @@ function addBurger()
 
 
     $sql = ("insert into BurgerDetail (name, burgerID) values (?,?)");
-    $result= $mysqli->query($sql);
+    //$result= $mysqli->query($sql);
 
     foreach ((array)$order as $item) //add each item to the BurgerDetail
     {
-        echo $item;
-        $sql->bind_param('si', $item, $burgerID);
-        $sql->execute();
+        //echo $item;
+        $exec = $mysqli->prepare($sql);
+        $exec->bind_param('si', $item, $burgerID);
+        $exec->execute();
     }
     
     $mysqli->close(); //close instance of mysql 
