@@ -202,13 +202,25 @@ function changeQuantity() {
 	plus.onclick=function() {
 	//console.log("+");
 	quantity = quantity + 1;
-	document.getElementById("quantity_textField").value = quantity;
-
+	
+	if (quantity <= 30) {
+			document.getElementById("quantity_textField").value = quantity;
+		}
+		else {
+			document.getElementById("quantity_textField").value = 30;
+			quantity = 30;
+		}
 	}
 	minus.onclick=function() {
 	//console.log("-");
 	quantity = quantity - 1;
-	document.getElementById("quantity_textField").value = quantity;
+		if (quantity >= 0) {
+			document.getElementById("quantity_textField").value = quantity;
+		}
+		else {
+			document.getElementById("quantity_textField").value = 0;
+			quantity = 0;
+		}
 	}
 }
 changeQuantity();
