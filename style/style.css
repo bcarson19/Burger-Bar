@@ -181,3 +181,8 @@ width: 2em;
 #quantity_label {
 color: white;
 }
+
+.change{
+	width: 20px;
+	background-color: white;
+}

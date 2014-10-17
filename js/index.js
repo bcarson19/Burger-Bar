@@ -84,7 +84,7 @@ function addToCart(addTo, data){
 //to login
 $("#loginButton").click(function(){
 
-	alert("about to run login");
+	//alert("about to run login");
 	
 	var send = new Object();
 	var username = $("#usernameField").val();//whatever username is
@@ -94,6 +94,7 @@ $("#loginButton").click(function(){
 	send = JSON.stringify(send);
 
 	console.log(send);
+	//alert(username + "  " + password);
 
 	$.ajax({
       type: 'POST',
