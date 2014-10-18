@@ -2,7 +2,7 @@ console.log("in checkout js");
 var rootURL = "http://localhost:8888/Burger-Bar/index.php";
 
 displayCheckoutForms();
-getCart();
+//getCart();
 
 //Display either login confirmation or guest info forms
 function displayCheckoutForms(){
@@ -47,17 +47,55 @@ function displayCheckoutForms(){
 }
 
 //return to main screen
-$("#checkoutBackButton").click(function(){
+$(".checkoutBackButton").click(function(){
     window.location.href = "index.html";
 
 });
 
-$('#checkoutButton').click(function(){
+$('.checkoutButton').click(function(){
 	var send = new Object();
-	send.firstName = $('#firstNameField').val();
-	send.lastName = $('#lastNameField').val();
-	send.email = $('#emailField').val();
-	send.password = $('#passwordField').val();
+
+    //check for logged in
+    if (localStorage.getItem("username")) {
+        send.firstName = $("#firstNameFieldLog").val();
+        send.lastName = $("#lastNameFieldLog").val();
+        send.cardNum = $("#cardNumFieldLog").val();
+        send.cardType = $("#cardTypeLog").val();
+        send.email = $("#emailFieldLog").val();
+        send.phone = $("#phoneFieldLog").val();
+        //catch defaults
+        for (var key in send) {
+            if (send[key] == "") {
+                $("#userInfoLogin").css("background-color", "red");
+                return 0;
+            }
+            else {
+                $("#userInfoLogin").css("background-color", "white");
+            }
+        }
+    }
+    //else if not logged in
+    else {
+        send.firstName = $("#firstNameField").val();
+        send.lastName = $("#lastNameField").val();
+        send.cardNum = $("#cardNumField").val();
+        send.cardType = $("#cardType").val();
+        send.email = $("#emailField").val();
+        send.phone = $("#phoneField").val();
+        //catch defaults
+        for (var key in send) {
+            if (send[key] == "") {
+                $("#userInfoGuest").css("background-color", "red");
+                return 0;
+            }
+            else {
+                $("#userInfoGuest").css("background-color", "white");
+            }
+        }
+    }
+
+
+
 
 	console.log(send);
 
