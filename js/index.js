@@ -224,7 +224,19 @@ $("#loginButton").click(function(){
 	var password = $("#passwordField").val();//watever password is;
 
 	send = {"username": username, "password": password};
-	send = JSON.stringify(send);
+
+    //check for default
+    for (var key in send) {
+        if (send[key] == "") {
+            $("#" + key + "Field").css("background-color", "red");
+            return 0;
+        }
+        else {
+            $("#" + key + "Field").css("background-color", "white");
+        }
+    }
+
+    send = JSON.stringify(send);
 
 	console.log(send);
 	//alert(username + "  " + password);
