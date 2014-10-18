@@ -74,7 +74,6 @@ function addBurger()
         if(array_key_exists("quantity", $part ))
         {
             $quantity = $part['quantity'];
-            echo $quantity;
         }
 
     }
@@ -94,10 +93,9 @@ function addBurger()
         if(array_key_exists("name", $part ))
         {
         $name = $part['name'];
-            echo $name;
-        $sql->bind_param('si', $name, $bugerID);
+        $sql->bind_param('si', $name, $burgerID);
         $sql->execute();
-        printf("%d rows ", $sql->affected_rows);
+        //printf("%d rows ", $sql->affected_rows);
         }
 
     }
