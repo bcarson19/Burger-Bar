@@ -319,35 +319,35 @@ function createAccount()
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
     $userInfo = json_decode($request, true);
-    if(array_key_exists("username", $part))
+    if(array_key_exists("username", $userInfo))
         {
             $username = $userInfo['username'];
         }
-        if(array_key_exists("firstname", $part))
+        if(array_key_exists("firstname", $userInfo))
         {
             $firstname = $userInfo['firstname'];
         }
-        if(array_key_exists("lastname", $part))
+        if(array_key_exists("lastname", $userInfo))
         {
             $lastname = $userInfo['lastname'];
         }
-        if(array_key_exists("password", $part))
+        if(array_key_exists("password", $userInfo))
         {
             $password = $userInfo['password'];
         }
-        if(array_key_exists("phonenumber", $part))
+        if(array_key_exists("phonenumber", $userInfo))
         {
             $phonenumber= $userInfo['phonenumber'];
         }
-        if(array_key_exists("creditcardnumber", $part))
+        if(array_key_exists("creditcardnumber", $userInfo))
         {
             $creditcardnumber = $userInfo['creditcardnumber'];
         }
-        if(array_key_exists("creditcardtype", $part))
+        if(array_key_exists("creditcardtype", $userInfo))
         {
             $creditcardtype = $userInfo['creditcardtype'];
         }
-        if(array_key_exists("email", $part))
+        if(array_key_exists("email", $userInfo))
         {
             $email = $userInfo['email'];
         }
