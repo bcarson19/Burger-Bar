@@ -97,6 +97,7 @@ function showCart(){
 	//console.log($("#cart").children("ul").length > 0);
 
 	$("#cart ul").remove();
+	$("#cart h4").remove();
 	$.ajax({
       type: 'GET',
       url: rootURL+"/getCart",
@@ -123,7 +124,7 @@ function showCart(){
          }
          //console.log(data[quantity].totalPrice);
          //addToCart( $("#cart") ,data);
-         
+         $("#cart").prepend("<h4>Your cart</h4>");
       },
       error: function(jqXHR, textStatus, errorThrown){
       	alert("getCart error!");
@@ -161,7 +162,7 @@ function addToCart(addTo, name, type, burgerID){
 	//console.log(addTo.append("<ul id='orderList'"));
 
 	if($("#orderList").children("#order"+burgerID).length === 0){
-		var list = "<ul id='order" + burgerID + "'></ul>";
+		var list = "<ul id='order" + burgerID + "'><a class='x'><img src='img/x.png'></a></ul>";
 		//console.log(list);
 		var burger = "<ul class='Burger'></ul>";
 		var topping = "<ul class='Topping'></ul>";
@@ -172,11 +173,44 @@ function addToCart(addTo, name, type, burgerID){
 		//console.log($('#orderList'));
 		$("#order"+burgerID).append("Burger "+burgerID).append(burger).append(topping).append(bun).append(sauces).append(cheese);
 	}
+
+	$("#foo").unbind('click');
+	$('.x').on('click', function(){
+		var id = $(this).closest("ul").attr("id");
+		id = id.slice(-1);
+		clickedDelete(id);
+
+	});
 	
 	$("#order"+burgerID + ">  ."+type).append("<li>"+ name +"</li>");
 	//console.log($("#order"+burgerID + ">  ."+type + " li"));
 
 	showCartButton();
+	
+}
+
+function clickedDelete(id){
+
+	var send = new Object();
+	send.burgerID = id;
+
+	console.log(send);
+
+	$.ajax({
+      type: 'PUT',
+      url: rootURL+"/deleteBurger/:"+id,
+      dataType: "json", // data type of response
+      //data: send,
+      success: function(data, textStatus, jqXHR){
+         console.log(data);
+         window.location.reload();
+      },
+      error: function(jqXHR, textStatus, errorThrown){
+      	alert("Burger not deleted");
+         console.log(jqXHR, textStatus, errorThrown);
+      }
+   });
+
 	
 }
 
@@ -346,3 +380,7 @@ $.ajax({
    });
 
 });
+
+
+
+

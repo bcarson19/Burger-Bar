@@ -229,3 +229,8 @@ h4 {
 #loginForm li, #createAccountForm li{
 	padding: 3px;
 }
+
+.x img{
+	height: 18px;
+	width: auto;
+}
