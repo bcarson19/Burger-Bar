@@ -2,7 +2,7 @@ console.log("in checkout js");
 var rootURL = "http://localhost:8888/Burger-Bar/index.php";
 
 displayCheckoutForms();
-//getCart();
+showCart();
 
 //Display either login confirmation or guest info forms
 function displayCheckoutForms(){
@@ -136,8 +136,8 @@ $('.checkoutButton').click(function(){
 function showCart(){
 	//console.log($("#cart").children("ul").length > 0);
 
-	$("#cart ul").remove();
-	$("#cart h4").remove();
+	$("#orderSummary ul").remove();
+	$("#orderSummary h4").remove();
 	$.ajax({
       type: 'GET',
       url: rootURL+"/getCart",
@@ -152,7 +152,7 @@ function showCart(){
          		var name = data[item].name;
          		var type = data[item].type;
          		var burgerID = data[item].burgerID;
-         		addToCart($("#cart"), name, type, burgerID);
+         		addToCart($("#orderSummary"), name, type, burgerID);
          	}
 
          	//console.log(data[i].name + "  " + data[i].type + "  " + data[i].burgerID);
@@ -160,11 +160,11 @@ function showCart(){
          //console.log(data.prices.totalPrice);
          if(data.prices){
          	var price = data.prices.totalPrice.toFixed(2);
-         	$("#cart > ul").append("<ul class='totalPrice'><li>Total Price:  $"+ price +"</li></ul>");
+         	$("#orderSummary > ul").append("<ul class='totalPrice'><li>Total Price:  $"+ price +"</li></ul>");
          }
          //console.log(data[quantity].totalPrice);
          //addToCart( $("#cart") ,data);
-         $("#cart").prepend("<h4>Your cart</h4>");
+         $("#orderSummary").prepend("<h4>Your orderSummary</h4>");
       },
       error: function(jqXHR, textStatus, errorThrown){
       	alert("getCart error!");
