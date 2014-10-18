@@ -74,9 +74,7 @@ function addBurger()
         if(array_key_exists("quantity", $part ))
         {
             $quantity = $part['quantity'];
-
         }
-
     }
     //adding a burger and quantity 
     $sql = "insert into burger(orderID, quantity) values ((select max(orderID) from FoodOrder where username = '".$user."') , '".$quantity."')";
@@ -96,7 +94,6 @@ function addBurger()
         {
         $name = $part['name'];
         $sql->bind_param('si', $name, $burgerID);
-
         $sql->execute();
         //printf("%d rows ", $sql->affected_rows);
         }
@@ -175,21 +172,23 @@ function getRecentOrder()
 
 //get the price of each of the orders 
 	$counter = 1;
-	$sql = "select sum(price) from BurgerDetail natural join Food natural join burger where orderID = (select recentorder from users where username = '".$user."') group by burgerID";
+	$sql = "select sum(price), burgerID from BurgerDetail natural join Food natural join burger where orderID = (select recentorder from users where username = '".$user."') group by burgerID";
 	$result= $con->query($sql);
 
    	while($r = mysqli_fetch_array($result)) 
    	{
         $prices[$counter] = $r[0] * $quantities[$counter];
         $price = ($r[0] * $quantities[$counter]); 
-
+        $burgerID = $r[1];
     	$counter = $counter + 1;
 
     	$prices['totalPrice'] = $prices['totalPrice'] + $price;
+        
    	}
 
 	$rows['prices'] = $prices;
 	$rows['quantities'] = $quantities;
+    $rows['burgerID'] = $burgerID;
     
     echo json_encode($rows);
     mysqli_close($con);
@@ -291,6 +290,7 @@ function logOut(){
     }
     
     $user = "";
+    startOrder();
     echo true;
     
 }
