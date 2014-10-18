@@ -226,7 +226,7 @@ $("#loginButton").click(function(){
 
     //check for default
     for (var key in send) {
-    	alert(send[key]);
+    	//alert(send[key]);
         if (send[key] == "") {
             $("#" + key + "Field").css("background-color", "red");
             //return 0;
