@@ -87,8 +87,9 @@ function addBurger()
     $result= $mysqli->query($sql);
     $row = mysqli_fetch_row($result);
     $burgerID = $row[0];
+    
+   $sql = $mysqli->prepare("INSERT INTO BurgerDetail(name, burgerID) values (?, ?)");         
 
-   $sql = $mysqli->prepare("INSERT INTO burgerDetail(name, BurgerID) values (?, ?)");         
     foreach ($order as $part)
     {
         if(array_key_exists("name", $part ))
