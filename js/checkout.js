@@ -12,7 +12,13 @@ function displayCheckoutForms(){
     dummy.username = "testFirstName"
     dummy.lastname = "testLastName"
     dummy.cardNum = "testCardNumber"
-    dummy.cardType = "testCardType"
+
+    //Important! For the drop down to be auto-filled,
+    //.cardtype needs to be 1 for Visa or 2 for Mastercard.
+    dummy.cardType = "Visa"
+    dummy.cardType = "MasterCard"
+    //
+
     dummy.email = "testEmail"
     dummy.phone = "testPhone"
     //
@@ -26,7 +32,7 @@ function displayCheckoutForms(){
         $("#firstNameFieldLog").val(dummy.username);
         $("#lastNameFieldLog").val(dummy.lastname);
         $("#cardNumFieldLog").val(dummy.cardNum);
-        $("#cardTypeFieldLog").val(dummy.cardType);
+        $("#cardTypeLog").val(dummy.cardType);
         $("#emailFieldLog").val(dummy.email);
         $("#phoneFieldLog").val(dummy.phone);
 
@@ -35,6 +41,8 @@ function displayCheckoutForms(){
     else {
         $("#userInfoGuest").css("display", "block");
         $("#userInfoLogin").css("display", "none");
+        //sets the dropdown blank
+        $("#cardType").val("");
     }
 }
 
