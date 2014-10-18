@@ -346,9 +346,11 @@ $('#addBurger').click(function(){
       success: function(data, textStatus, jqXHR){
          console.log(data);
          showCart();
+         window.location.reload();
       },
       error: function(jqXHR, textStatus, errorThrown){
          console.log(jqXHR, textStatus, errorThrown);
+         window.location.reload();
       }
    });
 
