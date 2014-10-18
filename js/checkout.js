@@ -55,11 +55,30 @@ function addToCart(data){
 
 //Display either login confirmation or guest info forms
 function displayCheckoutForms(){
+
+    //test object - DELETE this
+    var dummy = new Object;
+    dummy.username = "testFirstName"
+    dummy.lastname = "testLastName"
+    dummy.cardNum = "testCardNumber"
+    dummy.cardType = "testCardType"
+    dummy.email = "testEmail"
+    dummy.phone = "testPhone"
+    //
+
     //if logged in
     if (localStorage.getItem("username")) {
         $("#userInfoLogin").css("display", "block");
         $("#userInfoGuest").css("display", "none");
         $('#usernameShow').html("Review and checkout, " + localStorage.username);
+        //fill out forms using account data
+        $("#firstNameFieldLog").val(dummy.username);
+        $("#lastNameFieldLog").val(dummy.lastname);
+        $("#cardNumFieldLog").val(dummy.cardNum);
+        $("#cardTypeFieldLog").val(dummy.cardType);
+        $("#emailFieldLog").val(dummy.email);
+        $("#phoneFieldLog").val(dummy.phone);
+
     }
     //if not logged in
     else {
