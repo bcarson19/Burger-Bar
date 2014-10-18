@@ -70,7 +70,7 @@ $('.checkoutButton').click(function(){
                 return 0;
             }
             else {
-                $("#userInfoLogin").css("background-color", "white");
+                $("#userInfoLogin").css("background-color", "#568999");
             }
         }
     }
@@ -89,7 +89,7 @@ $('.checkoutButton').click(function(){
                 return 0;
             }
             else {
-                $("#userInfoGuest").css("background-color", "white");
+                $("#userInfoGuest").css("background-color", "#568999");
             }
         }
     }
