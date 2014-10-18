@@ -206,6 +206,7 @@ function clickedDelete(id){
       error: function(jqXHR, textStatus, errorThrown){
       	alert("Burger not deleted");
          console.log(jqXHR, textStatus, errorThrown);
+         window.location.reload();
       }
    });
 
@@ -238,7 +239,6 @@ $("#loginButton").click(function(){
     send = JSON.stringify(send);
 
 	console.log(send);
-	alert(username + "  " + password);
 
 	$.ajax({
       type: 'POST',
