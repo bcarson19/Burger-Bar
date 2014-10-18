@@ -327,7 +327,7 @@ function createAccount()
             $email = $userInfo['email'];
         
     //chech if username is already in use  
-    $sql = "SELECT username FROM USERS WHERE username ='".$username."'";
+    $sql = "SELECT username FROM users WHERE username ='".$username."'";
 
     $result = $con->query($sql); 
 
@@ -349,7 +349,5 @@ function createAccount()
         echo true;
     }  
 
-}
-    }
 
 ?>
