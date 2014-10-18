@@ -69,36 +69,26 @@ function addBurger()
     $request = $app->request()->getBody();
     $order = json_decode($request, true); //decode the request needs a double because it is an JSON array of objects 
 
-
     $quantity = $order['quantity'];
-    unset($order['quantity']); //remove the quantity element before iteration
 
-    //add a burger to the correct oder
-    // $sql = $con->prepare("INSERT INTO burger(orderID, quantity) values ((select max(orderID) from FoodOrder where username = '".$user."') , ?)");
-    // $sql->bind_param('i', $quantity);
-    // $sql->execute();
-
-
-    $sql = ("insert into burger(orderID, quantity) values ((select max(orderID) from FoodOrder where username = '".$user."') , '.$quantity')");
-    $result= $mysqli->query($sql);
+    //adding a burger and quantity 
+    $sql = ("insert into burger(orderID, quantity) values ((select max(orderID) from FoodOrder where username = '".$user."') , '".$quantity"'))";
+    $mysqli->query($sql);
+    
 
     $sql = "select max(burgerID) from burger"; //get the current burgerID
     $result= $mysqli->query($sql);
     $row = mysqli_fetch_row($result);
     $burgerID = $row[0];
 
-
-    $sql = ("insert into BurgerDetail (name, burgerID) values (?,?)");
-    //$result= $mysqli->query($sql);
-
-    foreach ((array)$order as $item) //add each item to the BurgerDetail
+   $sql = $mysqli->prepare("INSERT INTO burgerDetail(name, BurgerID) values (?, ?)");         
+    foreach ($order as $part)
     {
-        //echo $item;
-        $exec = $mysqli->prepare($sql);
-        $exec->bind_param('si', $item, $burgerID);
-        $exec->execute();
+        $name = $part['name'];
+        $sql->bind_param('si', $name, $bugerID);
+        $sql->execute();
     }
-    
+
     $mysqli->close(); //close instance of mysql 
 } //addBurger 
 
