@@ -72,7 +72,7 @@ function addBurger()
     $quantity = $order['quantity'];
 
     //adding a burger and quantity 
-    $sql = ("insert into burger(orderID, quantity) values ((select max(orderID) from FoodOrder where username = '".$user."') , '".$quantity"'))";
+    $sql = ("insert into burger(orderID, quantity) values ((select max(orderID) from FoodOrder where username = '".$user."') , '".$quantity."'))";
     $mysqli->query($sql);
     
 
