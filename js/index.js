@@ -315,17 +315,23 @@ $('#addBurger').click(function(){
 	var list = $(":checked");
 	var send = new Object();
 	
+	var len = 0;
+
 	for(var i =0; i<list.length; i++){
 		//console.log(list[i]["defaultValue"] + "  " + list[i]["name"]);
 		var name = list[i]["defaultValue"];
 		var type = list[i]["name"];
 		send[i] = {name: name, type: type};
 		//console.log(send[i]);
+		len = i;
 	}
-	
-	send.quantity = +$("#quantity_textField").val();
 
-	send = JSON.stringify(send);
+	var quan = +$("#quantity_textField").val();
+	send[len+1] = {quantity: quan}
+	
+	//send.quantity = +$("#quantity_textField").val();
+
+	//send = JSON.stringify(send);
 	console.log(send);
 	
 	$.ajax({
