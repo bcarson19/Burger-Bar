@@ -23,7 +23,7 @@ $app->put('/deleteBurger/:burgerID', 'deleteBurger'); //delete
 $app->get('/startOrder', 'startOrder'); //B public 
 
 $app->post('/login', 'validateLogin'); //K remeber to set the user value 
-$app->post('/createAccount', 'createAccount'); //N remeber to set the user value, udate table with new user info
+$app->get('/createAccount', 'createAccount'); //N remeber to set the user value, udate table with new user info
 
 $app->run();
 
