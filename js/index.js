@@ -331,11 +331,11 @@ $('#addBurger').click(function(){
 	
 	//send.quantity = +$("#quantity_textField").val();
 
-	//send = JSON.stringify(send);
+	send = JSON.stringify(send);
 	console.log(send);
 	
 	$.ajax({
-      type: 'GET',
+      type: 'POST',
       url: rootURL+"/addBurger",
       dataType: "json", // data type of response
       data: send,
