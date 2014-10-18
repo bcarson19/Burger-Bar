@@ -70,8 +70,9 @@ LOCK TABLES `Food` WRITE;
 
 INSERT INTO `Food` (`name`, `id`, `price`, `type`)
 VALUES
-	('1/2 lb Beef',2,2.25,'Burger'),
-	('1/3 lb Beef',1,2.00,'Burger'),
+	('1/2 lb. Beef',2,2.25,'Burger'),
+	('1/3 lb. Beef',1,2.00,'Burger'),
+    ('2/3 lb. Beef',26,2.50,'Burger'),
 	('American',9,0.35,'Cheese'),
 	('Bacon',15,0.00,'Topping'),
 	('BBQ',22,0.00,'Sauce'),
