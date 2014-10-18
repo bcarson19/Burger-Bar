@@ -45,7 +45,7 @@ function deleteBurger($burgerID)
     $request = $app->request()->getBody();
     
     $sql = "delete from burger where burgerID = '".$burgerID."'";
-    echo $sql;
+    //echo $sql;
     $con->query($sql);
 
     $con->close();

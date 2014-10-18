@@ -6,8 +6,6 @@ var rootURL = "http://localhost:8888/Burger-Bar/index.php";
 changeLoginOrRecent();
 showCart();
 
-$( "#cardType" ).selectmenu();
-
 function changeLoginOrRecent(){
 	console.log(localStorage.getItem("username"));
     if (localStorage.getItem("username")) {
@@ -227,9 +225,10 @@ $("#loginButton").click(function(){
 
     //check for default
     for (var key in send) {
+    	alert(send[key]);
         if (send[key] == "") {
             $("#" + key + "Field").css("background-color", "red");
-            return 0;
+            //return 0;
         }
         else {
             $("#" + key + "Field").css("background-color", "white");
@@ -239,7 +238,7 @@ $("#loginButton").click(function(){
     send = JSON.stringify(send);
 
 	console.log(send);
-	//alert(username + "  " + password);
+	alert(username + "  " + password);
 
 	$.ajax({
       type: 'POST',
@@ -285,11 +284,16 @@ $("#createAccountBackButton").click(function(){
 //To create account
 $("#createAccountSubmitButton").click(function(){
 	var send = new Object();
-	send.firstName = $("#firstNameField").val();
-	send.lastName = $("#lastNameField").val();
+	send.firstname = $("#firstNameField").val();
+	send.lastname = $("#lastNameField").val();
 	send.username = $("#userNameField").val();
 	send.password = $("#passwordCAField").val();
+	send.email = $("#emailField").val();
+	send.phonenumber = $("#phoneNumberField").val();
+	send.creditcard = $("#cardNumberField").val();
+	send.cardtype = $('#cardType>option:selected').text();
 
+	send = JSON.stringify(send);
 	console.log(send);
 
 	$.ajax({
@@ -386,6 +390,8 @@ changeQuantity();
 
 $("#logoutButton").click(function(){
 
+	startOrder();
+
 $.ajax({
       type: 'GET',
       url: rootURL+"/logout",
@@ -401,6 +407,22 @@ $.ajax({
 
 });
 
+
+function startOrder(){
+
+	$.ajax({
+      type: 'GET',
+      url: rootURL+"/startOrder",
+      dataType: "json", // data type of response
+      success: function(data, textStatus, jqXHR){
+        localStorage.clear();
+        window.location.reload();
+      },
+      error: function(jqXHR, textStatus, errorThrown){
+         console.log(jqXHR, textStatus, errorThrown);
+      }
+   });
+}
 
 
 
