@@ -18,6 +18,8 @@ body{
 }
 
 #lastOrder{
+	padding-left: 40px;
+	padding-top: 10px;
 	float: left;
 	width: 20%;
 	height: auto;
@@ -111,6 +113,17 @@ body{
 	border: 2px #5C2B31 solid; /*Burgundy*/
 }
 
+#lastOrder ul > li{
+	list-style-type: none;
+}
+
+#lastOrder > ul {
+	background-color: #f0ebe2; /*offwhite*/
+	margin: 3px;
+	border-radius: 5px;
+	border: 2px #5C2B31 solid; /*Burgundy*/
+}
+
 #checkoutButton{
 	margin: auto;
 }
@@ -153,7 +166,7 @@ font-size:120%;
 	border: none;
 }
 
-.leftColumn ul {
+.leftColumn > ul {
 	padding-bottom: 1em;
 	padding-top: 1em;
 }
@@ -181,7 +194,7 @@ font-size:120%;
 }
 
 #lastOrder ul ul{
-	float: left;
+
 	width: 60%;
 }
 /*Quantity Button styling from Brandon C*/
@@ -204,4 +217,13 @@ h4 {
 	margin-top: 20px;
 	margin-left: 2em;
 	color: white;
+}
+
+#recentOrderList{
+	height: auto;
+}
+
+#lastOrder h4{
+	margin-bottom: 10px;
+
 }

@@ -13,13 +13,82 @@ function changeLoginOrRecent(){
     	console.log("username exists"); //display recent order
         $("#lastOrder").css("display", "block");
         $("#loginForm").css("display", "none");
-        $('#usernameShow').html("Welcome " + localStorage.username + "!");
+        showRecentOrder();
     }
     else {
     	console.log("no username"); //display Login screen
         $("#lastOrder").css("display", "none");
         $("#loginForm").css("display", "block");
     }
+}
+
+function showRecentOrder(){
+
+	var send = new Object();
+	send.username = localStorage.getItem("username");
+
+	$.ajax({
+      type: 'GET',
+      url: rootURL+"/getRecentOrder",
+      dataType: "json", // data type of response
+      data: send,
+      success: function(data, textStatus, jqXHR){
+         console.log(data);
+         //console.log(data[0]);
+         var i = 0;
+         for(var item in data){
+         	i++;
+         	//console.log(data[item]);
+         	if(data[item].name){
+         		//console.log(data[item].name + "  " + data[item].type + "  " + data[item].burgerID);
+         		var name = data[item].name;
+         		var type = data[item].type;
+         		//var burgerID = +data[item].burgerID;
+         		//console.log(burgerID);
+         		addToRecentOrder($("#lastOrder"), name, type, Math.floor(i/4));
+         	}
+
+         	//console.log(data[i].name + "  " + data[i].type + "  " + data[i].burgerID);
+         }
+         $('#lastOrder').prepend("<h4 id='welcome'>Welcome " + localStorage.username + "!</h4>");
+
+         //console.log(data[quantity].totalPrice);
+         //addToCart( $("#cart") ,data);
+         
+      },
+      error: function(jqXHR, textStatus, errorThrown){
+      	alert("getRO error!");
+         console.log(jqXHR, textStatus, errorThrown);
+      }
+   });
+
+}
+
+function addToRecentOrder(addTo, name, type, burgerID){
+	//console.log(burgerID);
+	console.log("in recent order");
+
+	if(addTo.children("ul").length === 0){
+		addTo.prepend("<ul id='recentOrderList'>");
+	}
+
+	//console.log(addTo.append("<ul id='orderList'"));
+
+	if($("#recentOrderList").children("#recentOrder"+burgerID).length === 0){
+		var list = "<ul id='recentOrder" + burgerID + "'></ul>";
+		//console.log(list);
+		var burger = "<ul class='Burger'></ul>";
+		var topping = "<ul class='Topping'></ul>";
+		var bun = "<ul class='Bun'></ul>";
+		var sauces = "<ul class='Sauce'></ul>";
+		var cheese = "<ul class='Cheese'></ul>";
+		$('#recentOrderList').append(list);
+		//console.log($('#orderList'));
+		$("#recentOrder"+burgerID).append("Burger "+burgerID).append(burger).append(topping).append(bun).append(sauces).append(cheese);
+	}
+	
+	$("#recentOrder"+burgerID + ">  ."+type).append("<li>"+ name +"</li>");
+
 }
 
 function showCart(){
@@ -67,7 +136,7 @@ function showCartButton(){
 	if($("#cart").children("ul").length > 0){
 		//console.log($("#cart").children("ul"));
 		$("#checkoutButton").show();
-		console.log($("#checkoutButton"));
+		//console.log($("#checkoutButton"));
 		$("#cart p").hide();
 	}
 	else{
