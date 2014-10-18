@@ -235,7 +235,7 @@ $("#loginButton").click(function(){
     for (var key in send) {
     	//alert(send[key]);
         if (send[key] == "") {
-            $("#" + key + "Field").css("background-color", "red");
+            $("#" + key + "Field").css("background-color", "pink");
             //return 0;
         }
         else {
