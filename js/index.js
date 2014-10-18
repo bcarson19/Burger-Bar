@@ -173,7 +173,7 @@ function addToCart(addTo, name, type, burgerID){
 	}
 
 	$("#foo").unbind('click');
-	$('.x').on('click', function(){
+	$('.x').click( function(){
 		var id = $(this).closest("ul").attr("id");
 		id = id.slice(-1);
 		clickedDelete(id);
@@ -204,7 +204,7 @@ function clickedDelete(id){
          window.location.reload();
       },
       error: function(jqXHR, textStatus, errorThrown){
-      	alert("Burger not deleted");
+      	//alert("Burger not deleted");
          console.log(jqXHR, textStatus, errorThrown);
          window.location.reload();
       }
