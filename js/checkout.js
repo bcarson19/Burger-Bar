@@ -1,6 +1,7 @@
 console.log("in checkout js");
 var rootURL = "http://localhost:8888/Burger-Bar/index.php";
 
+displayCheckoutForms();
 getCart();
 
 function getCart(){
@@ -50,6 +51,21 @@ function addToCart(data){
 			$("#"+order + " ."+k).append("<li>"+ v +"</li>");
 		});
 	}
+}
+
+//Display either login confirmation or guest info forms
+function displayCheckoutForms(){
+    //if logged in
+    if (localStorage.getItem("username")) {
+        $("#userInfoLogin").css("display", "block");
+        $("#userInfoGuest").css("display", "none");
+        $('#usernameShow').html("Review and checkout, " + localStorage.username);
+    }
+    //if not logged in
+    else {
+        $("#userInfoGuest").css("display", "block");
+        $("#userInfoLogin").css("display", "none");
+    }
 }
 
 //return to main screen

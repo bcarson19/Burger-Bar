@@ -16,8 +16,9 @@
 			<p>You have no orders in your cart.</p>
 		</div>
 
-		<div id="userInfo">
-			<ul>
+                <div id="userInfo">
+                        <!--if not logged in-->
+                        <ul id="userInfoGuest">
                                 <li><input type="text" placeholder="  First Name" id="firstNameField"></li>
 				<li><input type="text" placeholder="  Last Name" id="lastNameField"></li>
 				<li><input type="text" placeholder="  Email Address" id="emailField"></li>
@@ -27,6 +28,18 @@
                                     <button id="checkoutButton">Checkout!</button>
                                 </li>
 			</ul>
+                        <!--if logged in-->
+                        <ul id="userInfoLogin">
+                                <li><h4 id="usernameShow"></h4></li>
+                                <li><input type="text" placeholder="  First Name" id="firstNameField"></li>
+                                <li><input type="text" placeholder="  Last Name" id="lastNameField"></li>
+                                <li><input type="text" placeholder="  Email Address" id="emailField"></li>
+                                <li><input type="password" placeholder="  Password" id="passwordField"></li>
+                                <li>
+                                    <button id="checkoutBackButton">Go Back</button>
+                                    <button id="checkoutButton">Checkout!</button>
+                                </li>
+                        </ul>
 
 		</div>
 	</div>
