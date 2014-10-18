@@ -198,7 +198,7 @@ function clickedDelete(id){
 
 	$.ajax({
       type: 'PUT',
-      url: rootURL+"/deleteBurger/:"+id,
+      url: rootURL+"/deleteBurger/"+id,
       dataType: "json", // data type of response
       //data: send,
       success: function(data, textStatus, jqXHR){

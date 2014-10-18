@@ -38,14 +38,17 @@ function getConnection() {
   return $dbConnection;
 }
 
-function deleteBurger($orderID)
+function deleteBurger($burgerID)
 {
     $con = getConnection();
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
     
-    $sql = "delete from burger where burgerID ='".$orderID."'";
+    $sql = "delete from burger where burgerID = '".$burgerID."'";
+    echo $sql;
     $con->query($sql);
+
+    $con->close();
 }
 
 function startOrder()
@@ -355,3 +358,5 @@ function createAccount()
     }
 
 }
+
+?>
