@@ -226,7 +226,8 @@ INSERT INTO `users` (`username`, `pw`, `firstname`, `lastname`, `email`, `recent
 VALUES
 	('Karoline','123456789','Karoline','Skatteboe','kskatteboe@smu.edu',3,'2147253728'),
 	('sjskatte','123','Sigrid','Skatteboe','sjskatte@yahoo.com',NULL,'2134562222'),
-	('Tom','test','Tom','Kennedy','tomkennedy@smu.edu',NULL,'2134567867');
+	('Tom','test','Tom','Kennedy','tomkennedy@smu.edu',NULL,'2134567867'),
+	('unloggedIn',NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
