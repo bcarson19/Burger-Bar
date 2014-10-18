@@ -57,10 +57,13 @@ function showCart(){
    });
 
 
+}
 
+function showCartButton(){
 	if($("#cart").children("ul").length > 0){
 		//console.log($("#cart").children("ul"));
 		$("#cart button").show();
+		$("#cart p").hide();
 	}
 	else{
 		$("#cart").append("<p>there are no items in your cart!</p>");
@@ -72,25 +75,32 @@ function showCart(){
 function addToCart(addTo, name, type, burgerID){
 
 	//$("#cart p").hide();
+	console.log("showing this ");
+	console.log(this);
 
-	addTo.append("<ul id='orderList'");
-	console.log(addTo);
+	if($("#cart").children("ul").length === 0){
+		addTo.append("<ul id='orderList'>");
+	}
 
-	var list = "<ul id='order" + burgerID + "'></ul>";
-	var burger = "<ul class='Burger'></ul>";
-	var topping = "<ul class='Topping'></ul>";
-	var bun = "<ul class='Bun'></ul>";
-	var sauces = "<ul class='Sauces'></ul>";
-	var cheese = "<ul class='Cheese'></ul>";
+	//console.log(addTo.append("<ul id='orderList'"));
 
-	$('#orderList').append(list);
-	console.log($('#orderList'));
-	$("#order"+burgerID).append(burger);
-	//.append(topping).append(bun).append(sauces).append(cheese);
+	if($("#orderList").children("#order"+burgerID).length === 0){
+		var list = "<ul id='order" + burgerID + "'></ul>";
+		console.log(list);
+		var burger = "<ul class='Burger'></ul>";
+		var topping = "<ul class='Topping'></ul>";
+		var bun = "<ul class='Bun'></ul>";
+		var sauces = "<ul class='Sauce'></ul>";
+		var cheese = "<ul class='Cheese'></ul>";
+		$('#orderList').append(list);
+		console.log($('#orderList'));
+		$("#order"+burgerID).append("Burger"+burgerID).append(burger).append(topping).append(bun).append(sauces).append(cheese);
+	}
 	
 	$("#order"+burgerID + ">  ."+type).append("<li>"+ name +"</li>");
-	console.log($("#order"+burgerID + ">  ."+type + " li").html());
+	//console.log($("#order"+burgerID + ">  ."+type + " li"));
 
+	showCartButton();
 	
 }
 

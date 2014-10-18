@@ -100,6 +100,17 @@ body{
 	border-radius: 5px;
 }
 
+#orderList ul > li{
+	list-style-type: none;
+}
+
+#orderList > ul {
+	background-color: #f0ebe2; /*offwhite*/
+	margin: 3px;
+	border-radius: 5px;
+	border: 2px #5C2B31 solid; /*Burgundy*/
+}
+
 #checkoutButton{
 	margin: auto;
 }
