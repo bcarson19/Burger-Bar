@@ -12,7 +12,7 @@ ini_set('display_errors', 1);
 $app = new \Slim\Slim(); //using the slim API
 $user = "Karoline"; //REMEBER TO REMOVE THIS
 
-$app->get('/addBurger', 'addBurger'); //K add burger to the FoodOrder table, it has not yet been checked out 
+$app->post('/addBurger', 'addBurger'); //K add burger to the FoodOrder table, it has not yet been checked out 
 $app->get('/getRecentOrder', 'getRecentOrder'); //M get the most recent order from the the table and return it with price 
 $app->get('/getCart', 'getCart'); //M get everything in the order table that is not yet checked out, return JSON
 $app->get('/getPaymentInfo', 'getPaymentInfo'); //B public 
@@ -88,6 +88,7 @@ function addBurger()
         $name = $part['name'];
         $sql->bind_param('si', $name, $bugerID);
         $sql->execute();
+        printf("%d rows ", $sql->affected_rows);
     }
 
     $mysqli->close(); //close instance of mysql 
