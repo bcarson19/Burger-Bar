@@ -138,6 +138,13 @@ function getRecentOrder()
     $quantities = array();
     $prices = array();
     $prices['totalPrice'] = 0;
+    
+    //if you are not logged in it will return an empty cart
+        if ($user == "unloggedIn")
+        {
+            echo json_encode($rows);
+            exit;
+        }
  
 //get content of recent order 
 
@@ -146,16 +153,14 @@ function getRecentOrder()
     
     if (mysqli_num_rows($result) == 0)
     {
-        echo '{"error":{"text": "You have no recent orders" }}';
+        echo json_encode($rows);
         exit;
     }
-    
-    
+ 
     
    	while($r = mysqli_fetch_assoc($result)) 
    	{
          $rows[] = $r;
-   	 //$rows[$r[1]] = $r[0];
    	}
 
 //get quantity of each of the burgers 
@@ -314,41 +319,38 @@ function createAccount()
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
     $userInfo = json_decode($request, true);
-    foreach ($userInfo as $part)
-    {
-        if(array_key_exists("username", $part))
+    if(array_key_exists("username", $part))
         {
-            $username = $part['username'];
+            $username = $userInfo['username'];
         }
         if(array_key_exists("firstname", $part))
         {
-            $firstname = $part['firstname'];
+            $firstname = $userInfo'firstname'];
         }
         if(array_key_exists("lastname", $part))
         {
-            $lastname = $part['lastname'];
+            $lastname = $userInfo['lastname'];
         }
         if(array_key_exists("password", $part))
         {
-            $password = $part['password'];
+            $password = $userInfo['password'];
         }
         if(array_key_exists("phonenumber", $part))
         {
-            $phonenumber= $part['phonenumber'];
+            $phonenumber= $userInfo['phonenumber'];
         }
         if(array_key_exists("creditcardnumber", $part))
         {
-            $creditcardnumber = $part['creditcardnumber'];
+            $creditcardnumber = $userInfo['creditcardnumber'];
         }
         if(array_key_exists("creditcardtype", $part))
         {
-            $creditcardtype = $part['creditcardtype'];
+            $creditcardtype = $userInfo['creditcardtype'];
         }
         if(array_key_exists("email", $part))
         {
-            $email = $part['email'];
+            $email = $userInfo['email'];
         }
-    }
     
     //chech if username is already in use  
     $sql = "SELECT username FROM USERS WHERE username ='".$user."'";
