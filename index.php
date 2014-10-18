@@ -69,8 +69,12 @@ function addBurger()
     $request = $app->request()->getBody();
     $order = json_decode($request, true); //decode the request needs a double because it is an JSON array of objects 
     foreach ($order as $part)
-    {
-    $quantity = $part['quantity'];
+    { 
+        if(array_key_exists("quantity", $part ))
+        {
+            $quantity = $part['quantity'];
+        }
+
     }
     //adding a burger and quantity 
     $sql = "insert into burger(orderID, quantity) values ((select max(orderID) from FoodOrder where username = '".$user."') , '".$quantity."')";
@@ -85,10 +89,14 @@ function addBurger()
    $sql = $mysqli->prepare("INSERT INTO burgerDetail(name, BurgerID) values (?, ?)");         
     foreach ($order as $part)
     {
+        if(array_key_exists("name", $part ))
+        {
         $name = $part['name'];
         $sql->bind_param('si', $name, $bugerID);
         $sql->execute();
         printf("%d rows ", $sql->affected_rows);
+        }
+
     }
 
     $mysqli->close(); //close instance of mysql 
