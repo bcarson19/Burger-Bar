@@ -24,7 +24,7 @@ $app->get('/startOrder', 'startOrder'); //B public
 
 $app->post('/login', 'validateLogin'); //K remeber to set the user value 
 $app->post('/createAccount', 'createAccount'); //N remeber to set the user value, udate table with new user info
-$app->post('/addPaymentInfo', 'addPaymentInfo'); //N add payment info to the table 
+//$app->post('/addPaymentInfo', 'addPaymentInfo'); //N add payment info to the table 
 
 $app->run();
 
