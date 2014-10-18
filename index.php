@@ -348,10 +348,9 @@ function createAccount()
         if(array_key_exists("email", $userInfo))
         {
             $email = $userInfo['email'];
-        }
-    
+        
     //chech if username is already in use  
-    $sql = "SELECT username FROM USERS WHERE username ='".$user."'";
+    $sql = "SELECT username FROM USERS WHERE username ='".$username."'";
 
     $result = $con->query($sql); 
 
@@ -363,6 +362,7 @@ function createAccount()
     }
     else 
     {
+        $user = $username;
         $sql = $con->prepare("INSERT INTO users(username, pw, firstname, lastname, email, phonenumber) values (?,?,?,?,?,?)");
         $sql->bind_param('ssssss', $username, $password, $firstname, $lastname,     $email, $phonenumber);
         $sql->execute();
