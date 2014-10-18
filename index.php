@@ -325,7 +325,7 @@ function createAccount()
         }
         if(array_key_exists("firstname", $part))
         {
-            $firstname = $userInfo'firstname'];
+            $firstname = $userInfo['firstname'];
         }
         if(array_key_exists("lastname", $part))
         {
