@@ -25,7 +25,6 @@ $app->get('/startOrder', 'startOrder'); //B public
 $app->post('/login', 'validateLogin'); //K remeber to set the user value 
 $app->post('/createAccount', 'createAccount'); //N remeber to set the user value, udate table with new user info
 
-
 $app->run();
 
 function getConnection() {
@@ -43,6 +42,7 @@ function deleteBurger($burgerID)
     $con = getConnection();
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
+    
     
     $sql = "delete from burger where burgerID = '".$burgerID."'";
     //echo $sql;
@@ -219,7 +219,7 @@ function getCart() { //get items in the cart with the most recent order, gets th
     
     if (mysqli_num_rows($result) == 0)
     {
-        echo '{"error":{"text": "Your cart is empty" }}';
+        echo json_encode($rows);
         exit;
     }
 
@@ -307,8 +307,6 @@ function deleteOrder($orderID){
     $query = "delete from FoodOrders where  orderID ='".$orderID."'";
     $mysqli->query($sql);
     mysqli_close($mysqli);
-    
-    
 }
 
 
@@ -365,7 +363,6 @@ function createAccount()
     }
     else 
     {
-       echo "username ok";
         $sql = $con->prepare("INSERT INTO users(username, pw, firstname, lastname, email, phonenumber) values (?,?,?,?,?,?)");
         $sql->bind_param('ssssss', $username, $password, $firstname, $lastname,     $email, $phonenumber);
         $sql->execute();
