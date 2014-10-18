@@ -50,7 +50,7 @@ function showRecentOrder(){
 
          	//console.log(data[i].name + "  " + data[i].type + "  " + data[i].burgerID);
          }
-         $('#lastOrder').prepend("<h4 id='welcome'>Welcome " + localStorage.username + "!</h4>");
+         $('#lastOrder').prepend("<h4 id='welcome'>welcome " + localStorage.username.toLowerCase() + "!</h4>");
 
          //console.log(data[quantity].totalPrice);
          //addToCart( $("#cart") ,data);
@@ -122,7 +122,7 @@ function showCart(){
          }
          //console.log(data[quantity].totalPrice);
          //addToCart( $("#cart") ,data);
-         $("#cart").prepend("<h4>Your cart</h4>");
+         $("#cart").prepend("<h4>your cart</h4>");
       },
       error: function(jqXHR, textStatus, errorThrown){
       	alert("getCart error!");
