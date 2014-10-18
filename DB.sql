@@ -213,24 +213,28 @@ CREATE TABLE `users` (
   `lastname` varchar(30) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
   `recentorder` int(11) unsigned DEFAULT NULL,
+  `phonenumber` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`username`),
   KEY `recentOrder FK` (`recentorder`),
   CONSTRAINT `recentOrder FK` FOREIGN KEY (`recentorder`) REFERENCES `foodorder` (`orderID`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1; ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 
-INSERT INTO `users` (`username`, `pw`, `firstname`, `lastname`, `email`, `recentorder`)
+INSERT INTO `users` (`username`, `pw`, `firstname`, `lastname`, `email`, INSERT INTO `users` (`username`, `pw`, `firstname`, `lastname`, `email`, `recentorder`, `phonenumber`)
 VALUES
-	('Anne','123456789','Anne','Egeland ','kskatteboe@smu.edu',NULL),
-	('Brandon','test','Brandon','Carson','bcarson@smu.edu',NULL),
-	('Karoline','123456789','Karoline','Skatteboe','kskatteboe@smu.edu',3),
-	('Rolf','123','Rolf','Skatteboe','rolf.skatteboe@me.com',1),
-	('Tom','password','Tom','Kennedy','tkennedy@smu.edu',NULL);
+	('Anne','123456789','Anne','Egeland ','kskatteboe@smu.edu',NULL,NULL),
+	('Brandon','test','Brandon','Carson','bcarson@smu.edu',NULL,NULL),
+	('Karoline','123456789','Karoline','Skatteboe','kskatteboe@smu.edu',3,NULL),
+	('Rolf','123','Rolf','Skatteboe','rolf.skatteboe@me.com',1,NULL),
+	('sjskatte','Dropset31','Sigrid','Skatteboe','sjskar@gmail.com',NULL,'2147253728'),
+	('Tom','password','Tom','Kennedy','tkennedy@smu.edu',NULL,NULL),
+	('unloggedIn',NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
+
 
 
 

@@ -306,60 +306,72 @@ function deleteOrder($orderID){
     
 }
 
-function addPaymentInfo()
-{
-    global $user;
-    $mysqli = getConnection();
-    $app = \Slim\Slim::getInstance();
-    $request = $app->request()->getBody();
-    
-    $paymentInfo = json_decode($request, true); //need to change this when we get it to work
-
-    $TOC = $paymentInfo['typeOfCard'];
-    $CN = $paymentInfo['cardNumber'];
-    $A =$paymentInfo['address'];
-    $ZC = $paymentInfo['zipCode'];
-    $S = $paymentInfo['state'];
-    $ED = $paymentInfo['expireDate'];
-
-
-    //$sql = "INSERT INTO paymentInfo (username, typeOfCard, cardNumber, address, zipCode, state, expireDate) VALUES (?,?,?,?,?,?,?)"; 
-    $sql = "SELECT typeOfCard, cardNumber, address, zipCode, state, expireDate FROM PAYMENTINFO WHERE typeOfCard = '".$TOC."' 
-            AND cardNumber = '".$CN."' AND address = '".$A."' AND zipCode = '".$ZC."' AND state = '".$S."' AND expireDate = '".$ED."'";
-
-    $result = $msqli -> query($sql); //bind_param('ssissss', $user, $TOC, $CN, $A, $ZC, $S, $ED);
-    //$stmt->execute();
-}
-
 
 function createAccount()
 {
     global $user;
-    $mysqli = getConnection();
+    $con = getConnection();
     $app = \Slim\Slim::getInstance();
     $request = $app->request()->getBody();
     $userInfo = json_decode($request, true);
+    foreach ($userInfo as $part)
+    {
+        if(array_key_exists("username", $part))
+        {
+            $username = $part['username'];
+        }
+        if(array_key_exists("firstname", $part))
+        {
+            $firstname = $part['firstname'];
+        }
+        if(array_key_exists("lastname", $part))
+        {
+            $lastname = $part['lastname'];
+        }
+        if(array_key_exists("password", $part))
+        {
+            $password = $part['password'];
+        }
+        if(array_key_exists("phonenumber", $part))
+        {
+            $phonenumber= $part['phonenumber'];
+        }
+        if(array_key_exists("creditcardnumber", $part))
+        {
+            $creditcardnumber = $part['creditcardnumber'];
+        }
+        if(array_key_exists("creditcardtype", $part))
+        {
+            $creditcardtype = $part['creditcardtype'];
+        }
+        if(array_key_exists("email", $part))
+        {
+            $email = $part['email'];
+        }
+    }
     
-    $user = $userInfo['username'];
-    $pw = $userInfo['pw'];
-    $firstname = $userInfo['firstname'];
-    $lastname = $userInfo['lastname'];
-    $email = $userInfo['email'];
-
+    //chech if username is already in use  
     $sql = "SELECT username FROM USERS WHERE username ='".$user."'";
 
-    $result = $mysqli->query($sql); 
-	
+    $result = $con->query($sql); 
+
+
     if (mysqli_num_rows($result) != 0)
     {          
         echo "username already in use"; 
         return false;
     }
-    else
+    else 
     {
-        $sql = 'INSERT INTO users (username, pw, firstname, lastname, email) VALUES ($user, $pw, $firstname, $lastname, $email)';
-        $result = $mysqli->query($sql); 
-    }
+       echo "username ok";
+        $sql = $con->prepare("INSERT INTO users(username, pw, firstname, lastname, email, phonenumber) values (?,?,?,?,?,?)");
+        $sql->bind_param('ssssss', $username, $password, $firstname, $lastname,     $email, $phonenumber);
+        $sql->execute();
+         $sql = $con->prepare("INSERT INTO paymentInfo(username, cardNumber, typeOfCard) values (?,?,?)");
+        $sql->bind_param('sss', $username, $creditcardnumber, $creditcardtype);
+        $sql->execute();
+        echo true;
+    }  
 
 }
 
