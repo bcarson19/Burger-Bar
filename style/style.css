@@ -234,3 +234,7 @@ h4 {
 	height: 18px;
 	width: auto;
 }
+
+#userInfoLogin h4{
+	margin-bottom: 10px;
+}

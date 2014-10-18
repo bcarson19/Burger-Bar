@@ -4,55 +4,6 @@ var rootURL = "http://localhost:8888/Burger-Bar/index.php";
 displayCheckoutForms();
 getCart();
 
-function getCart(){
-	
-	/*
-	var send = new Object();
-	send.username = "Tom";
-	send.password = "password";
-	*/
-
-	$.ajax({
-      type: 'GET',
-      url: rootURL+"/getCart",
-      dataType: "json", // data type of response
-      success: function(data, textStatus, jqXHR){
-         console.log(data);
-         addToCart(data);
-      },
-      error: function(jqXHR, textStatus, errorThrown){
-         console.log(jqXHR, textStatus, errorThrown);
-      }
-   });
-}
-
-function addToCart(data){
-
-	console.log(data.length);
-	$("#orderSummary").append("<ul id='orderList'");
-
-	for(var i =0; i<data.length; i++){
-
-		var list = "<ul id='order" + i + "'></ul>";
-		var burger = "<ul class='burger'></ul>";
-		var topping = "<ul class='topping'></ul>";
-		var bun = "<ul class='bun'></ul>";
-		var sauces = "<ul class='sauces'></ul>";
-		var cheese = "<ul class='cheese'></ul>";
-
-		$("#order"+i).append(burger).append(topping).append(bun).append(sauces).append(cheese);
-
-		$('#orderList').append(list);
-
-		console.log(data[i]);
-		$.each(data[i], function(k,v){
-			alert(k + "  " + v);
-			var order = "order"+j;
-			$("#"+order + " ."+k).append("<li>"+ v +"</li>");
-		});
-	}
-}
-
 //Display either login confirmation or guest info forms
 function displayCheckoutForms(){
 
@@ -131,3 +82,116 @@ $('#checkoutButton').click(function(){
 
 
 });
+
+
+
+
+
+function showCart(){
+	//console.log($("#cart").children("ul").length > 0);
+
+	$("#cart ul").remove();
+	$("#cart h4").remove();
+	$.ajax({
+      type: 'GET',
+      url: rootURL+"/getCart",
+      dataType: "json", // data type of response
+      success: function(data, textStatus, jqXHR){
+         console.log(data);
+         //console.log(data[0]);
+         for(var item in data){
+         	//console.log(data[item]);
+         	if(data[item].name){
+         		//console.log(data[item].name + "  " + data[item].type + "  " + data[item].burgerID);
+         		var name = data[item].name;
+         		var type = data[item].type;
+         		var burgerID = data[item].burgerID;
+         		addToCart($("#cart"), name, type, burgerID);
+         	}
+
+         	//console.log(data[i].name + "  " + data[i].type + "  " + data[i].burgerID);
+         }
+         //console.log(data.prices.totalPrice);
+         if(data.prices){
+         	var price = data.prices.totalPrice.toFixed(2);
+         	$("#cart > ul").append("<ul class='totalPrice'><li>Total Price:  $"+ price +"</li></ul>");
+         }
+         //console.log(data[quantity].totalPrice);
+         //addToCart( $("#cart") ,data);
+         $("#cart").prepend("<h4>Your cart</h4>");
+      },
+      error: function(jqXHR, textStatus, errorThrown){
+      	alert("getCart error!");
+         console.log(jqXHR, textStatus, errorThrown);
+      }
+   });
+
+
+}
+
+
+function addToCart(addTo, name, type, burgerID){
+
+	//$("#cart p").hide();
+	//console.log("showing this ");
+	//console.log(this);
+
+	if($("#orderSummary").children("ul").length === 0){
+		addTo.prepend("<ul id='orderList'>");
+	}
+
+	//console.log(addTo.append("<ul id='orderList'"));
+
+	if($("#orderList").children("#order"+burgerID).length === 0){
+		var list = "<ul id='order" + burgerID + "'><a class='x'><img src='img/x.png'></a></ul>";
+		//console.log(list);
+		var burger = "<ul class='Burger'></ul>";
+		var topping = "<ul class='Topping'></ul>";
+		var bun = "<ul class='Bun'></ul>";
+		var sauces = "<ul class='Sauce'></ul>";
+		var cheese = "<ul class='Cheese'></ul>";
+		$('#orderList').append(list);
+		//console.log($('#orderList'));
+		$("#order"+burgerID).append("Burger "+burgerID).append(burger).append(topping).append(bun).append(sauces).append(cheese);
+	}
+
+	$("#foo").unbind('click');
+	$('.x').on('click', function(){
+		var id = $(this).closest("ul").attr("id");
+		id = id.slice(-1);
+		clickedDelete(id);
+
+	});
+	
+	$("#order"+burgerID + ">  ."+type).append("<li>"+ name +"</li>");
+	//console.log($("#order"+burgerID + ">  ."+type + " li"));
+
+	showCartButton();
+	
+}
+
+
+function clickedDelete(id){
+
+	var send = new Object();
+	send.burgerID = id;
+
+	console.log(send);
+
+	$.ajax({
+      type: 'PUT',
+      url: rootURL+"/deleteBurger/"+id,
+      dataType: "json", // data type of response
+      //data: send,
+      success: function(data, textStatus, jqXHR){
+         console.log(data);
+         window.location.reload();
+      },
+      error: function(jqXHR, textStatus, errorThrown){
+      	alert("Burger not deleted");
+         console.log(jqXHR, textStatus, errorThrown);
+      }
+   });
+
+	
+}

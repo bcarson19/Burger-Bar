@@ -117,8 +117,8 @@ function showCart(){
 
          	//console.log(data[i].name + "  " + data[i].type + "  " + data[i].burgerID);
          }
-         console.log(data.prices.totalPrice);
-         if(data.prices.totalPrice){
+         //console.log(data.prices.totalPrice);
+         if(data.prices){
          	var price = data.prices.totalPrice.toFixed(2);
          	$("#cart > ul").append("<ul class='totalPrice'><li>Total Price:  $"+ price +"</li></ul>");
          }
@@ -324,6 +324,8 @@ $('#addBurger').click(function(){
 	}
 	
 	send.quantity = +$("#quantity_textField").val();
+
+	send = JSON.stringify(send);
 	console.log(send);
 	
 	$.ajax({
