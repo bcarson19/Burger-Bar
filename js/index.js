@@ -25,7 +25,7 @@ function changeLoginOrRecent(){
 function showCart(){
 	//console.log($("#cart").children("ul").length > 0);
 
-	$("#cart").html("");
+	$("#cart ul").remove();
 	$.ajax({
       type: 'GET',
       url: rootURL+"/getCart",
@@ -36,7 +36,7 @@ function showCart(){
          for(var item in data){
          	//console.log(data[item]);
          	if(data[item].name){
-         		console.log(data[item].name + "  " + data[item].type + "  " + data[item].burgerID);
+         		//console.log(data[item].name + "  " + data[item].type + "  " + data[item].burgerID);
          		var name = data[item].name;
          		var type = data[item].type;
          		var burgerID = data[item].burgerID;
@@ -46,6 +46,10 @@ function showCart(){
          	//console.log(data[i].name + "  " + data[i].type + "  " + data[i].burgerID);
          }
          console.log(data.prices.totalPrice);
+         if(data.prices.totalPrice){
+         	var price = data.prices.totalPrice.toFixed(2);
+         	$("#cart > ul").append("<ul class='totalPrice'><li>Total Price:  $"+ price +"</li></ul>");
+         }
          //console.log(data[quantity].totalPrice);
          //addToCart( $("#cart") ,data);
          
@@ -62,12 +66,13 @@ function showCart(){
 function showCartButton(){
 	if($("#cart").children("ul").length > 0){
 		//console.log($("#cart").children("ul"));
-		$("#cart button").show();
+		$("#checkoutButton").show();
+		console.log($("#checkoutButton"));
 		$("#cart p").hide();
 	}
 	else{
 		$("#cart").append("<p>there are no items in your cart!</p>");
-		$("#cart button").hide();
+		$("#checkoutButton").hide();
 	}
 }
 
@@ -75,26 +80,26 @@ function showCartButton(){
 function addToCart(addTo, name, type, burgerID){
 
 	//$("#cart p").hide();
-	console.log("showing this ");
-	console.log(this);
+	//console.log("showing this ");
+	//console.log(this);
 
 	if($("#cart").children("ul").length === 0){
-		addTo.append("<ul id='orderList'>");
+		addTo.prepend("<ul id='orderList'>");
 	}
 
 	//console.log(addTo.append("<ul id='orderList'"));
 
 	if($("#orderList").children("#order"+burgerID).length === 0){
 		var list = "<ul id='order" + burgerID + "'></ul>";
-		console.log(list);
+		//console.log(list);
 		var burger = "<ul class='Burger'></ul>";
 		var topping = "<ul class='Topping'></ul>";
 		var bun = "<ul class='Bun'></ul>";
 		var sauces = "<ul class='Sauce'></ul>";
 		var cheese = "<ul class='Cheese'></ul>";
 		$('#orderList').append(list);
-		console.log($('#orderList'));
-		$("#order"+burgerID).append("Burger"+burgerID).append(burger).append(topping).append(bun).append(sauces).append(cheese);
+		//console.log($('#orderList'));
+		$("#order"+burgerID).append("Burger "+burgerID).append(burger).append(topping).append(bun).append(sauces).append(cheese);
 	}
 	
 	$("#order"+burgerID + ">  ."+type).append("<li>"+ name +"</li>");
