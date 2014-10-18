@@ -53,9 +53,8 @@ function deleteBurger($burgerID)
 
 function startOrder()
 {
+    global $user;
     $con = getConnection();
-    $app = \Slim\Slim::getInstance();
-    $request = $app->request()->getBody();
     
     $stmt = "insert into foodOrder(username) values ('".$user."')";
     $con->query($stmt);
@@ -122,6 +121,7 @@ function validateLogin()
    		global $user;
    		$user = $username;
    		echo $request;
+        startOrder();
    	}
 
    	mysqli_close($mysqli);
