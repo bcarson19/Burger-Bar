@@ -117,12 +117,6 @@ body{
 	list-style-type: none;
 }
 
-#lastOrder > ul {
-	background-color: #f0ebe2; /*offwhite*/
-	margin: 3px;
-	border-radius: 5px;
-	border: 2px #5C2B31 solid; /*Burgundy*/
-}
 
 #checkoutButton{
 	margin: auto;
@@ -193,10 +187,6 @@ font-size:120%;
 	padding: 10px;
 }
 
-#lastOrder ul ul{
-
-	width: 60%;
-}
 /*Quantity Button styling from Brandon C*/
 #quantity_textField {
 width: 2em;
@@ -219,11 +209,14 @@ h4 {
 	color: white;
 }
 
-#recentOrderList{
-	height: auto;
+#recentOrderList > ul{
+		background-color: #f0ebe2; /*offwhite*/
+	margin: 3px;
+	border-radius: 5px;
+	border: 2px #5C2B31 solid; /*Burgundy*/
 }
 
 #lastOrder h4{
-	margin-bottom: 10px;
+	margin-bottom: -10px;
 
 }
