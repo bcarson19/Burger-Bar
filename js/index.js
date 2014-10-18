@@ -300,14 +300,14 @@ $("#createAccountSubmitButton").click(function(){
 	send.password = $("#passwordCAField").val();
 	send.email = $("#emailField").val();
 	send.phonenumber = $("#phoneNumberField").val();
-	send.creditcard = $("#cardNumberField").val();
-	send.cardtype = $('#cardType>option:selected').text();
+	send.creditcardnumber = $("#cardNumberField").val();
+	send.creditcardtype = $('#cardType>option:selected').text();
 
 	send = JSON.stringify(send);
 	console.log(send);
 
 	$.ajax({
-      type: 'POST',
+      type: 'GET',
       url: rootURL+"/createAccount",
       dataType: "json", // data type of response
       data: send,
