@@ -18,8 +18,6 @@ body{
 }
 
 #lastOrder{
-	padding-left: 40px;
-	padding-top: 10px;
 	float: left;
 	width: 20%;
 	height: auto;
@@ -144,9 +142,6 @@ font-size:120%;
 	display: block;
 }
 
-.leftColumn li{
-	padding: 3px;
-}
 
 .leftColumn button{
 	float: left;
@@ -219,4 +214,18 @@ h4 {
 #lastOrder h4{
 	margin-bottom: -10px;
 
+}
+
+#cardType{
+	width: 164px;
+	height: 18px;
+	font-size: 16px;
+}
+
+.leftColumn label{
+	color: white;
+}
+
+#loginForm li, #createAccountForm li{
+	padding: 3px;
 }

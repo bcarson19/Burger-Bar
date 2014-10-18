@@ -27,10 +27,20 @@
         <!--  Show when "create account" button pressed  -->
         <div id="createAccountForm" class="leftColumn">
             <ul>
+            	<li><label id="createAccountWords">Create Account</label></li>
                 <li><input type="text" name="first name" placeholder=" First name" id="firstNameField"></li>
                 <li><input type="text" name="last name" placeholder=" Last name" id="lastNameField"></li>
+                <li><input type="text" name="phoneNumber" placeholder=" Phone Number" id="phoneNumber"></li>
                 <li><input type="text" name="username" placeholder=" Username" id="userNameField"></li>
                 <li><input type="password" name="password" placeholder=" Enter password" id="passwordCAField"></li>
+                <li><input type="text" name="cardNumber" placeholder=" Credit Card Number" id="cardNumber"></li>
+		        <li> 
+		           	<label for="cardType">Select Card Type</label>    
+		           	<select name="cardType" id="cardType">
+					      <option>Visa</option>
+					      <option>Mastercard</option>
+					</select>
+				</li>
                 <li>
                     <button value="createAccountBack" id="createAccountBackButton">Cancel</button>
                     <button value="createAccount" id="createAccountSubmitButton">Create Account!</button>
@@ -122,5 +132,7 @@
 
 </body>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
 </html>

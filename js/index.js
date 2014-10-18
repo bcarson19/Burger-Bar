@@ -6,6 +6,8 @@ var rootURL = "http://localhost:8888/Burger-Bar/index.php";
 changeLoginOrRecent();
 showCart();
 
+$( "#cardType" ).selectmenu();
+
 function changeLoginOrRecent(){
 	console.log(localStorage.getItem("username"));
     if (localStorage.getItem("username")) {
