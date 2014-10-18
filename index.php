@@ -74,6 +74,10 @@ function addBurger()
         if(array_key_exists("quantity", $part ))
         {
             $quantity = $part['quantity'];
+<<<<<<< HEAD
+=======
+            //echo $quantity;
+>>>>>>> FETCH_HEAD
         }
 
     }
@@ -88,12 +92,18 @@ function addBurger()
     $burgerID = $row[0];
     
    $sql = $mysqli->prepare("INSERT INTO BurgerDetail(name, burgerID) values (?, ?)");         
+
     foreach ($order as $part)
     {
         if(array_key_exists("name", $part ))
         {
         $name = $part['name'];
+<<<<<<< HEAD
         $sql->bind_param('si', $name, $burgerID);
+=======
+            //echo $name;
+        $sql->bind_param('si', $name, $bugerID);
+>>>>>>> FETCH_HEAD
         $sql->execute();
         //printf("%d rows ", $sql->affected_rows);
         }
