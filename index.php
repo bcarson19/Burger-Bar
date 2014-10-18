@@ -68,9 +68,10 @@ function addBurger()
     $app = \Slim\Slim::getInstance();      
     $request = $app->request()->getBody();
     $order = json_decode($request, true); //decode the request needs a double because it is an JSON array of objects 
-
-    $quantity = $order['quantity'];
-
+    foreach ($order as $part)
+    {
+    $quantity = $part['quantity'];
+    }
     //adding a burger and quantity 
     $sql = "insert into burger(orderID, quantity) values ((select max(orderID) from FoodOrder where username = '".$user."') , '".$quantity."')";
     $mysqli->query($sql);
