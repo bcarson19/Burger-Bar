@@ -52,6 +52,12 @@ function addToCart(data){
 	}
 }
 
+//return to main screen
+$("#checkoutBackButton").click(function(){
+    window.location.href = "index.html";
+
+});
+
 $('#checkoutButton').click(function(){
 	var send = new Object();
 	send.firstName = $('#firstNameField').val();
