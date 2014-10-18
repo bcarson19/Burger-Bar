@@ -50,14 +50,21 @@ function showRecentOrder(){
 
          	//console.log(data[i].name + "  " + data[i].type + "  " + data[i].burgerID);
          }
-         $('#lastOrder').prepend("<h4 id='welcome'>welcome " + localStorage.username.toLowerCase() + "!</h4>");
-
+         if($("#lastOrder").children("ul").length === 0){
+         	$('#lastOrder').prepend("<h4 id='welcome'>" + localStorage.username.toLowerCase() + " has no recent orders</h4>");
+         }
+         else{
+         	$('#lastOrder').prepend("<h4 id='welcome'>" + localStorage.username.toLowerCase() + "'s last order</h4>");
+         }
          //console.log(data[quantity].totalPrice);
          //addToCart( $("#cart") ,data);
          
       },
       error: function(jqXHR, textStatus, errorThrown){
-      	alert("getRO error!");
+      	if(jqXHR.length === 0){
+      		 $('#lastOrder').prepend("<h4 id='welcome'>" + localStorage.username.toLowerCase() + ". You have no recent orders</h4>");
+      	}
+      	//alert("getRO error!");
          console.log(jqXHR, textStatus, errorThrown);
       }
    });
@@ -246,6 +253,9 @@ $("#loginButton").click(function(){
       dataType: "json", // data type of response
       data: send,
       success: function(data, textStatus, jqXHR){
+      	if(!data['username']){
+      		alert("Try again");
+      	}
          console.log(data);
          localStorage.username = data['username'];
          var nameString = ""+data['username']+"";
